@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<!--Post-START -->
+	<table name="t_ext_vidyo_tenant">
+		<column>id</column>
+		<column>name</column>
+		<column>description</column>
+		<column>url</column>
+		<column>vidyo_replay_url</column>
+		<column>dial_in</column>
+		<column>extension_prefix</column>
+		<column>install_number</column>
+		<column>seat_number</column>
+		<column>line_number</column>
+		<column>executive_number</column>
+		<column>vidyo_panorama_number</column>
+		<column>vidyo_room_number</column>
+		<column>admin_name</column>
+		<column>admin_password</column>
+		<column>cdr_password</column>
+		<column>cdr_synchro_time</column>
+		<column>cdr_scheduler_time</column>
+		<column>version</column>
+		<column>enabled</column>
+		<column>license</column>
+		<row>
+			<value description="id">1</value>
+			<value description="name">sunpa</value>
+			<value description="description">sunpa's portal</value>
+			<value description="url">sunpa.controlvc.com</value>
+			<value description="vidyo_replay_url">replay.controlvc.com</value>
+			<value description="dial_in">0</value>
+			<value description="installs">500</value>
+			<value description="seats">10000</value>
+			<value description="lines">10</value>
+			<value description="executives">0</value>
+			<value description="vidyo_panoramas">0</value>
+			<value description="vidyo_rooms">0</value>
+			<value description="extension_prefix">100</value>
+			<value description="admin_name">admin</value>
+			<value description="admin_password">password</value>
+			<value description="cdr_password">123</value>
+			<value description="cdr_synchro_time">2013-01-07</value>
+			<value description="cdr_scheduler_time">2013-01-07</value>
+			<value description="version">1</value>
+			<value description="cdr">0</value>
+			<value description="enabled">1</value>
+			<value description="license">0</value>
+		</row>
+		<row>
+			<value description="id">2</value>
+			<value description="name">seekoom</value>
+			<value description="description">seekoom's portal</value>
+			<value description="url">v.seekoom.com</value>
+			<value description="vidyo_replay_url">replay.controlvc.com</value>
+			<value description="dial_in">0</value>
+			<value description="installs">500</value>
+			<value description="seats">10000</value>
+			<value description="lines">10</value>
+			<value description="executives">0</value>
+			<value description="vidyo_panoramas">0</value>
+			<value description="vidyo_rooms">0</value>
+			<value description="extension_prefix">200</value>
+			<value description="admin_name">admin</value>
+			<value description="admin_password">password</value>
+			<value description="cdr_password">123</value>
+			<value description="cdr_synchro_time">2013-01-07</value>
+			<value description="cdr_scheduler_time">2013-01-07</value>
+			<value description="version">1</value>
+			<value description="cdr">1</value>
+			<value description="enabled">1</value>
+			<value description="license">1</value>
+		</row>
+	</table>
+	<!--<table name="t_user_tenant">
+		<column>user_id</column>
+		<column>tenant_id</column>
+		<row>
+			<value description="user_id">1</value>
+			<value description="tenant_id">2</value>
+		</row>
+		<row>
+			<value description="user_id">2</value>
+			<value description="tenant_id">1</value>
+		</row>
+	</table>-->
+	<!--Post-START-->
+    <table name="ConferenceCall2">
+        <column>callId</column>
+        <column>CallState</column>
+        <column>CallerID</column>
+        <column>CallerName</column>
+        <column>ConferenceName</column>
+        <column>ConferenceType</column>
+        <column>Direction</column>
+        <column>EndpointType</column>
+        <column>GWID</column>
+        <column>GWPrefix</column>
+        <column>JoinTime</column>
+        <column>LeaveTime</column>
+        <column>RouterID</column>
+        <column>TenantName</column>
+        <column>UniqueCallID</column>
+	    <row>
+	        <value description="callId">1</value>
+	        <value description="CallState">COMPLETED</value>
+	        <value description="CallerID">TEST</value>
+	        <value description="CallerName">TEST</value>
+	        <value description="ConferenceName">TEST@127.0.0.1</value>
+	        <value description="ConferenceType">C</value>
+	        <value description="Direction">O</value>
+	        <value description="EndpointType">D</value>
+	        <value description="GWID">-1</value>
+	        <value description="GWPrefix">Gateway-1</value>
+	        <value description="JoinTime">2012-01-01 09:00:00</value>
+	        <value description="LeaveTime">2012-01-01 17:59:59</value>
+	        <value description="RouterID">V116SY76XQGY4W6FA4HYTE13TXUFFGG5G1KUX7CP3Y1VT00VR0001</value>
+	        <value description="TenantName">Default</value>
+	        <value description="UniqueCallID">10774977264114470189</value>
+	    </row>
+    </table>
+    <!--Post-END-->
+</dataset>

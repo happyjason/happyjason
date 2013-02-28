@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="t_user">
+        <column>id</column>
+        <column>username</column>
+        <column>password</column>
+        <column>nickname</column>
+        <column>address</column>
+        <column>city</column>
+        <column>province</column>
+        <column>country</column>
+        <column>email</column>
+        <column>phone_number</column>
+        <column>postal_code</column>
+        <column>website</column>
+        <column>version</column>
+        <column>account_enabled</column>
+        <column>account_expired</column>
+        <column>account_locked</column>
+        <column>credentials_expired</column>
+        <row>
+            <value description="id">1</value>
+            <value description="username">hotmob</value>
+            <value description="password">3a642d48cb08a476279c9f47ce5fb3761940681d</value>
+            <value description="nickname">Mob</value>
+            <value description="address"></value>
+            <value description="city">shanghai</value>
+            <value description="province">SH</value>
+            <value description="country">CN</value>
+            <value description="email">hotmob@hotmail.com</value>
+            <value description="phone_number">18659188500</value>
+            <value description="postal_code">201100</value>
+            <value description="website">http://www.ammob.com</value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="username">mupeng</value>
+            <value description="password">103c45ae327bd016add813dff4a5319775155e24</value>
+            <value description="nickname">Vastar</value>
+            <value description="address"></value>
+            <value description="city">SY</value>
+            <value description="province">LN</value>
+            <value description="country">CN</value>
+            <value description="email">mupeng@163.com</value>
+            <value description="phone_number">15280000295</value>
+            <value description="postal_code">110015</value>
+            <value description="website">http://www.ammob.com</value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+    </table>
+    <table name="t_role">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">ROLE_USER</value>
+            <value description="description"><![CDATA[Default role for all Users]]></value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">ROLE_ADMIN</value>
+            <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="name">ROLE_HR</value>
+            <value description="description"><![CDATA[hr role]]></value>
+        </row>
+    </table>
+    <table name="t_user_role">
+        <column>user_id</column>
+        <column>role_id</column>
+        <row>
+            <value description="user_id">1</value>
+            <value description="role_id">2</value>
+        </row>
+        <row>
+            <value description="user_id">2</value>
+            <value description="role_id">1</value>
+        </row>
+    </table>
+</dataset>

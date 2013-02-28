@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ammob.communication</groupId>
+		<artifactId>unified-communication</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>unified-communication-support-vidyo</artifactId>
+	<packaging>jar</packaging>
+	<name>Unified Communication Platform - Support Vidyo</name>
+
+	<build>
+		<plugins>
+			<!-- maven run generate-sources -->
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf.version}</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+							<wsdlOptions>
+								<!-- <wsdlOption> -->
+								<!-- <wsdl>http://210.14.78.26/services/v1_1/VidyoPortalUserService?wsdl</wsdl> -->
+								<!-- <wsdl>http://210.14.78.26/services/v1_1/VidyoPortalAdminService?wsdl</wsdl> -->
+								<!-- <wsdl>http://210.14.78.26/services/VidyoPortalGuestService?wsdl</wsdl> -->
+								<!-- <wsdl>http://124.160.11.18/replay/services/VidyoReplayContentManagementService?wsdl</wsdl> -->
+								<!-- </wsdlOption> -->
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>hibernate3-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>hbm2ddl</name>
+                            <implementation>annotationconfiguration</implementation>
+                        </component>
+                    </components>
+                    <componentProperties>
+                        <drop>true</drop>
+                        <jdk5>true</jdk5>
+                        <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
+                        <skip>${skipTests}</skip>
+                        <configurationfile>src/main/resources/vidyo.hibernate.cfg.xml </configurationfile>
+                    </componentProperties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>hbm2ddl</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>dbunit-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
+				<configuration>
+					<dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
+					<driver>${jdbc.driverClassName}</driver>
+					<username>${jdbc.username}</username>
+					<password>${jdbc.password}</password>
+					<url>${jdbc.url}</url>
+					<src>src/test/resources/sample-data.xml</src>
+					<type>${dbunit.operation.type}</type>
+					<schema>${dbunit.schema}</schema>
+					<skip>${skipTests}</skip>
+					<transaction>true</transaction>
+				</configuration>
+				<executions>
+					<execution>
+						<id>test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>operation</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>${jdbc.groupId}</groupId>
+						<artifactId>${jdbc.artifactId}</artifactId>
+						<version>${jdbc.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+	</build>
+
+	<!-- Dependencies calculated by AppFuse when running full-source plugin -->
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-web</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+</project>
