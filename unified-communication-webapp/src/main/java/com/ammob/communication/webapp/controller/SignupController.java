@@ -1,8 +1,8 @@
 package com.ammob.communication.webapp.controller;
 
 import com.ammob.communication.core.Constants;
+import com.ammob.communication.core.exception.UserExistsException;
 import com.ammob.communication.core.service.RoleManager;
-import com.ammob.communication.core.service.UserExistsException;
 import com.ammob.communication.webapp.form.UserForm;
 import com.ammob.communication.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;

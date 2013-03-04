@@ -1,6 +1,7 @@
 package com.ammob.communication.core.service;
 
 import com.ammob.communication.core.dao.UserDao;
+import com.ammob.communication.core.exception.UserExistsException;
 import com.ammob.communication.core.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

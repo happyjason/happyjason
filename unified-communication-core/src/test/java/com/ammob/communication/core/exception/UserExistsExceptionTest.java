@@ -1,8 +1,12 @@
-package com.ammob.communication.core.service;
+package com.ammob.communication.core.exception;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.ammob.communication.core.exception.UserExistsException;
 import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.service.UserManager;
+
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

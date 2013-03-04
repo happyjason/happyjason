@@ -3,10 +3,10 @@ package com.ammob.communication.webapp.controller;
 import org.apache.commons.lang.StringUtils;
 
 import com.ammob.communication.core.Constants;
+import com.ammob.communication.core.exception.UserExistsException;
 import com.ammob.communication.core.model.Role;
 import com.ammob.communication.core.model.User;
 import com.ammob.communication.core.service.RoleManager;
-import com.ammob.communication.core.service.UserExistsException;
 import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.webapp.form.UserForm;
 import com.ammob.communication.webapp.util.RequestUtil;

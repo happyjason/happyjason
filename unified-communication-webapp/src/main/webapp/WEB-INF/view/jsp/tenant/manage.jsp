@@ -26,7 +26,7 @@
     </form>
 
     <div id="actions" class="form-actions">
-        <a class="btn" href="<c:url value='/home'/>">
+        <a class="btn" href="<c:url value='/tenant'/>">
             <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
     </div>
     

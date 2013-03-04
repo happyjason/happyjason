@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ammob.communication.vidyo.service.ConferenceCallManager;
 import com.ammob.communication.vidyo.service.TenantManager;
 import com.ammob.communication.webapp.util.FtpUtil;
 
@@ -14,9 +13,6 @@ public class TenantScheduler {
 	
 	@Autowired
 	private TenantManager tenantManager;
-	
-	@Autowired
-	private ConferenceCallManager conferenceCallManager;
 	
 	private static long executeId;
 	/**
@@ -35,14 +31,6 @@ public class TenantScheduler {
 	    } catch (UnsupportedEncodingException e) {
 	        e.printStackTrace();
 	    }
-	}
-	
-	public ConferenceCallManager getConferenceCallManager() {
-		return conferenceCallManager;
-	}
-
-	public void setConferenceCallManager(ConferenceCallManager conferenceCallManager) {
-		this.conferenceCallManager = conferenceCallManager;
 	}
 
 	public TenantManager getTenantManager() {

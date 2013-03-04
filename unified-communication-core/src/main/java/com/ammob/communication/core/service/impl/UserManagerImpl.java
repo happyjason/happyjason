@@ -1,8 +1,8 @@
 package com.ammob.communication.core.service.impl;
 
 import com.ammob.communication.core.dao.UserDao;
+import com.ammob.communication.core.exception.UserExistsException;
 import com.ammob.communication.core.model.User;
-import com.ammob.communication.core.service.UserExistsException;
 import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

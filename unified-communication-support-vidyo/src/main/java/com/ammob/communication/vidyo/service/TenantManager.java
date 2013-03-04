@@ -1,20 +1,16 @@
 package com.ammob.communication.vidyo.service;
 
 import com.ammob.communication.core.service.GenericManager;
+import com.ammob.communication.vidyo.exception.CdrQueryException;
 import com.ammob.communication.vidyo.model.Tenant;
 
 import java.util.List;
-
-import javax.jws.WebService;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import java.util.Map;
 
 /**
- * Web Service interface so hierarchy of Generic Manager isn't carried through.
+ * Business Service Interface to handle communication between web and
+ * persistence layer.
  */
-@WebService
-@Path("/tenants")
 public interface TenantManager extends GenericManager<Tenant, Long> {
 	
     /**
@@ -37,8 +33,28 @@ public interface TenantManager extends GenericManager<Tenant, Long> {
      * @param tenantId the identifier for the tenant
      * @return Tenant
      */
-    @GET
-    @Path("{id}")
-    Tenant getTenant(@PathParam("id") String tenantId);
+    Tenant getTenant(String tenantId);
+    
+    /**
+     * Check cdr availability
+     * @param tenantId
+     * @return
+     */
+    boolean checkCdrState(String tenantId);
+    
+    /**
+     * Get Call Detail Records Limit 100 Num.
+     * @param tenantId
+     * @return ConferenceCall List
+     */
+    List<Map<String, Object>> getCallDetailRecordList(String tenantId) throws CdrQueryException;
+    
+    /**
+     * Get Call Detail Records
+     * @param tenantId
+     * @param searchTerm
+     * @return ConferenceCall List
+     */
+    List<Map<String, Object>> getCallDetailRecordList(String tenantId, String searchTerm) throws CdrQueryException;
     
 }

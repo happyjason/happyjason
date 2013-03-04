@@ -171,7 +171,7 @@
         </spring:bind>
             <appfuse:label styleClass="control-label" key="tenantForm.cdrPassword"/>
             <div class="controls">
-                <form:password path="adminPassword" id="cdrPassword" showPassword="true"/>
+                <form:password path="cdrPassword" id="cdrPassword" showPassword="true"/>
                 <form:errors path="cdrPassword" cssClass="help-inline"/>
             </div>
         </fieldset>
