@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ammob.communication.vidyo.service.TenantManager;
-import com.ammob.communication.webapp.util.FtpUtil;
+import com.ammob.communication.vidyo.util.FtpUtil;
 
 public class TenantScheduler {
 	

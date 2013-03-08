@@ -103,6 +103,8 @@
 		<column>cdr_password</column>
 		<column>cdr_synchro_time</column>
 		<column>cdr_scheduler_time</column>
+		<column>payment_days</column>
+		<column>cdr</column>
 		<column>version</column>
 		<column>enabled</column>
 		<column>license</column>
@@ -126,6 +128,7 @@
 			<value description="cdr_synchro_time">2013-01-07</value>
 			<value description="cdr_scheduler_time">2013-01-07</value>
 			<value description="version">1</value>
+			<value description="payment_days">1</value>
 			<value description="cdr">0</value>
 			<value description="enabled">1</value>
 			<value description="license">0</value>
@@ -150,6 +153,7 @@
 			<value description="cdr_synchro_time">2013-01-07</value>
 			<value description="cdr_scheduler_time">2013-01-07</value>
 			<value description="version">1</value>
+			<value description="payment_days">1</value>
 			<value description="cdr">1</value>
 			<value description="enabled">1</value>
 			<value description="license">1</value>
@@ -168,7 +172,7 @@
 		</row>
 	</table>-->
 	<!--Post-START-->
-    <table name="ConferenceCall2">
+    <!--<table name="ConferenceCall2">
         <column>callId</column>
         <column>CallState</column>
         <column>CallerID</column>
@@ -201,5 +205,5 @@
 	        <value description="TenantName">Default</value>
 	        <value description="UniqueCallID">10774977264114470189</value>
 	    </row>
-    </table>
+    </table>-->
 </dataset>

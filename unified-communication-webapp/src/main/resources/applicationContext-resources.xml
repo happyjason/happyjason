@@ -23,6 +23,7 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
             <list>
+                <value>classpath:deploy.properties</value>
                 <value>classpath:jdbc.properties</value>
                 <value>classpath:mail.properties</value>
                 <value>classpath:hibernate.properties</value>
@@ -30,7 +31,13 @@
         </property>
     </bean>
     
-	<bean id="propertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+	<bean id="deployPropertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+		<constructor-arg index="0">
+			<value>deploy.properties</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="jdbcPropertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
 		<constructor-arg index="0">
 			<value>jdbc.properties</value>
 		</constructor-arg>
@@ -39,7 +46,8 @@
 	<bean id="compositeConfiguration" class="org.apache.commons.configuration.CompositeConfiguration">
 		<constructor-arg index="0">
 			<list>
-				<ref bean="propertiesConfiguration"/>
+				<ref bean="deployPropertiesConfiguration"/>
+				<ref bean="jdbcPropertiesConfiguration"/>
 			</list>
 		</constructor-arg>
 	</bean>

@@ -20,18 +20,27 @@
     </bean>
     
         
-	<bean id="propertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+	<bean id="deployPropertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+		<constructor-arg index="0">
+			<value>deploy.properties</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="jdbcPropertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
 		<constructor-arg index="0">
 			<value>jdbc.properties</value>
 		</constructor-arg>
 	</bean>
+	
 	<bean id="compositeConfiguration" class="org.apache.commons.configuration.CompositeConfiguration">
 		<constructor-arg index="0">
 			<list>
-				<ref bean="propertiesConfiguration"/>
+				<ref bean="deployPropertiesConfiguration"/>
+				<ref bean="jdbcPropertiesConfiguration"/>
 			</list>
 		</constructor-arg>
 	</bean>
+	
 	<bean id="compositeProperty" class="com.ammob.communication.core.util.PropertyUtil">
 		<property name="compositeConfiguration" ref="compositeConfiguration"/>
 	</bean>

@@ -5,14 +5,13 @@
     <meta name="menu" content="TenantMenu"/>
 </head>
 
-<c:if test="${not empty error}">
-    <div class="alert alert-error fade in">
-        <a href="#" data-dismiss="alert" class="close">&times;</a>
-        <c:out value="${error}"/>
-    </div>
-</c:if>
-
-<div class="span10">
+<div class="span12">
+	<c:if test="${not empty error}">
+	    <div class="alert alert-error fade in">
+	        <a href="#" data-dismiss="alert" class="close">&times;</a>
+	        <c:out value="${error}"/>
+	    </div>
+	</c:if>
     <h2><fmt:message key="conferenceCallList.heading"/></h2>
 
     <form method="get" action="${ctx}/tenant" id="searchForm" class="form-search">

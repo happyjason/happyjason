@@ -50,7 +50,8 @@ public class Tenant extends BaseObject implements Serializable {
     private Integer dialIn;
     private Integer extensionPrefix;
     private Integer version;
-    private Date cdrSynchroTime;
+    private Integer paymentDays;
+	private Date cdrSynchroTime;
     private Date cdrSchedulerTime;
     private boolean cdr;
     private boolean license;
@@ -255,6 +256,15 @@ public class Tenant extends BaseObject implements Serializable {
 
 	public void setVidyoRoomNumber(Integer vidyoRoomNumber) {
 		this.vidyoRoomNumber = vidyoRoomNumber;
+	}
+	
+	@Column(name="payment_days", nullable=false)
+    public Integer getPaymentDays() {
+		return paymentDays;
+	}
+
+	public void setPaymentDays(Integer paymentDays) {
+		this.paymentDays = paymentDays;
 	}
 	
 	@Column(name = "cdr", nullable=false, columnDefinition="bit(1) default 0")

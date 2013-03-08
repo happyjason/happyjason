@@ -11,8 +11,7 @@
         <c:out value="${searchError}"/>
     </div>
 </c:if>
-
-<div class="span10">
+<div class="span12">
     <h2><fmt:message key="conferenceCallList.heading"/></h2>
 
     <form method="get" action="${ctx}/tenant" id="searchForm" class="form-search">
@@ -29,6 +28,4 @@
         <a class="btn" href="<c:url value='/tenant'/>">
             <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
     </div>
-    
-    
 </div>

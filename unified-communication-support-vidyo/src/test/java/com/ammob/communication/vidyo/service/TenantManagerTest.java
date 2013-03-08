@@ -29,11 +29,22 @@ public class TenantManagerTest extends BaseManagerTestCase {
 	public void testGetCallDetailRecordList() {
 		List<Map<String, Object>> found = null;
 		try {
-			found = mgr.getCallDetailRecordList("2");
+			found = mgr.getCallDetailRecordList(mgr.get(2L));
 		} catch (CdrQueryException e) {
 			e.printStackTrace();
 		}
 		log.info(found.get(0));
 		assertNotNull(found);
+	}
+	
+	@Test
+	public void testHandleCallDetailRecordUpload(){
+		boolean handle = false;
+		try {
+			handle = mgr.handleCallDetailRecordUpload(mgr.get(2L));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertTrue(handle);
 	}
 }

@@ -8,6 +8,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,19 +26,20 @@ public class Post extends BaseObject implements Serializable {
 	private Long id;
     private String name;
     private String responsibility;
-    private String require;
+    private String requirement;
 
     @Id
-    @DocumentId    
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @DocumentId
     public Long getId() {
         return this.id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
     
-    @Column(name="name", nullable=false, length=60)
+    @Column(length = 20, nullable=false, unique = true)
     @Field
     public String getName() {
         return this.name;
@@ -46,7 +49,7 @@ public class Post extends BaseObject implements Serializable {
         this.name = name;
     }
     
-    @Column(name="responsibility", length=65535)
+    @Column()
     @Field
     public String getResponsibility() {
         return this.responsibility;
@@ -56,14 +59,14 @@ public class Post extends BaseObject implements Serializable {
         this.responsibility = responsibility;
     }
     
-    @Column(name="require", length=65535)
+    @Column()
     @Field
-    public String getRequire() {
-        return this.require;
+    public String getRequirement() {
+        return this.requirement;
     }
     
-    public void setRequire(String require) {
-        this.require = require;
+    public void setRequirement(String requirement) {
+        this.requirement = requirement;
     }
 
     public boolean equals(Object o) {
@@ -74,7 +77,7 @@ public class Post extends BaseObject implements Serializable {
 
         if (name != null ? !name.equals(pojo.name) : pojo.name != null) return false;
         if (responsibility != null ? !responsibility.equals(pojo.responsibility) : pojo.responsibility != null) return false;
-        if (require != null ? !require.equals(pojo.require) : pojo.require != null) return false;
+        if (requirement != null ? !requirement.equals(pojo.requirement) : pojo.requirement != null) return false;
 
         return true;
     }
@@ -83,7 +86,7 @@ public class Post extends BaseObject implements Serializable {
         int result = 0;
         result = (name != null ? name.hashCode() : 0);
         result = 31 * result + (responsibility != null ? responsibility.hashCode() : 0);
-        result = 31 * result + (require != null ? require.hashCode() : 0);
+        result = 31 * result + (requirement != null ? requirement.hashCode() : 0);
 
         return result;
     }
@@ -95,7 +98,7 @@ public class Post extends BaseObject implements Serializable {
         sb.append("id").append("='").append(getId()).append("', ");
         sb.append("name").append("='").append(getName()).append("', ");
         sb.append("responsibility").append("='").append(getResponsibility()).append("', ");
-        sb.append("require").append("='").append(getRequire()).append("'");
+        sb.append("require").append("='").append(getRequirement()).append("'");
         sb.append("]");
       
         return sb.toString();

@@ -4,6 +4,7 @@ import com.ammob.communication.core.service.GenericManager;
 import com.ammob.communication.vidyo.exception.CdrQueryException;
 import com.ammob.communication.vidyo.model.Tenant;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,25 +37,35 @@ public interface TenantManager extends GenericManager<Tenant, Long> {
     Tenant getTenant(String tenantId);
     
     /**
-     * Check cdr availability
-     * @param tenantId
-     * @return
-     */
-    boolean checkCdrState(String tenantId);
-    
-    /**
-     * Get Call Detail Records Limit 100 Num.
-     * @param tenantId
+     * Get Call Detail Records Limit 10000 Num.
+     * @param tenant
      * @return ConferenceCall List
      */
-    List<Map<String, Object>> getCallDetailRecordList(String tenantId) throws CdrQueryException;
+    List<Map<String, Object>> getCallDetailRecordList(Tenant tenant) 
+    		throws CdrQueryException;
+    
+    /**
+     * Get Call Detail Records for startDate and endDate.
+     * @param tenant
+     * @return ConferenceCall List
+     */
+    List<Map<String, Object>> getCallDetailRecordList(Tenant tenant, Date startDate, Date endDate) 
+    		throws CdrQueryException;
     
     /**
      * Get Call Detail Records
-     * @param tenantId
+     * @param tenant
      * @param searchTerm
      * @return ConferenceCall List
      */
-    List<Map<String, Object>> getCallDetailRecordList(String tenantId, String searchTerm) throws CdrQueryException;
+    List<Map<String, Object>> getCallDetailRecordList(Tenant tenant, String searchTerm) 
+    		throws CdrQueryException;
+    
+    /**
+     * Handle Call Detail Record Upload
+     * @param tenant
+     * @return Handle Number
+     */
+    boolean handleCallDetailRecordUpload(Tenant tenant) throws CdrQueryException;
     
 }

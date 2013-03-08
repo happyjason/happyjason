@@ -12,7 +12,7 @@
     </div>
 </c:if>
 
-<div class="span10">
+<div class="span12">
     <h2><fmt:message key="tenantList.heading"/></h2>
 
     <form method="get" action="${ctx}/tenant" id="searchForm" class="form-search">
@@ -37,17 +37,17 @@
     	id="tenants" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
         <display:column property="id" sortable="true" titleKey="tenantForm.id" style="width: 5%"
         	url="/tenant/profile?from=list" paramId="id" paramProperty="id" escapeXml="true"/>
-        <display:column property="name" sortable="true" titleKey="tenantForm.name" style="width: 15%"
+        <display:column property="name" sortable="true" titleKey="tenantForm.name" style="width: 12%"
         	url="/tenant/profile?from=list" paramId="id" paramProperty="id" escapeXml="true"/>
-        <display:column property="url" sortable="true" titleKey="tenantForm.url"  style="width: 25%"
+        <display:column property="url" sortable="true" titleKey="tenantForm.url"  style="width: 24%"
         	escapeXml="true"/>
-        <display:column property="description" sortable="true" titleKey="tenantForm.description" style="width: 35%" 
+        <display:column property="description" sortable="true" titleKey="tenantForm.description" style="width: 32%" 
         	autolink="true" media="html"/>
         <display:column sortProperty="enabled" sortable="true" titleKey="tenantForm.enabled" style="width: 8%; padding-left: 12px" 
         	media="html">
             <input type="checkbox" disabled="disabled" <c:if test="${tenants.enabled}">checked="checked"</c:if>/>
         </display:column>
-        <display:column sortable="true" titleKey="tenantForm.license" style="width: 6%; padding-left: 8px" 
+        <display:column titleKey="tenantForm.license" style="width: 5%" 
         	href="tenant/manage" paramId="id" paramProperty="id">
 			<c:if test="${tenants.license}">
 				<button class="btn btn-small btn-primary">
@@ -55,11 +55,19 @@
     			</button>
 			</c:if>
     	</display:column>
-    	<display:column sortable="true" titleKey="tenantForm.cdr" style="width: 6%" 
+    	<display:column titleKey="tenantForm.cdr" style="width: 5%" 
         	href="tenant/cdr" paramId="id" paramProperty="id">
 			<c:if test="${tenants.cdr}">
 				<button class="btn btn-small">
         			<fmt:message key='button.view'/>
+    			</button>
+			</c:if>
+    	</display:column>
+    	<display:column titleKey="tenantForm.paymentDays" style="width: 5%" 
+        	href="tenant/upload" paramId="id" paramProperty="id">
+			<c:if test="${tenants.cdr}">
+				<button class="btn btn-small">
+        			<fmt:message key='button.synchro'/>
     			</button>
 			</c:if>
     	</display:column>

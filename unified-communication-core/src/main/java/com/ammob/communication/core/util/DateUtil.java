@@ -52,6 +52,44 @@ public final class DateUtil {
     }
 
     /**
+     * This method get year
+     * @param aDate
+     * @return
+     */
+    public static int getYear(Date aDate) {
+    	Calendar cal = Calendar.getInstance();
+		cal.setTime(aDate);
+		return cal.get(Calendar.YEAR);
+    }
+    
+    /**
+     * This method get month
+     * @param aDate
+     * @return
+     */
+    public static int getMonth(Date aDate) {
+    	Calendar cal = Calendar.getInstance();
+		cal.setTime(aDate);
+		return cal.get(Calendar.MONTH) + 1;
+    }
+    
+    /**
+     * This method get next cycle month begin Date
+     * @param aDate
+     * @return
+     * @throws ParseException 
+     */
+    public static Date getNextCycleMonth(Date aDate) throws Exception {
+    	Calendar cal = Calendar.getInstance();
+		cal.setTime(aDate);
+		try {
+			return convertStringToDate((cal.get(Calendar.MONTH) + 2) + "/01/" + cal.get(Calendar.YEAR));
+		} catch (Exception e) {
+			throw e;
+		}
+    }
+    
+    /**
      * This method attempts to convert an Oracle-formatted date
      * in the form dd-MMM-yyyy to mm/dd/yyyy.
      *
@@ -59,17 +97,29 @@ public final class DateUtil {
      * @return formatted string for the ui
      */
     public static String getDate(Date aDate) {
+        return getDate(getDatePattern(), aDate);
+    }
+    
+    /**
+     * This method attempts to convert an Oracle-formatted date
+     * in the form dd-MMM-yyyy to aMask.
+     *
+     * @param aMask the date pattern the string is in
+     * @param aDate date from database as a string
+     * @return formatted string for the ui
+     */
+    public static String getDate(String aMask, Date aDate) {
         SimpleDateFormat df;
         String returnValue = "";
 
         if (aDate != null) {
-            df = new SimpleDateFormat(getDatePattern());
+            df = new SimpleDateFormat(aMask);
             returnValue = df.format(aDate);
         }
 
         return (returnValue);
     }
-
+    
     /**
      * This method generates a string representation of a date/time
      * in the format you specify on input
