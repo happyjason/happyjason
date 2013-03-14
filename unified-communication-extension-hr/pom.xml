@@ -26,7 +26,8 @@
                         </component>
                     </components>
                     <componentProperties>
-                        <drop>true</drop>
+                        <update>true</update>
+                        <drop>false</drop>
                         <jdk5>true</jdk5>
                         <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
                         <skip>${skipTests}</skip>
@@ -60,7 +61,7 @@
 					<password>${jdbc.password}</password>
 					<url>${jdbc.url}</url>
 					<src>src/test/resources/sample-data.xml</src>
-					<type>${dbunit.operation.type}</type>
+					<type>UPDATE</type>
 					<schema>${dbunit.schema}</schema>
 					<skip>${skipTests}</skip>
 					<transaction>true</transaction>
@@ -72,6 +73,9 @@
 						<goals>
 							<goal>operation</goal>
 						</goals>
+						<configuration>
+	                        <encoding>utf-8</encoding>
+	                    </configuration>
 					</execution>
 				</executions>
 				<dependencies>

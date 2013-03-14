@@ -12,12 +12,12 @@
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-2.2.1.min.css'/>" />
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-responsive-2.2.1.min.css'/>" />
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
-    <decorator:head/>
-
-    <script type="text/javascript" src="<c:url value='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'/>"></script>
+    
+    <script type="text/javascript" src="<c:url value='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap-2.2.1.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
+    <decorator:head/>
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>

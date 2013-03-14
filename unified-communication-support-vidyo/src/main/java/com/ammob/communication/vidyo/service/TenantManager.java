@@ -22,7 +22,7 @@ public interface TenantManager extends GenericManager<Tenant, Long> {
     List<Tenant> getTenants();
     
     /**
-     * Search a user for search terms.
+     * Search a tenant for search terms.
      * @param searchTerm the search terms.
      * @return a list of matches, or all if no searchTerm.
      */

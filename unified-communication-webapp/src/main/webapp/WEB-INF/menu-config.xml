@@ -6,6 +6,7 @@
     <Menus>
         <Menu name="HomeMenu" title="home.title" description="Home Menu" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/user/profile" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="PostMenu" title="menu.post" description="Post Menu" page="/post" roles="ROLE_ADMIN"/>
         <Menu name="TenantMenu" title="menu.tenant" description="Tenant Menu" page="/tenant" roles="ROLE_ADMIN"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" page="/admin/users" roles="ROLE_ADMIN">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>

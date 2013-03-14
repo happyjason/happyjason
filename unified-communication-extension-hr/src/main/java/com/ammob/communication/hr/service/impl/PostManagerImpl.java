@@ -21,4 +21,11 @@ public class PostManagerImpl extends GenericManagerImpl<Post, Long> implements P
         super(postDao);
         this.postDao = postDao;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	public List<Post> search(String searchTerm) {
+		 return super.search(searchTerm, Post.class);
+	}
 }

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>上海星进 - 面试通知</title>
+<link rel="stylesheet" href="http://www.vccloud.com.cn/offer/style.css" type="text/css">
+<style type="text/css">
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<script src="http://maps.google.com/maps/api/staticmap?center=31.160338,121.402177&zoom=17&markers=31.159815,121.402552&size=500x300&sensor=true"></script>
+<![endif]--></head>
+<body>
+<div class="container">
+  <header>
+    <a href="#"><img src="http://www.vccloud.com.cn/logo.png" alt="logo" width="180" height="90" id="Insert_logo" style="background-color: #FFFFFF; display: block;" /></a>
+  </header>
+  <div class="sidebar1">
+    <ul class="nav">
+        <li><a href="http://www.controlvc.com/company.php">关于我们</a></li>
+        <li><a href="http://www.controlvc.com/company.php?id=3">联系我们</a></li>
+        <li><a href="http://www.controlvc.com/company.php?id=2">企业荣誉</a></li>
+        <li><a href="http://www.controlvc.com/hzhb.php">合作伙伴</a></li>
+    </ul>
+    <aside>
+      <p>&nbsp;</p>
+	</aside>
+  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <h1>面试邀请</h1>
+    <section>
+    	<p><strong>尊敬的 ${post.recipients} 先生/小姐:</strong></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;非常感谢您把简历和对未来职业的憧憬，投递给了我们，使我们有机会能够一起为了同一份事业而努力拼搏。电话中的沟通很愉快，我代表我方<span id="Insert_logo">上海星进科技发展有限公司</span>诚意的邀请您前来面试。</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;如果有什么问题或者需要，请直接与我联系，联系人: ${user.nickname}，电话: ${user.phoneNumber}，邮件: ${user.email}</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;如果您的邮件显示有问题，请点击 <a href="http://www.vccloud.com.cn/offer/${uuid}.html"><span id="Insert_logo">这里</span></a> 查看完整版本。</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;本次邀约详情如下(本邮件由系统自动发出，请勿回复):</p>
+	</section>
+    <section>
+	<div id="css_table">
+		<div class="css_tr">
+			<div class="css_td" style="width:72px;font-weight:bold;">面试岗位:</div>
+			<div class="css_td">${post.name}</div>
+		</div>
+		<div class="css_tr">
+			<div class="css_td" style="width:72px;font-weight:bold;">岗位职责:</div>
+			<div class="css_td">${post.responsibility}</div>
+		</div>
+		<div class="css_tr">
+			<div class="css_td" style="width:72px;font-weight:bold;">面试时间:</div>
+			<div class="css_td">${post.appointment}</div>
+		</div>
+		<div class="css_tr">
+			<div class="css_td" style="width:72px;font-weight:bold;">面试地点:</div>
+			<div class="css_td">上海市闵行区虹梅路1123弄(上企置业广场)A栋C#</div>
+		</div>
+		<div class="css_tr">
+			<div class="css_td" style="width:72px;font-weight:bold;">交通线路:</div>
+			<div class="css_td">1, 地铁九号线漕河泾开发区出口3号出口南走900米,漕宝路与虹梅路口（加油站旁边）<br>
+								2, 乘坐757路漕宝路站下车<br>
+								3, 乘坐徐梅线虹梅路漕宝路站下车</div>
+		</div>
+	</div>
+    </section>
+    <section>
+		<h1></h1>
+		<p><a href="https://maps.google.com/maps?q=31.159732,121.402583&num=1&t=m&z=17"><img src="http://maps.google.com/maps/api/staticmap?center=31.160485,121.403518&zoom=15&markers=size:mid|31.159778,121.402563&size=570x300&sensor=true" alt="点击查看完整地图版本"></a></p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+    <h4>注意</h4>
+    <p>1,请准时参加面试</p>
+    <p>2,设计类与特殊岗位请携带有效的证明文件或作品参加面试</p>
+    <p>3,请牢记联系电话:<br><span id="Insert_logo">${user.phoneNumber}</span></p>
+  </aside>
+  <footer>
+    <p>Shanghai Control Communication Company Limited.</p>
+    <p>上海星进科技发展有限公司</p>
+  </footer>
+  <!-- end .container --></div>
+</body>
+</html>

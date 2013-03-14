@@ -56,6 +56,11 @@ public final class Constants {
     public static final String TENANT_LIST = "tenantList";
     
     /**
+     * The request scope attribute that holds the post list
+     */
+    public static final String POST_LIST = "postList";
+    
+    /**
      * The request scope attribute that holds the cdr list
      */
     public static final String CDR_LIST = "conferenceCallList";

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import org.hibernate.search.Search;
                 "classpath:/applicationContext-dao.xml",
                 "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml"})
+@Transactional("hrTransactionManager")
 public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 	
     @Autowired

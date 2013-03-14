@@ -22,7 +22,7 @@ import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.service.TenantManager;
 
 /**
- * Simple class to retrieve a list of users from the database.
+ * Simple class to retrieve a list of tenants from the database.
  */
 @Controller
 @RequestMapping("/tenant*")
@@ -34,6 +34,12 @@ public class TenantController {
 		this.tenantManager = tenantManager;
 	}
 	
+	/**
+	 * The Tenants List
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query) throws Exception {
 		Model model = new ExtendedModelMap();

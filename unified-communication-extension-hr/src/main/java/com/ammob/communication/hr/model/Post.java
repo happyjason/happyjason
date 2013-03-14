@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,7 +28,8 @@ public class Post extends BaseObject implements Serializable {
     private String name;
     private String responsibility;
     private String requirement;
-
+    private Integer version;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @DocumentId
@@ -68,7 +70,16 @@ public class Post extends BaseObject implements Serializable {
     public void setRequirement(String requirement) {
         this.requirement = requirement;
     }
-
+    
+    @Version
+    public Integer getVersion() {
+        return version;
+    }
+    
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

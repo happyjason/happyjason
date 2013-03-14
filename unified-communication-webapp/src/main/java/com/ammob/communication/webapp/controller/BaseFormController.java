@@ -42,7 +42,7 @@ public class BaseFormController implements ServletContextAware {
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
-    protected String templateName = "accountCreated.vm";
+    protected String templateName = "velocity/accountCreated.vm";
     protected String cancelView;
     protected String successView;
 
@@ -67,7 +67,7 @@ public class BaseFormController implements ServletContextAware {
     }
 
     @SuppressWarnings("unchecked")
-    public void saveError(HttpServletRequest request, String error) {
+    public static void saveError(HttpServletRequest request, String error) {
         List<String> errors = (List<String>) request.getSession().getAttribute("errors");
         if (errors == null) {
             errors = new ArrayList<String>();
@@ -77,7 +77,7 @@ public class BaseFormController implements ServletContextAware {
     }
     
     @SuppressWarnings("unchecked")
-    public void saveMessage(HttpServletRequest request, String msg) {
+    public static void saveMessage(HttpServletRequest request, String msg) {
         List<String> messages = (List<String>) request.getSession().getAttribute(MESSAGES_KEY);
 
         if (messages == null) {

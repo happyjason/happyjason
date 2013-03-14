@@ -1,32 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     <!--Post-START-->
     <table name="t_ext_hr_post">
         <column>id</column>
         <column>name</column>
+        <column>version</column>
         <column>requirement</column>
         <column>responsibility</column>
     <row>
-        <value description="id">1</value>
+        <value description="id">-1</value>
         <value description="name">软件开发工程师 - C#</value>
+        <value description="version">1</value>
         <value description="requirement">Windows桌面端产品研发，确认并完善通过需求方案的功能实现、时间预估并合理的完成需求分析师，产品经理和客户提出的项目要求。</value>
         <value description="responsibility">熟练编写自定义协议与组件,有第3方UI组件开发经验者优先；</value>
     </row>
     <row>
-        <value description="id">2</value>
+        <value description="id">-2</value>
         <value description="name">软件开发工程师 - Java</value>
+        <value description="version">1</value>
         <value description="requirement">平台方向，确认并完善通过需求方案的功能实现、时间预估并合理的完成需求分析师，产品经理和客户提出的项目要求。</value>
         <value description="responsibility">熟练使用Spring rmi或者httpinvoker等远程技术开发接口以及rest服务</value>
     </row>
     <row>
-        <value description="id">3</value>
+        <value description="id">-3</value>
         <value description="name">软件开发工程师 - PHP</value>
+        <value description="version">1</value>
         <value description="requirement">平台前段，确认并完善通过需求方案的功能实现、时间预估并合理的完成需求分析师，产品经理和客户提出的项目要求。</value>
         <value description="responsibility">熟悉相关Web开发技术，了解HTML Javascript、XML、CSS、Ajax等技术</value>
     </row>
     <row>
-        <value description="id">4</value>
+        <value description="id">-4</value>
         <value description="name">网站前端工程师 - 制作</value>
+        <value description="version">1</value>
         <value description="requirement">与设计师、开发人员配合，调整修改页面，在理解产品功能需求的基础上提出产品的UE设计方案、构建产品原型；</value>
         <value description="responsibility">精通DIV+CSS布局，保证多浏览器的兼容性，能使用JavaScript实现常见的Web效果；</value>
     </row>

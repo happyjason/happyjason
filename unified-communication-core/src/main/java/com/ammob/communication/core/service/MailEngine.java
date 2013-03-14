@@ -12,6 +12,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import com.ammob.communication.core.util.StringUtil;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
@@ -50,7 +52,7 @@ public class MailEngine {
      * @param templateName the Velocity template to use (relative to classpath)
      * @param model a map containing key/value pairs
      */
-    public void sendMessage(SimpleMailMessage msg, String templateName, Map<?, ?> model) {
+    public String sendMessage(SimpleMailMessage msg, String templateName, Map<?, ?> model) {
         String result = null;
 
         try {
@@ -64,8 +66,33 @@ public class MailEngine {
 
         msg.setText(result);
         send(msg);
+        return result;
     }
 
+    /**
+     * Send a simple mime message based on a Velocity template.
+     * @param msg the message to populate
+     * @param templateName the Velocity template to use (relative to classpath)
+     * @param model a map containing key/value pairs
+     * @throws MessagingException 
+     */
+    public String sendMessage(String[] recipients, String subject, String templateName, Map<?, ?> model) 
+    		throws MessagingException {
+        String result = null;
+
+        try {
+            result =
+                VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                                                            templateName, model);
+        } catch (VelocityException e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        
+        sendMessage(recipients, null, null, result, subject, null, true);
+        return result;
+    }
+    
     /**
      * Send a simple message with pre-populated values.
      * @param msg the message to send
@@ -94,7 +121,7 @@ public class MailEngine {
      */
     public void sendMessage(String[] recipients, String sender, 
                             ClassPathResource resource, String bodyText,
-                            String subject, String attachmentName)
+                            String subject, String attachmentName, boolean html)
     throws MessagingException {
         MimeMessage message = ((JavaMailSenderImpl) mailSender).createMimeMessage();
 
@@ -110,11 +137,13 @@ public class MailEngine {
            helper.setFrom(sender);
         }
 
-        helper.setText(bodyText);
+        helper.setText(bodyText, html);
         helper.setSubject(subject);
-
-        helper.addAttachment(attachmentName, resource);
-
+        
+        if((resource != null) && StringUtil.hasText(attachmentName)){
+        	helper.addAttachment(attachmentName, resource);
+        }
+        
         ((JavaMailSenderImpl) mailSender).send(message);
     }
 }
