@@ -10,4 +10,17 @@ public class PostDaoHibernate extends HrDaoHibernate<Post, Long> implements Post
     public PostDaoHibernate() {
         super(Post.class);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Post savePost(Post post) {
+        if (log.isDebugEnabled()) {
+            log.debug("post's id: " + post.getId());
+        }
+        getSession().saveOrUpdate(post);
+        // necessary to throw a DataIntegrityViolation and catch it in PostManager
+        getSession().flush();
+        return post;
+    }
 }

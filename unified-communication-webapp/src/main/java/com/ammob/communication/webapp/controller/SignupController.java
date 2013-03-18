@@ -67,7 +67,7 @@ public class SignupController extends BaseFormController {
         userForm.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            this.getUserManager().saveUser(userForm);
+            this.getUserManager().saveUser(UserForm.fromConsumerUserForm(userForm));
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             log.warn(ade.getMessage());

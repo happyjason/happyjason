@@ -28,6 +28,21 @@
                 <arg key="uploadForm.file"/>
             </field>
         </form>
+        <form name="inviteForm">
+            <field property="recipients" depends="required">
+                <arg key="invite.recipients"/>
+            </field>
+            <!-- Client-side Javascript won't catch this in IE, but server-side will -->
+            <field property="recipientsEmail" depends="required,email">
+                <arg key="invite.recipientsEmail"/>
+            </field>
+            <field property="appointmentDate" depends="required">
+                <arg key="invite.date"/>
+            </field>
+            <field property="appointmentTime" depends="required">
+                <arg key="invite.time"/>
+            </field>
+        </form>
         <form name="userForm">
             <field property="username" depends="required">
                 <arg key="userForm.username"/>

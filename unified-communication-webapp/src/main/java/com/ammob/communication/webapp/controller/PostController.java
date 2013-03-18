@@ -27,7 +27,6 @@ import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.hr.model.Post;
 import com.ammob.communication.hr.service.PostManager;
-import com.ammob.communication.vidyo.util.ChinaUnitedSIUtil;
 import com.ammob.communication.vidyo.util.FtpUtil;
 import com.ammob.communication.webapp.form.PostForm;
 
@@ -89,10 +88,64 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/profile*", method = RequestMethod.GET)
-	public ModelAndView handleProfile(@RequestParam(required = false, value = "id") String postId) 
+	public ModelAndView handleProfileGet(@RequestParam(required = false, value = "id") String postId,
+			@RequestParam(required = false, value = "method") String method, HttpServletRequest request) 
 			throws Exception {
 		Model model = new ExtendedModelMap();
-		PostForm post = PostForm.fromProviderPost(postManager.get(Long.valueOf(postId)));
+		if(StringUtil.hasText(method)) {
+			MessageSourceAccessor text = new MessageSourceAccessor(messageSource, request.getLocale());
+			if(method.equals("Add")) {
+				model.addAttribute("post", new PostForm());
+				BaseFormController.saveMessage(request, text.getMessage("success.operate"));
+			} else if(method.equals("Del") && StringUtil.hasText(postId)) {
+				try {
+					Long _id = Long.parseLong(postId);
+					System.out.println(_id);
+					postManager.remove(_id);
+					BaseFormController.saveMessage(request, text.getMessage("success.operate"));
+				} catch (Exception e) {
+					BaseFormController.saveError(request, text.getMessage("errors.token") + " code : " + e.getMessage());
+				}
+				return new ModelAndView("redirect:/post");
+			} else {
+				BaseFormController.saveError(request, text.getMessage("errors.token"));
+			}
+		} else {
+			if(StringUtil.hasText(postId)){
+				try {
+					PostForm _post = PostForm.fromProviderPost(postManager.get(Long.valueOf(postId)));
+					model.addAttribute("post", _post);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				return new ModelAndView("redirect:/post");
+			}
+		}
+		return new ModelAndView("post/profile", model.asMap());
+	}
+	
+	/**
+	 * 
+	 * @param postId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/profile*", method = RequestMethod.POST)
+	public ModelAndView handleProfilePost(PostForm post, HttpServletRequest request) 
+			throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return new ModelAndView("redirect:/post");
+        }
+        MessageSourceAccessor text = new MessageSourceAccessor(messageSource, request.getLocale());
+        try {
+        	Post _p = PostForm.fromConsumerPostForm(post);
+			postManager.save(_p);
+			BaseFormController.saveMessage(request, text.getMessage("success.operate"));
+		} catch (Exception e) {
+			BaseFormController.saveError(request, text.getMessage("errors.token") + " code : " + e.getMessage());
+		}
+		Model model = new ExtendedModelMap();
 		model.addAttribute("post", post);
 		return new ModelAndView("post/profile", model.asMap());
 	}
@@ -130,6 +183,9 @@ public class PostController {
 	@RequestMapping(value = "/notification*", method = RequestMethod.POST)
 	public ModelAndView handleNotificationPost(PostForm post, HttpServletRequest request) 
 			throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return new ModelAndView("redirect:/post");
+        }
 		Model model = new ExtendedModelMap();
 		model.addAttribute("post", post);
 		MessageSourceAccessor text = new MessageSourceAccessor(messageSource, request.getLocale());
@@ -141,7 +197,7 @@ public class PostController {
 			try {
 				mapper.put("user", userManager.getUserByUsername(request.getRemoteUser()));
 				String result = mailEngine.sendMessage(new String[]{"yufeng@seekoom.com","vanton@seekoom.com","mob@seekoom.com", post.getRecipientsEmail()}, 
-						"Interview Invited", "velocity/Interview.vm", mapper);
+						"面试邀请", "velocity/Interview.vm", mapper);
 				BaseFormController.saveMessage(request, text.getMessage("success.operate"));
 				FtpUtil.uploadFile("180.169.118.125", 21, "mob", "121212",
 						"/F:/FTP_PATH/vccould/offer", uuid + ".html", new ByteArrayInputStream(result.getBytes()));

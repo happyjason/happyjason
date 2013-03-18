@@ -81,6 +81,7 @@
         <module>unified-communication-core</module>
         <module>unified-communication-extension-hr</module>
         <module>unified-communication-extension-rcp</module>
+		<module>unified-communication-extension-security</module>
         <module>unified-communication-support-cas</module>
         <module>unified-communication-support-vidyo</module>
         <module>unified-communication-webapp</module>

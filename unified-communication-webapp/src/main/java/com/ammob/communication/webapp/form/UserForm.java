@@ -45,4 +45,21 @@ public class UserForm extends User {
 		}
 		return form;
 	}
+	
+	/**
+	 * 
+	 * @param providerUserForm
+	 * @return
+	 */
+	public static User fromConsumerUserForm(UserForm providerUserForm) {
+		User form = new User();
+		try {
+			BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
+			beanUtils.getConvertUtils().register(new IntegerConverter(null), Integer.class);
+			beanUtils.copyProperties(form, providerUserForm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return form;
+	}
 }

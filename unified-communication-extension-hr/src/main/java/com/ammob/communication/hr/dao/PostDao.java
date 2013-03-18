@@ -9,4 +9,10 @@ import com.ammob.communication.hr.model.Post;
  */
 public interface PostDao extends GenericDao<Post, Long> {
 
+    /**
+     * Saves a post's information.
+     * @param post the object to be saved
+     * @return the persisted Post object
+     */
+    Post savePost(Post post);
 }
