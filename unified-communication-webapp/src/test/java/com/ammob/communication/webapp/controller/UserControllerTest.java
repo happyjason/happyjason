@@ -30,7 +30,7 @@ public class UserControllerTest extends BaseControllerTestCase {
         UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         userManager.reindex();
 
-        ModelAndView mav = c.handleRequest("admin");
+        ModelAndView mav = c.handleRequest("hotmob");
         Map<String, Object> m = mav.getModel();
         List<?> results = (List<?>) m.get(Constants.USER_LIST);
         assertNotNull(results);

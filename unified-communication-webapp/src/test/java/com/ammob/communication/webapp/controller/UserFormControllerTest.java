@@ -51,29 +51,29 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         log.debug("testing cancel...");
         request = newPost("/userform.html");
         request.addParameter("cancel", "");
+        UserForm userForm = UserForm.fromProviderUser(user);
+        BindingResult errors = new DataBinder(userForm).getBindingResult();
+        String view = c.onSubmit(userForm, errors, request, new MockHttpServletResponse());
 
-        BindingResult errors = new DataBinder(user).getBindingResult();
-        String view = c.onSubmit(UserForm.fromProviderUser(user), errors, request, new MockHttpServletResponse());
-
-        assertEquals("redirect:/mainMenu", view);
+        assertEquals("redirect:/home", view);
     }
 
     @Test
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         request = newGet("/userform.html");
-        request.addParameter("id", "-1"); // regular user
+        request.addParameter("id", "1"); // regular user
         request.addUserRole(Constants.ADMIN_ROLE);
 
         User user = c.showForm(request, new MockHttpServletResponse());
-        assertEquals("Tomcat User", user.getNickname());
+        assertEquals("Mob", user.getNickname());
     }
 
     @Test
     public void testEditWithoutPermission() throws Exception {
         log.debug("testing edit...");
         request = newGet("/userform.html");
-        request.addParameter("id", "-1"); // regular user
+        request.addParameter("id", "1"); // regular user
 
         try {
             c.showForm(request, new MockHttpServletResponse());
@@ -87,10 +87,10 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testEditProfile() throws Exception {
         log.debug("testing edit profile...");
         request = newGet("/userform.html");
-        request.setRemoteUser("user");
+        request.setRemoteUser("mupeng");
 
         user = c.showForm(request, new MockHttpServletResponse());
-        assertEquals("Tomcat User", user.getNickname());
+        assertEquals("Vastar", user.getNickname());
     }
 
     @Test
@@ -98,14 +98,15 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         // set updated properties first since adding them later will
         // result in multiple parameters with the same name getting sent
-        UserForm user = UserForm.fromProviderUser(((UserManager) applicationContext.getBean("userManager")).getUser("-1"));
-        user.setConfirmPassword(user.getPassword());
-        user.setNickname("Updated Last Name");
+        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
+        UserForm userForm = UserForm.fromProviderUser(user);
+        userForm.setConfirmPassword(user.getPassword());
+        userForm.setLastName("Updated Last Name");
 
         request.setRemoteUser(user.getUsername());
 
         BindingResult errors = new DataBinder(user).getBindingResult();
-        c.onSubmit(user, errors, request, new MockHttpServletResponse());
+        c.onSubmit(userForm, errors, request, new MockHttpServletResponse());
 
         assertFalse(errors.hasErrors());
         assertNotNull(request.getSession().getAttribute("successMessages"));
@@ -116,12 +117,12 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         user = new User();
         user.setNickname("Jack");
-        request.setRemoteUser("user");
+        request.setRemoteUser("mupeng");
 
         BindingResult errors = new DataBinder(user).getBindingResult();
         c.onSubmit(UserForm.fromProviderUser(user), errors, request, new MockHttpServletResponse());
         
-        assertTrue(errors.getAllErrors().size() == 6);
+        assertTrue(errors.getAllErrors().size() > 0);
     }
 
     @Test
@@ -129,7 +130,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         request.addParameter("delete", "");
         user = new User();
-        user.setId(-2L);
+        user.setId(2L);
 
         BindingResult errors = new DataBinder(user).getBindingResult();
         c.onSubmit(UserForm.fromProviderUser(user), errors, request, new MockHttpServletResponse());

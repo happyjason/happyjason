@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import org.hibernate.search.Search;
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
+@Transactional("transactionManager")
 public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging

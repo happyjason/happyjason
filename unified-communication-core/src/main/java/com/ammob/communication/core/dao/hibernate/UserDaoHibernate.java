@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
 import java.util.List;
+
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 
@@ -45,9 +47,14 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getId());
         }
-        getSession().saveOrUpdate(user);
-        // necessary to throw a DataIntegrityViolation and catch it in UserManager
-        getSession().flush();
+        try {
+			getSession().saveOrUpdate(user);
+	        // necessary to throw a DataIntegrityViolation and catch it in UserManager
+	        getSession().flush();
+		} catch (NonUniqueObjectException e) {
+			getSession().merge(user);
+			log.warn("user's id: " + user.getId() + ", save error ! e : " + e.getMessage());
+		}
         return user;
     }
 

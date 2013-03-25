@@ -7,12 +7,15 @@
 ----------------------------------------------------------------------------------------------
 维迪易优统一通信平台模块简述
 ----------------------------------------------------------------------------------------------
-unified-communication-core                 核心与公用类模块
-unified-communication-support-cas          OAuth,SSO等鉴权登录组件
-unified-communication-support-vidyo        Vidyo与相关接口
-unified-communication-extension-hr         公司人事管理与招聘
-unified-communication-extension-rcp        远程逻辑服务器调用与处理
-unified-communication-webapp               WEB表现层
+unified-communication-core                 核心与公用类模块。
+unified-communication-support-cas          OAuth,SSO等鉴权登录组件。
+unified-communication-support-vidyo        Vidyo与相关接口。
+unified-communication-extension-hr         公司人事管理与招聘。
+unified-communication-extension-rcp        远程逻辑服务器调用与处理。
+unified-communication-extension-security   用户安全中心。
+unified-communication-extension-social     社交网络整合与逻辑处理。
+unified-communication-webapp               WEB表现层。
+unified-communication-webapp-cms           CMS管理后台WEB表现层。
 
 ----------------------------------------------------------------------------------------------
 维迪易优统一通信平台部署步骤

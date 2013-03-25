@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>Unified Communication Platform</name>
-    <url>http://www.mycompany.com</url>
+    <url>http://www.ammob.com</url>
 
     <prerequisites>
         <maven>2.2.1</maven>
@@ -82,9 +82,11 @@
         <module>unified-communication-extension-hr</module>
         <module>unified-communication-extension-rcp</module>
 		<module>unified-communication-extension-security</module>
+		<module>unified-communication-extension-social</module>
         <module>unified-communication-support-cas</module>
         <module>unified-communication-support-vidyo</module>
         <module>unified-communication-webapp</module>
+        <module>unified-communication-webapp-cms</module>
     </modules>
 
     <repositories>
@@ -98,6 +100,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+	      <id>hippo</id>
+	      <name>Hippo maven 2 repository.</name>
+	      <url>http://maven.onehippo.com/maven2/</url>
+	    </repository>
     </repositories>
 
     <pluginRepositories>
@@ -318,6 +325,42 @@
     </reporting>
 
     <profiles>
+    	<!-- ================= Run Profiles ================= -->
+    	<profile>
+			<id>cargo.run</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<configuration>
+								<deployables>
+									<deployable>
+										<type>war</type>
+										<properties>
+											<context>/cms</context>
+										</properties>
+										<location>${project.basedir}/target/${project.build.finalName}.war</location>
+									</deployable>
+									<deployable>
+										<location>${project.basedir}/target/${project.build.finalName}.war</location>
+										<type>war</type>
+										<properties>
+											<context>/site</context>
+										</properties>
+									</deployable>
+								</deployables>
+								<properties>
+									<catalina.servlet.uriencoding>UTF-8</catalina.servlet.uriencoding>
+									<cargo.tomcat.connector.emptySessionPath>false</cargo.tomcat.connector.emptySessionPath>
+								</properties>
+							</configuration>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
         <!-- ================= Database Profiles ================= -->
         <profile>
             <id>derby</id>

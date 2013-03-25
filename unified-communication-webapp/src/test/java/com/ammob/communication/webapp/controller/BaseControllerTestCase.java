@@ -1,5 +1,7 @@
 package com.ammob.communication.webapp.controller;
 
+import java.util.Properties;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -13,7 +15,6 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml", // for modular archetypes
-                "/WEB-INF/applicationContext*.xml",
                 "/WEB-INF/dispatcher-servlet.xml"})
 public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
@@ -26,6 +27,8 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(getSmtpPort());
+        // disable mail server ssl
+        mailSender.setJavaMailProperties(new Properties());
         mailSender.setHost("localhost");
     }
 

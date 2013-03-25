@@ -50,7 +50,7 @@ public class UserFormController extends BaseFormController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(UserForm user, BindingResult errors, HttpServletRequest request,
+    public String onSubmit(UserForm userForm, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
             throws Exception {
         if (request.getParameter("cancel") != null) {
@@ -62,7 +62,7 @@ public class UserFormController extends BaseFormController {
         }
 
         if (validator != null) { // validator is null during testing
-            validator.validate(user, errors);
+            validator.validate(userForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
                 return "user/profile";
@@ -74,8 +74,8 @@ public class UserFormController extends BaseFormController {
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            getUserManager().removeUser(user.getId().toString());
-            saveMessage(request, getText("user.deleted", user.getNickname(), locale));
+            getUserManager().removeUser(userForm.getId().toString());
+            saveMessage(request, getText("user.deleted", userForm.getNickname(), locale));
 
             return getSuccessView();
         } else {
@@ -86,9 +86,9 @@ public class UserFormController extends BaseFormController {
                 String[] userRoles = request.getParameterValues("userRoles");
 
                 if (userRoles != null) {
-                    user.getRoles().clear();
+                    userForm.getRoles().clear();
                     for (String roleName : userRoles) {
-                        user.addRole(roleManager.getRole(roleName));
+                        userForm.addRole(roleManager.getRole(roleName));
                     }
                 }
             } else {
@@ -97,13 +97,13 @@ public class UserFormController extends BaseFormController {
                 // by users without admin role) 
                 User cleanUser = getUserManager().getUserByUsername(
                         request.getRemoteUser());
-                user.setRoles(cleanUser.getRoles());
+                userForm.setRoles(cleanUser.getRoles());
             }
 
-            Integer originalVersion = user.getVersion();
+            Integer originalVersion = userForm.getVersion();
 
             try {
-                getUserManager().saveUser(user);
+                getUserManager().saveUser(UserForm.fromConsumerUserForm(userForm));
             } catch (AccessDeniedException ade) {
                 // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
                 log.warn(ade.getMessage());
@@ -111,30 +111,39 @@ public class UserFormController extends BaseFormController {
                 return null;
             } catch (UserExistsException e) {
                 errors.rejectValue("username", "errors.existing.user",
-                        new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
+                        new Object[]{userForm.getUsername(), userForm.getEmail()}, "duplicate user");
 
                 // redisplay the unencrypted passwords
-                user.setPassword(user.getConfirmPassword());
+                userForm.setPassword(userForm.getConfirmPassword());
                 // reset the version # to what was passed in
-                user.setVersion(originalVersion);
+                userForm.setVersion(originalVersion);
+
+                return "user/profile";
+            } catch (Exception e) {
+                errors.rejectValue("username", "errors.token", new Object[]{}, "errors : " + e.getMessage());
+
+                // redisplay the unencrypted passwords
+                userForm.setPassword(userForm.getConfirmPassword());
+                // reset the version # to what was passed in
+                userForm.setVersion(originalVersion);
 
                 return "user/profile";
             }
 
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
-                saveMessage(request, getText("user.saved", user.getNickname(), locale));
+                saveMessage(request, getText("user.saved", userForm.getNickname(), locale));
 
                 // return to main Menu
                 return getCancelView();
             } else {
                 if (StringUtils.isBlank(request.getParameter("version"))) {
-                    saveMessage(request, getText("user.added", user.getNickname(), locale));
+                    saveMessage(request, getText("user.added", userForm.getNickname(), locale));
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject", locale));
 
                     try {
-                        sendUserMessage(user, getText("newuser.email.message", user.getNickname(), locale),
+                        sendUserMessage(userForm, getText("newuser.email.message", userForm.getNickname(), locale),
                                 RequestUtil.getAppURL(request));
                     } catch (MailException me) {
                         saveError(request, me.getCause().getLocalizedMessage());
@@ -142,7 +151,7 @@ public class UserFormController extends BaseFormController {
 
                     return getSuccessView();
                 } else {
-                    saveMessage(request, getText("user.updated.byAdmin", user.getNickname(), locale));
+                    saveMessage(request, getText("user.updated.byAdmin", userForm.getNickname(), locale));
                 }
             }
         }
