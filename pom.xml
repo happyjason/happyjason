@@ -85,6 +85,7 @@
 		<module>unified-communication-extension-social</module>
         <module>unified-communication-support-cas</module>
         <module>unified-communication-support-vidyo</module>
+        <module>unified-communication-support-unicom</module>
         <module>unified-communication-webapp</module>
         <module>unified-communication-webapp-cms</module>
     </modules>

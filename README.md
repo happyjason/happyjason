@@ -9,7 +9,8 @@
 ----------------------------------------------------------------------------------------------
 unified-communication-core                 核心与公用类模块。
 unified-communication-support-cas          OAuth,SSO等鉴权登录组件。
-unified-communication-support-vidyo        Vidyo与相关接口。
+unified-communication-support-vidyo        与Vidyo相关接口。
+unified-communication-support-unicom       与China Unicom相关接口。
 unified-communication-extension-hr         公司人事管理与招聘。
 unified-communication-extension-rcp        远程逻辑服务器调用与处理。
 unified-communication-extension-security   用户安全中心。
