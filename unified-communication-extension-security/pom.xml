@@ -10,7 +10,7 @@
 	
 	<artifactId>unified-communication-extension-security</artifactId>
 	<packaging>jar</packaging>
-	<name>Unified Communication Platform - Extension Security</name>
+	<name>Unified Communication Platform - Extension Securit</name>
 	
 	<build>
 		<plugins>

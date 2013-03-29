@@ -10,7 +10,7 @@
 	
 	<artifactId>unified-communication-support-unicom</artifactId>
 	<packaging>jar</packaging>
-	<name>Unified Communication Platform - Extension China Unicom</name>
+	<name>Unified Communication Platform - Support ChinaUnicom</name>
 	
 	<build>
 		<plugins>

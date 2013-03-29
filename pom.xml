@@ -76,20 +76,7 @@
             </plugin>
         </plugins>
     </build>
-
-    <modules>
-        <module>unified-communication-core</module>
-        <module>unified-communication-extension-hr</module>
-        <module>unified-communication-extension-rcp</module>
-		<module>unified-communication-extension-security</module>
-		<module>unified-communication-extension-social</module>
-        <module>unified-communication-support-cas</module>
-        <module>unified-communication-support-vidyo</module>
-        <module>unified-communication-support-unicom</module>
-        <module>unified-communication-webapp</module>
-        <module>unified-communication-webapp-cms</module>
-    </modules>
-
+    
     <repositories>
         <repository>
             <id>appfuse-snapshots</id>
@@ -101,11 +88,20 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-	      <id>hippo</id>
-	      <name>Hippo maven 2 repository.</name>
-	      <url>http://maven.onehippo.com/maven2/</url>
-	    </repository>
+		<repository>
+			<id>sonatype</id>
+			<url>http://oss.sonatype.org</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven</id>
+			<url>http://repo2.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
     </repositories>
 
     <pluginRepositories>
@@ -344,13 +340,6 @@
 										</properties>
 										<location>${project.basedir}/target/${project.build.finalName}.war</location>
 									</deployable>
-									<deployable>
-										<location>${project.basedir}/target/${project.build.finalName}.war</location>
-										<type>war</type>
-										<properties>
-											<context>/site</context>
-										</properties>
-									</deployable>
 								</deployables>
 								<properties>
 									<catalina.servlet.uriencoding>UTF-8</catalina.servlet.uriencoding>
@@ -468,7 +457,7 @@
         <amp.genericCore>false</amp.genericCore>
         <amp.fullSource>true</amp.fullSource>
         <db.name>communication</db.name>
-
+		
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.1</appfuse.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
@@ -539,7 +528,17 @@
 
     </properties>
 
-
-
+    <modules>
+        <module>unified-communication-core</module>
+        <module>unified-communication-extension-hr</module>
+        <module>unified-communication-extension-rcp</module>
+		<module>unified-communication-extension-security</module>
+		<module>unified-communication-extension-social</module>
+        <module>unified-communication-support-cas</module>
+        <module>unified-communication-support-vidyo</module>
+        <module>unified-communication-support-unicom</module>
+        <module>unified-communication-webapp</module>
+        <module>unified-communication-webapp-liferay</module>
+    </modules>
 
 </project>

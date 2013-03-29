@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ammob.communication</groupId>
+		<artifactId>unified-communication</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>unified-communication-webapp-liferay</artifactId>
+	<packaging>pom</packaging>
+	<name>Unified Communication Platform - Liferay Portlet</name>
+	
+	<properties>
+		<!-- Application settings -->
+		<liferay.auto.deploy.dir>${LIFERAY_HOME}/deploy</liferay.auto.deploy.dir>
+		<liferay.version>6.1.1</liferay.version>
+		<liferay.theme.parent>_styled</liferay.theme.parent>
+		<liferay.theme.type>vm</liferay.theme.type>
+	</properties>
+	
+	<modules>
+		<module>liferay-theme-social</module>
+	</modules>
+</project>
