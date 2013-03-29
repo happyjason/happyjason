@@ -26,7 +26,7 @@ unified-communication-webapp-liferay       liferay portlet</pre>
 
 ## 部署
 1. 下载并安装 MySQL 5.x 数据库，建立数据库communication，默认用户名与密码请从pom文件查询或修改。
-2. 下载并安装 Liferay 6.x Portal，设置好环境变量`LIFERAY_HOME`。
+2. 进入unified-communication-webapp-liferay中的liferay-dist目录由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
 3. support,extension等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
 4. portlet等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn package",然后运行"mvn liferay:deploy"。
 5. 命令行模式下进入webapp目录或在含有Maven插件的Eclipse工具运行命令："mvn jetty:run"。

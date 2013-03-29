@@ -74,4 +74,7 @@
 		<module>liferay-environment-ext-util-taglib</module>
 		<module>liferay-environment-ext-web</module>
 	</modules>
+	<properties>
+		<liferay.container.build.dir>../../build</liferay.container.build.dir>
+	</properties>
 </project>

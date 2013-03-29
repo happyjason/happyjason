@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -16,14 +17,88 @@
 
 	<properties>
 		<!-- Application settings -->
-		<liferay.auto.deploy.dir>${LIFERAY_HOME}/deploy</liferay.auto.deploy.dir>
+		<liferay.container.build.dir>../build</liferay.container.build.dir>
+		<liferay.container.bundle.dir>${liferay.container.build.dir}/liferay-bundle-tomcat</liferay.container.bundle.dir>
+		<liferay.container.url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.27/bin</liferay.container.url>
+		<liferay.container.name>apache-tomcat-7.0.27</liferay.container.name>
+		<liferay.container.dir>${liferay.container.bundle.dir}/${liferay.container.name}</liferay.container.dir>
+		<liferay.deploy.dir>${liferay.container.bundle.dir}/deploy</liferay.deploy.dir>
+		<liferay.auto.deploy.dir>${liferay.container.bundle.dir}/deploy</liferay.auto.deploy.dir>
 		<liferay.version>6.1.1</liferay.version>
-		<liferay.theme.parent>_styled</liferay.theme.parent>
-		<liferay.theme.type>vm</liferay.theme.type>
 	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			<!-- Liferay -->
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-client</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-impl</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-kernel</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-service</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-web</artifactId>
+				<version>${liferay.version}</version>
+				<type>war</type>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-bridges</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-java</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-taglib</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.maven.plugins</groupId>
+				<artifactId>liferay-maven-plugin</artifactId>
+				<version>${liferay.version}</version>
+			</dependency>
 
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.liferay.maven.plugins</groupId>
+				<artifactId>liferay-maven-plugin</artifactId>
+				<version>${liferay.version}</version>
+				<configuration>
+					<liferayVersion>${liferay.version}</liferayVersion>
+					<deployDir>${liferay.auto.deploy.dir}</deployDir>
+					<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+					<unpackWar>true</unpackWar>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 	<modules>
-    	<module>liferay-environment</module>
+		<module>liferay-environment</module>
 		<module>liferay-theme-social</module>
-  	</modules>
+	</modules>
+	
 </project>
