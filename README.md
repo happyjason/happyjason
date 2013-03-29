@@ -7,16 +7,16 @@
 ----------------------------------------------------------------------------------------------
 维迪易优统一通信平台模块简述
 ----------------------------------------------------------------------------------------------
-unified-communication-core                 核心与公用类模块。
-unified-communication-support-cas          OAuth,SSO等鉴权登录组件。
-unified-communication-support-vidyo        与Vidyo相关接口。
-unified-communication-support-unicom       与China Unicom相关接口。
-unified-communication-extension-hr         公司人事管理与招聘。
-unified-communication-extension-rcp        远程逻辑服务器调用与处理。
-unified-communication-extension-security   用户安全中心。
-unified-communication-extension-social     社交网络整合与逻辑处理。
-unified-communication-webapp               WEB表现层。
-unified-communication-webapp-cms           CMS管理后台WEB表现层。
+unified-communication-core:核心与公用类模块。
+unified-communication-support-cas:OAuth,SSO等鉴权登录组件。
+unified-communication-support-vidyo:与Vidyo相关接口。
+unified-communication-support-unicom:与China Unicom相关接口。
+unified-communication-extension-hr:公司人事管理与招聘。
+unified-communication-extension-rcp:远程逻辑服务器调用与处理。
+unified-communication-extension-security:用户安全中心。
+unified-communication-extension-social:社交网络整合与逻辑处理。
+unified-communication-webapp:WEB表现层。
+-unified-communication-webapp-cms:CMS管理后台WEB表现层。-
 
 ----------------------------------------------------------------------------------------------
 维迪易优统一通信平台部署步骤
@@ -41,14 +41,22 @@ unified-communication-webapp-cms           CMS管理后台WEB表现层。
 8. 用到附件上传，一定要将附件信息存储到指定一台附件管理的服务器上。
 
 ----------------------------------------------------------------------------------------------
-Appfuse 常用的命令介绍：
+Appfuse Maven 常用的命令介绍：
 ----------------------------------------------------------------------------------------------
-mvn appfuse:gen-model    根据数据库的表生成java类
-mvn appfuse:gen          根据 POJOs.生成并安装 Tests, DAOs, Managers, Controllers and Views
-mvn appfuse:full-source  把运行所需要的org.appfuse中的依赖类转换成你的包名称
-mvn eclipse:eclipse      生成eclipse的项目的配置文件，用户可以直接把项目导入到eclipse中
-mvn jetty:run-war        打包并且发布你的应用程序到Jetty, 查看在 http://localhost:8080
-mvn appfuse:install      把生成的源代码及配置文件写入到src中
-mvn integration-test     启动TOMCAT(或别的服务器)进行测试
-mvn appfuse:remove       删除appfuse:gen.生成的代码
-mvn appfuse:clean        清除target下的所有内容
+mvn appfuse:gen-model-----根据数据库的表生成java类
+mvn appfuse:gen-----------根据 POJOs.生成并安装 Tests, DAOs, Managers, Controllers and Views
+mvn appfuse:full-source---把运行所需要的org.appfuse中的依赖类转换成你的包名称
+mvn eclipse:eclipse-------生成eclipse的项目的配置文件，用户可以直接把项目导入到eclipse中
+mvn jetty:run-war---------打包并且发布你的应用程序到Jetty, 查看在 http://localhost:8080
+mvn appfuse:install-------把生成的源代码及配置文件写入到src中
+mvn integration-test------启动TOMCAT(或别的服务器)进行测试
+mvn appfuse:remove--------删除appfuse:gen.生成的代码
+mvn appfuse:clean---------清除target下的所有内容
+
+----------------------------------------------------------------------------------------------
+Liferay Maven 常用的命令介绍：
+----------------------------------------------------------------------------------------------
+mvn archetype:generate -B -DarchetypeGroupId=com.liferay.maven.archetypes -DarchetypeArtifactId=liferay-portlet-archetype -DarchetypeVersion=6.1.1 -DgroupId=${groupId} -DartifactId=${artifactId} -Dpackage=${groupId}
+-----------------------生成plugin
+mvn package------------打包
+mvn liferay:deploy-----部署
