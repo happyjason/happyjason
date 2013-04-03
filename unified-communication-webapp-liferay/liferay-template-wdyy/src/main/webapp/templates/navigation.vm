@@ -1,0 +1,53 @@
+#if ($has_navigation || $is_signed_in)
+<script type="text/javascript" src="http://js.vcccdn.com/qjb/1.0.0/checkbox/jquery.ezmark.min.js"></script>
+<nav class="$nav_css_class" id="navigation">
+	<div class="login_center">
+		<div class="regist_btn" id="register_Small">
+			<a class="action" href="javascript:void(0);">
+				<img src="http://img.vcccdn.com/platform/login/allen/1.0.0/register_ico.png" alt="#language("navigation")"/>
+			</a>
+		</div>
+	</div>
+	<div class="destroy">
+	    <div class="sheet">
+	        <div class="sheet_main">
+	            <div class="sheet_main_title"><span>填写注册信息</span> 以下信息均为必填项</div>
+	            <div class="sheet_main_from">
+	                <ul>
+	                    <li><input type="text" placeholder="昵称"></li>
+	                    <li><input type="email" placeholder="邮箱"></li>
+	                    <li><input type="password" placeholder="密码"></li>
+	                    <li><button type="submit" class="btn btn-info reg_btn login_btn_font">登录</button></li>
+	                    <li class="sheet_main_from_right">已有帐号<a href="javascript:void(0)">登录</a></li>
+	                </ul>
+	            </div>
+	            <a class="close" title="关闭" href="javascript:void(0)"></a>
+	        </div>
+	    </div>
+	</div>
+##	<ul>
+##		#foreach ($nav_item in $nav_items)
+##			#if ($nav_item.isSelected())
+##				<li class="selected">
+##			#else
+##				<li>
+##			#end
+##				<a href="$nav_item.getURL()" $nav_item.getTarget()><span>$nav_item.icon() $nav_item.getName()</span></a>
+##				#if ($nav_item.hasChildren())
+##					<ul class="child-menu">
+##						#foreach ($nav_child in $nav_item.getChildren())
+##							#if ($nav_child.isSelected())
+##								<li class="selected">
+##							#else
+##								<li>
+##							#end
+##								<a href="$nav_child.getURL()" $nav_child.getTarget()>$nav_child.getName()</a>
+##							</li>
+##						#end
+##					</ul>
+##				#end
+##			</li>
+##		#end
+##	</ul>
+</nav>
+#end

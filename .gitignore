@@ -1,6 +1,18 @@
 *.class
 
+# Project Files #
+.project
+.classpath
+.settings
+
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Package Folder #
+/target
+/build
+
+# Rebel Files #
+rebel.xml

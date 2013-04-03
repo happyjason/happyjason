@@ -1,0 +1,7 @@
+#*
+This file allows you to override and define new Velocity variables.
+*#
+
+#set ($css_class = $css_class + " register_bg")
+
+#set ($nav_css_class = $nav_css_class + " register")
