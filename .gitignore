@@ -12,7 +12,11 @@
 
 # Package Folder #
 /target
-/build
+/**/target
+/**/**/target
+/**/**/**/target
+
+/**/build
 
 # Rebel Files #
 rebel.xml
