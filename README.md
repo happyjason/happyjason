@@ -4,15 +4,15 @@
 
 ## 模块
 <pre style="border:0px;">unified-communication-core                 核心与公用类模块
-unified-communication-support-cas          OAuth,SSO等鉴权登录组件
-unified-communication-support-vidyo        与Vidyo相关接口
-unified-communication-support-unicom       与China Unicom相关接口
 unified-communication-extension-hr         公司人事管理与招聘
 unified-communication-extension-rcp        远程逻辑服务器调用与处理
 unified-communication-extension-security   用户安全中心
 unified-communication-extension-social     社交网络整合与逻辑处理
-unified-communication-webapp               WEB表现层
-unified-communication-webapp-liferay       liferay portlet</pre>
+unified-communication-support-cas          OAuth,SSO等鉴权登录组件
+unified-communication-support-vidyo        与Vidyo相关接口
+unified-communication-support-unicom       与China Unicom相关接口
+unified-communication-support-liferay      liferay portlet扩展
+unified-communication-webapp               WEB表现层</pre>
 
 ## 注意
 1. 字符集编码统一使用UTF-8。
@@ -26,7 +26,7 @@ unified-communication-webapp-liferay       liferay portlet</pre>
 
 ## 部署
 1. 下载并安装 MySQL 5.x 数据库，建立数据库communication，默认用户名与密码请从pom文件查询或修改。
-2. 进入unified-communication-webapp-liferay中的liferay-dist目录由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
+2. 进入unified-communication-extension-liferay中的liferay-dist目录由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
 3. support,extension等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
 4. portlet等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn package",然后运行"mvn liferay:deploy"。
 5. 命令行模式下进入webapp目录或在含有Maven插件的Eclipse工具运行命令："mvn jetty:run"。
@@ -44,4 +44,4 @@ mvn appfuse:install       把生成的源代码及配置文件写入到src中
 mvn integration-test      启动TOMCAT(或别的服务器)进行测试
 mvn appfuse:remove        删除appfuse:gen.生成的代码
 mvn appfuse:clean         清除target下的所有内容</pre>
-<pre style="border:0px;">mvn archetype:generate -B -DarchetypeGroupId=com.liferay.maven.archetypes -DarchetypeArtifactId=liferay-ext-archetype -DarchetypeVersion=6.1.1 -DgroupId=com.ammob.communication -DartifactId=${artifactId} -Dpackage=${groupId}</pre>
+<pre style="border:0px;">mvn archetype:generate -B -DarchetypeGroupId=com.liferay.maven.archetypes -DarchetypeArtifactId=liferay-ext-archetype -DarchetypeVersion=6.1.1 -DgroupId=com.ammob.communication -DartifactId=liferay-hook-wdyy -Dpackage=foo</pre>

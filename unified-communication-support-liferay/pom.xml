@@ -10,9 +10,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>unified-communication-webapp-liferay</artifactId>
+	<artifactId>unified-communication-support-liferay</artifactId>
 	<packaging>pom</packaging>
-	<name>Unified Communication Platform - Liferay Portlet</name>
+	<name>Unified Communication Platform - Support Liferay</name>
 
 	<properties>
 		<!-- Application settings -->
@@ -96,8 +96,9 @@
 	</build>
 	
 	<modules>
+		<module>liferay-dist</module>
 		<module>liferay-environment</module>
     	<module>liferay-template-wdyy</module>
-  </modules>
-	
+    	<module>liferay-hook-login</module>
+  	</modules>
 </project>
