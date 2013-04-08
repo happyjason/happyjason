@@ -100,5 +100,5 @@
 		<module>liferay-environment</module>
     	<module>liferay-template-wdyy</module>
     	<module>liferay-hook-login</module>
-  	</modules>
+	</modules>
 </project>

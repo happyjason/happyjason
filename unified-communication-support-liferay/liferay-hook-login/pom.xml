@@ -8,7 +8,7 @@
   </parent>
 	<artifactId>liferay-hook-login</artifactId>
 	<packaging>war</packaging>
-	<name>liferay-hook-login Hook</name>
+	<name>Lferay Plugin Hook</name>
 	<build>
 		<plugins>
 			<plugin>
@@ -29,8 +29,8 @@
 				<version>2.5</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -70,11 +70,6 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.0</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.portal</groupId>
-			<artifactId>portal-web</artifactId>
-			<type>war</type>
 		</dependency>
 	</dependencies>
 </project>

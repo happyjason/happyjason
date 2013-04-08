@@ -86,7 +86,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-
 				<executions>
 					<execution>
 						<id>default-cli</id>
@@ -158,7 +157,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 									<version>${liferay.version}</version>
 									<type>war</type>
 									<overWrite>true</overWrite>
-									<outputDirectory>${liferay.auto.deploy.dir}/ROOT</outputDirectory>
+									<outputDirectory>${liferay.container.dir}/webapps/ROOT</outputDirectory>
 									<excludes>**/*.war</excludes>
 								</artifactItem>
 							</artifactItems>
