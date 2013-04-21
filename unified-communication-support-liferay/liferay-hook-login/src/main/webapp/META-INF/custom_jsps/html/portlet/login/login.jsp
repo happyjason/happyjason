@@ -52,8 +52,8 @@
 		<div class="login_center login_bg1">
 		<div class="login_bg2">
 			        <div class="login_logo"><img src="http://img.vcccdn.com/platform/login/allen/1.0.0/login_logo.png"/></div>
-			<aui:form action="<%= loginURL %>" autocomplete='<%= PropsValues.COMPANY_SECURITY_LOGIN_FORM_AUTOCOMPLETE ? "on" : "off" %>' method="post" name="fm">
-				<div class="login_form_title"><span></span> 最专业的企业协作平台</div>
+			<aui:form action="<%= loginURL %>" autocomplete='<%= PropsValues.COMPANY_SECURITY_LOGIN_FORM_AUTOCOMPLETE ? "on" : "off" %>' method="post" name="fm" class="form-horizontal">
+				<div class="login_form_title"><span><%= LanguageUtil.get(pageContext, "sign-in") %></span><%= LanguageUtil.get(pageContext, "platform.slogan") %></div>
 				<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	
 				<c:choose>

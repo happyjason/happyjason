@@ -3,7 +3,7 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
-	<!-- <language-properties>content/message</language-properties> -->
+	<language-properties>content/message.properties</language-properties>
 	<!-- <service>
 		<service-type>
 			com.liferay.portal.service.BaseService
@@ -11,5 +11,5 @@
 		<service-impl></service-impl>
 	</service> -->
     <custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
-    <custom-jsp-global>false</custom-jsp-global>
+    <custom-jsp-global>true</custom-jsp-global>
 </hook>

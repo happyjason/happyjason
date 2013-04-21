@@ -87,19 +87,19 @@ $theme.include($bottom_include)
 <script type="text/javascript">
 $(function() {
     $('.controls_checkbox input[type="checkbox"]').ezMark({checkboxCls: 'ez-checkbox-green', checkedCls: 'ez-checked-green'})
-}); 
+});
 </script>
 <script type="text/javascript">
-$(document).ready(function(){    
+$(document).ready(function(){
     var h = $(document).height();
-    $(".overlay").css({"height": h });      
-    $(".action").click(function(){    
-        $(".overlay").css({'display':'block'}).animate({'opacity':'1'});        
-        $(".destroy").stop(true).animate({'margin-top':'0px','opacity':'1'},400);        
-    });    
-    $(".close,.sheet_main_from_right a").click(function(){    
+    $(".overlay").css({"height": h });
+    $(".action").click(function(){
+        $(".overlay").css({'display':'block'}).animate({'opacity':'1'});
+        $(".destroy").stop(true).animate({'margin-top':'0px','opacity':'1'},400);
+    });
+    $(".close,.sheet_main_from_right a").click(function(){
         $(".destroy").stop(true).animate({'margin-top':'-510px','opacity':'1'},800);
-        $(".overlay").css({'display':'none'}).animate({'opacity':'1'});        
-    });    
+        $(".overlay").css({'display':'none'}).animate({'opacity':'1'});
+    });
 });
 </script>

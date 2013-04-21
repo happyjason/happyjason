@@ -27,12 +27,13 @@
 						<configuration>
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
-								<!-- <wsdlOption> -->
+								<wsdlOption>
+								 <wsdl>http://v.seekoom.com/services/VidyoPortalSuperService?wsdl</wsdl>
 								<!-- <wsdl>http://v.seekoom.com/services/v1_1/VidyoPortalUserService?wsdl</wsdl> -->
 								<!-- <wsdl>http://v.seekoom.com/services/v1_1/VidyoPortalAdminService?wsdl</wsdl> -->
 								<!-- <wsdl>http://v.seekoom.com/services/VidyoPortalGuestService?wsdl</wsdl> -->
 								<!-- <wsdl>http://v.seekoom.com/replay/services/VidyoReplayContentManagementService?wsdl</wsdl> -->
-								<!-- </wsdlOption> -->
+								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
 						<goals>

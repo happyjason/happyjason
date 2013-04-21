@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 
 import com.vidyo.portal.admin.v1_1.InviteToConferenceResponse;
 import com.vidyo.portal.admin.v1_1.VidyoPortalAdminServicePortType;
+import com.vidyo.portal.superapi.VidyoPortalSuperServicePortType;
 import com.vidyo.portal.user.v1_1.LogInResponse;
 import com.vidyo.portal.user.v1_1.VidyoPortalUserServicePortType;
 
@@ -16,6 +17,19 @@ import com.vidyo.portal.user.v1_1.VidyoPortalUserServicePortType;
 @WebService
 @Path("/vidyo")
 public interface VidyoManager {
+	
+	/**
+	 * vidyo portal super service, webservice method
+	 * 
+	 * @param protalUrl
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	VidyoPortalSuperServicePortType getSuperClient(String protalUrl, String username, String password)
+			throws MalformedURLException;
+	
 	
 	/**
 	 * vidyo portal admin service, webservice method

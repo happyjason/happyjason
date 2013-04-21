@@ -4,15 +4,11 @@ import org.apache.commons.lang.StringUtils;
 
 import com.ammob.communication.core.Constants;
 import com.ammob.communication.core.service.UserManager;
+import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.service.TenantManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -99,24 +95,10 @@ public class TenantFormController extends BaseFormController {
             }
         }
         String tenantId = request.getParameter("id");
-        
-        // if user logged in with remember me, display a warning that they can't change passwords
-        log.debug("checking for remember me login...");
-
-        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-        SecurityContext ctx = SecurityContextHolder.getContext();
-
-        if (ctx.getAuthentication() != null) {
-            Authentication auth = ctx.getAuthentication();
-
-            if (resolver.isRememberMe(auth)) {
-                request.getSession().setAttribute("cookieLogin", "true");
-
-                // add warning message
-                saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
-            }
+        if(StringUtil.hasText(tenantId)){
+        	return tenantManager.getTenant(tenantId);
         }
-        return tenantManager.getTenant(tenantId);
+        return new Tenant();
     }
 
     private boolean isFormSubmission(HttpServletRequest request) {

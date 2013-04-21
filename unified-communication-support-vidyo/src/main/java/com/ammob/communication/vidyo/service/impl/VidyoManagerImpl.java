@@ -25,6 +25,10 @@ import com.vidyo.portal.admin.v1_1.InviteToConferenceRequest;
 import com.vidyo.portal.admin.v1_1.InviteToConferenceResponse;
 import com.vidyo.portal.admin.v1_1.VidyoPortalAdminService;
 import com.vidyo.portal.admin.v1_1.VidyoPortalAdminServicePortType;
+import com.vidyo.portal.superapi.ListTenantsRequest;
+import com.vidyo.portal.superapi.ListTenantsResponse;
+import com.vidyo.portal.superapi.VidyoPortalSuperService;
+import com.vidyo.portal.superapi.VidyoPortalSuperServicePortType;
 import com.vidyo.portal.user.v1_1.GeneralFault_Exception;
 import com.vidyo.portal.user.v1_1.InvalidArgumentFault_Exception;
 import com.vidyo.portal.user.v1_1.LogInRequest;
@@ -103,6 +107,19 @@ public class VidyoManagerImpl implements VidyoManager {
 		return client;
 	}
 	
+    /**
+     * {@inheritDoc}
+     */
+	public VidyoPortalSuperServicePortType getSuperClient(String protalUrl,
+			String username, String password) throws MalformedURLException {
+		VidyoPortalSuperService service = new VidyoPortalSuperService(new URL(protalUrl + "/services/VidyoPortalSuperService?wsdl"));
+		VidyoPortalSuperServicePortType client = service.getVidyoPortalSuperServicePort();
+		BindingProvider bp = (BindingProvider)client;
+		bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, username);
+		bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, password);
+		return client;
+	}
+	
 	public LogInResponse login(String protalUrl, String username,
 			String password) throws MalformedURLException, SeatLicenseExpiredFault_Exception, NotLicensedFault_Exception, InvalidArgumentFault_Exception, GeneralFault_Exception {
 		return getUserClient(protalUrl, username, password).logIn(new LogInRequest());
@@ -121,18 +138,10 @@ public class VidyoManagerImpl implements VidyoManager {
 		return getAdminClient(protalUrl, username, password).inviteToConference(inviteRequest);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		VidyoManager vidyo = new VidyoManagerImpl();
-		try {
-			vidyo.invite("http://v.seekoom.com", "hotmob", "121212");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (com.vidyo.portal.admin.v1_1.GeneralFault_Exception e) {
-			e.printStackTrace();
-		} catch (com.vidyo.portal.admin.v1_1.NotLicensedFault_Exception e) {
-			e.printStackTrace();
-		} catch (com.vidyo.portal.admin.v1_1.InvalidArgumentFault_Exception e) {
-			e.printStackTrace();
-		}
+		//vidyo.invite("http://v.seekoom.com", "hotmob", "121212");
+		ListTenantsResponse  dd = vidyo.getSuperClient("http://v.seekoom.com", "super", "password").getListOfTenants(new ListTenantsRequest());
+		dd.getTenant();
 	}
 }
