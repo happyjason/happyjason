@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Implementation of <strong>SimpleFormController</strong> that contains
  * convenience methods for subclasses.  For example, getting the current
- * user and saving messages/errors. This class is intended to
+ * user and saving messages/errors. This class is intended to test2
  * be a base class for all Form controllers.
  */
 public class BaseFormController implements ServletContextAware {
