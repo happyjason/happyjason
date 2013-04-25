@@ -107,4 +107,6 @@ public final class Constants {
      * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";
+
+	public static final String PORTAL_LIST = "portalList";
 }

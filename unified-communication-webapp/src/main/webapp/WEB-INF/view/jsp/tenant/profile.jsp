@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="tenantProfile.title"/></title>
-    <meta name="menu" content="TenantMenu"/>
+    <meta name="menu" content="PortalMenu"/>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="tenantList.tenant"/></c:set>
@@ -42,7 +42,9 @@
         <c:if test="${empty tenant.version}">
             <input type="hidden" name="encryptPass" value="true"/>
         </c:if>
-
+ 		<c:if test="${ not empty portal_id}">
+            <input type="hidden" name="portal_id" value="<c:out value="${portal_id}"/>"/>
+        </c:if>
         <spring:bind path="tenant.name">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
@@ -61,6 +63,18 @@
                 <form:errors path="url" cssClass="help-inline"/>
             </div>
         </fieldset>
+        
+        
+         <spring:bind path="tenant.paymentDays">
+        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
+        </spring:bind>
+            <appfuse:label styleClass="control-label" key="tenantForm.paymentDays"/>
+            <div class="controls">
+                <form:input path="paymentDays" id="paymentDays" />
+                <form:errors path="paymentDays" cssClass="help-inline"/>
+            </div>
+        </fieldset>
+        
         <spring:bind path="tenant.vidyoReplayUrl">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
