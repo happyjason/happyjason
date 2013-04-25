@@ -7,6 +7,5 @@
 <hibernate-configuration>
     <session-factory>
         <mapping class="com.ammob.communication.vidyo.model.Tenant"/>
-        <mapping class="com.ammob.communication.vidyo.model.Portal"/>
     </session-factory>
 </hibernate-configuration>

@@ -39,12 +39,12 @@ public class TenantManagerTest extends BaseManagerTestCase {
 	
 	@Test
 	public void testHandleCallDetailRecordUpload(){
-//		boolean handle = false;
-//		try {
-//			handle = mgr.handleCallDetailRecordUpload(mgr.get(2L));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		assertTrue(handle);
+		boolean handle = false;
+		try {
+			handle = mgr.handleCallDetailRecordUpload(mgr.get(2L));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertTrue(handle);
 	}
 }

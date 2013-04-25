@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="tenantList.title"/></title>
-    <meta name="menu" content="PortalMenu"/>
+    <meta name="menu" content="TenantMenu"/>
 </head>
 
 <c:if test="${not empty searchError}">
@@ -26,7 +26,7 @@
     </form>
 
     <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="<c:url value='/tenant/profile?method=Add&portal_id=${portal_id}&from=list'/>">
+        <a class="btn btn-primary" href="<c:url value='/tenant/profile?method=Add&from=list'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
 
         <a class="btn" href="<c:url value='/home'/>">
@@ -36,9 +36,9 @@
     <display:table name="tenantList" cellspacing="0" cellpadding="0" requestURI="" defaultsort="1" 
     	id="tenants" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
         <display:column property="id" sortable="true" titleKey="tenantForm.id" style="width: 5%"
-        	url="/tenant/profile?from=list&portal_id=${portal_id }" paramId="id" paramProperty="id" escapeXml="true"/>
+        	url="/tenant/profile?from=list" paramId="id" paramProperty="id" escapeXml="true"/>
         <display:column property="name" sortable="true" titleKey="tenantForm.name" style="width: 12%"
-        	url="/tenant/profile?from=list&portal_id=${portal_id }" paramId="id" paramProperty="id" escapeXml="true"/>
+        	url="/tenant/profile?from=list" paramId="id" paramProperty="id" escapeXml="true"/>
         <display:column property="url" sortable="true" titleKey="tenantForm.url"  style="width: 24%"
         	escapeXml="true"/>
         <display:column property="description" sortable="true" titleKey="tenantForm.description" style="width: 32%" 
@@ -48,7 +48,7 @@
             <input type="checkbox" disabled="disabled" <c:if test="${tenants.enabled}">checked="checked"</c:if>/>
         </display:column>
         <display:column titleKey="tenantForm.license" style="width: 5%" 
-        	href="../tenant/manage" paramId="id" paramProperty="id">
+        	href="tenant/manage" paramId="id" paramProperty="id">
 			<c:if test="${tenants.license}">
 				<button class="btn btn-small btn-primary">
         			<fmt:message key='button.manage'/>
@@ -56,7 +56,7 @@
 			</c:if>
     	</display:column>
     	<display:column titleKey="tenantForm.cdr" style="width: 5%" 
-        	href="../tenant/cdr" paramId="id" paramProperty="id">
+        	href="tenant/cdr" paramId="id" paramProperty="id">
 			<c:if test="${tenants.cdr}">
 				<button class="btn btn-small">
         			<fmt:message key='button.view'/>

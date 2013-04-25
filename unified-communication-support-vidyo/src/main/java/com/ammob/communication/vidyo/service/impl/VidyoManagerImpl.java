@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
@@ -17,30 +16,20 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.solr.handler.admin.AdminHandlers;
 import org.springframework.stereotype.Service;
 
 import com.ammob.communication.vidyo.service.VidyoManager;
-import com.vidyo.portal.admin.v1_1.AddRoomRequest;
-import com.vidyo.portal.admin.v1_1.GetGroupRequest;
-import com.vidyo.portal.admin.v1_1.GetMemberRequest;
-import com.vidyo.portal.admin.v1_1.GetMemberResponse;
 import com.vidyo.portal.admin.v1_1.GetRoomsRequest;
 import com.vidyo.portal.admin.v1_1.GetRoomsResponse;
 import com.vidyo.portal.admin.v1_1.InviteToConferenceRequest;
 import com.vidyo.portal.admin.v1_1.InviteToConferenceResponse;
-import com.vidyo.portal.admin.v1_1.Room;
 import com.vidyo.portal.admin.v1_1.VidyoPortalAdminService;
 import com.vidyo.portal.admin.v1_1.VidyoPortalAdminServicePortType;
 import com.vidyo.portal.superapi.ListTenantsRequest;
 import com.vidyo.portal.superapi.ListTenantsResponse;
-import com.vidyo.portal.superapi.SingleTenantDataType;
 import com.vidyo.portal.superapi.VidyoPortalSuperService;
 import com.vidyo.portal.superapi.VidyoPortalSuperServicePortType;
 import com.vidyo.portal.user.v1_1.GeneralFault_Exception;
-import com.vidyo.portal.user.v1_1.GetRoomProfileRequest;
-import com.vidyo.portal.user.v1_1.GetUserNameRequest;
-import com.vidyo.portal.user.v1_1.GetWebcastURLRequest;
 import com.vidyo.portal.user.v1_1.InvalidArgumentFault_Exception;
 import com.vidyo.portal.user.v1_1.LogInRequest;
 import com.vidyo.portal.user.v1_1.LogInResponse;
@@ -152,29 +141,7 @@ public class VidyoManagerImpl implements VidyoManager {
 	public static void main(String[] args) throws Exception {
 		VidyoManager vidyo = new VidyoManagerImpl();
 		//vidyo.invite("http://v.seekoom.com", "hotmob", "121212");
-//		ListTenantsResponse  dd = vidyo.getSuperClient("http://bj.vidyo.com", "super", "WdyyVidyo").getListOfTenants(new ListTenantsRequest());
-//		List<SingleTenantDataType> singleTenantDataTypes = dd.getTenant();
-//		for(SingleTenantDataType s:singleTenantDataTypes){
-//			System.out.println("VidyoManagerImpl.main()"+s.getTenantURL());
-//			System.out.println("VidyoManagerImpl.main()"+s.getTenantName());
-//		}
-		
-//		VidyoPortalUserServicePortType  dd = vidyo.getUserClient("http://v.seekoom.com", "hotmob", "121212");
-//		GetUserNameRequest g = new GetUserNameRequest();
-//	
-//		System.out.println("VidyoManagerImpl.main()"+dd.getUserName(g).getRealUserName());
-//		
-//		
-//		System.out.println("VidyoManagerImpl.main()"+dd.getUserName(new GetUserNameRequest()).getRealUserName());
-//		
-		
-		
-		
-//		VidyoPortalAdminServicePortType  dd = vidyo.getAdminClient("http://v.seekoom.com", "hotmob", "121212");
-//	
-//		System.out.println("VidyoManagerImpl.main()"+dd.addRoom(new AddRoomRequest().setRoom(new Room)));
-//		
-		
-	
+		ListTenantsResponse  dd = vidyo.getSuperClient("http://v.seekoom.com", "super", "password").getListOfTenants(new ListTenantsRequest());
+		dd.getTenant();
 	}
 }

@@ -25,7 +25,7 @@ import com.ammob.communication.core.dao.SearchException;
 import com.ammob.communication.core.service.MailEngine;
 import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.core.util.StringUtil;
-import com.ammob.communication.hr.model.Post;  
+import com.ammob.communication.hr.model.Post;
 import com.ammob.communication.hr.service.PostManager;
 import com.ammob.communication.vidyo.util.FtpUtil;
 import com.ammob.communication.webapp.form.PostForm;
