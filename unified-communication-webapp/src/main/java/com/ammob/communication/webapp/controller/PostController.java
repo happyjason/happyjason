@@ -25,7 +25,7 @@ import com.ammob.communication.core.dao.SearchException;
 import com.ammob.communication.core.service.MailEngine;
 import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.core.util.StringUtil;
-import com.ammob.communication.hr.model.Post;  
+import com.ammob.communication.hr.model.Post;
 import com.ammob.communication.hr.service.PostManager;
 import com.ammob.communication.vidyo.util.FtpUtil;
 import com.ammob.communication.webapp.form.PostForm;
@@ -199,8 +199,8 @@ public class PostController {
 				String result = mailEngine.sendMessage(new String[]{"yufeng@seekoom.com","vanton@seekoom.com","mob@seekoom.com", post.getRecipientsEmail()}, 
 						"面试邀请", "velocity/Interview.vm", mapper);
 				BaseFormController.saveMessage(request, text.getMessage("success.operate"));
-				FtpUtil.uploadFile("180.169.118.125", 21, "mob", "121212",
-						"/F:/FTP_PATH/vccould/offer", uuid + ".html", new ByteArrayInputStream(result.getBytes()));
+				FtpUtil.uploadFile("www.vccloud.com.cn", 21, "mob", "121212",
+						"/offer", uuid + ".html", new ByteArrayInputStream(result.getBytes()));
 				return new ModelAndView("redirect:/post", model.asMap());
 			} catch (Exception e) {
 				BaseFormController.saveError(request, e.getMessage());
