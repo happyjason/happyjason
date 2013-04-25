@@ -185,7 +185,7 @@ portalList.tenants=门户
 portalProfile.heading=Portal简要介绍
 portalProfile.admin.message=您可以按如下表格，更新Portal的信息。
 portalProfile.listTenant=查看租客
-portalProfile.addTenant=添加租客
+portalProfile.addTenant=查看租客
 menu.portal=门户管理
 
 # -- user self-registration --

@@ -108,6 +108,7 @@
 		<column>version</column>
 		<column>enabled</column>
 		<column>license</column>
+	
 		<row>
 			<value description="id">1</value>
 			<value description="name">sunpa</value>
@@ -132,6 +133,7 @@
 			<value description="cdr">0</value>
 			<value description="enabled">1</value>
 			<value description="license">0</value>
+		
 		</row>
 		<row>
 			<value description="id">2</value>
@@ -206,4 +208,32 @@
 	        <value description="UniqueCallID">10774977264114470189</value>
 	    </row>
     </table>-->
+     
+   <table name="t_ext_vidyo_portal">
+   	<column>id</column>
+   	<column>portalurl</column>
+   	<column>portalname</column>
+   	<column>portalpassword</column>
+   	<row>
+   		<value description="id">2</value>
+   			<value description="portalurl">www.baidu.com</value>
+   				<value description="portalname">jason</value>
+   					<value description="portalpassword">jason</value>
+   	</row>
+   
+   
+   </table>
+   
+   <table name="t_ext_portal_tenant">
+   	 	<column>portal_id</column>
+   		<column>tenant_id</column>
+   		<row>
+   			<value description="portal_id">2</value>
+   			<value description="tenant_id">1</value>
+   		</row>
+   				<row>
+   			<value description="portal_id">2</value>
+   			<value description="tenant_id">2</value>
+   		</row>
+   </table>
 </dataset>
