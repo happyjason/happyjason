@@ -14,7 +14,7 @@
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 
     <jaxws:endpoint id="userService" implementor="#userManager" address="/UserService"/>
-    <jaxws:endpoint id="tenantService" implementor="#tenantManager" address="/TenantService"/>
+    <jaxws:endpoint id="vidyoService" implementor="#vidyoManager" address="/VidyoService"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
@@ -23,7 +23,7 @@
         </jaxrs:features>
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
-            <ref bean="tenantManager"/>
+            <ref bean="vidyoManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>

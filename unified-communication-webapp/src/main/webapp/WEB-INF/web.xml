@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <display-name>appfuse</display-name>
+    <display-name>unified-communication</display-name>
     <distributable/>
 
     <!-- precompiled jsp mappings -->
@@ -12,7 +12,7 @@
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-        <param-value>ApplicationResources</param-value>
+        <param-value>content/Language</param-value>
     </context-param>
     <!-- Fallback locale if no bundles found for browser's preferred locale -->
     <!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
@@ -28,6 +28,7 @@
             classpath:/applicationContext-dao.xml
             classpath:/applicationContext-service.xml
             classpath:/applicationContext-extension-hr.xml
+            classpath:/applicationContext-support-cas.xml
             classpath:/applicationContext-support-vidyo.xml
             classpath*:/applicationContext.xml
             /WEB-INF/applicationContext*.xml
@@ -35,7 +36,16 @@
             /WEB-INF/security.xml
         </param-value>
     </context-param>
-
+    <!-- CAS Configuration locations, Begin ! -->
+	<filter>
+		<filter-name>CAS Client Info Logging Filter</filter-name>
+		<filter-class>com.github.inspektr.common.web.ClientInfoThreadLocalFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Client Info Logging Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- CAS Configuration locations, End ! -->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -78,14 +88,14 @@
             if you are having trouble using normal levels use sysout:DEBUG -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>commons</param-value>
+            <param-value>INFO</param-value>
         </init-param>
         <!-- set the amount of seconds the conf file will be checked for reload
             can be a valid integer (0 denotes check every time,
             -1 denotes no reload check, default -1) -->
         <init-param>
             <param-name>confReloadCheckInterval</param-name>
-            <param-value>-1</param-value>
+            <param-value>0</param-value>
         </init-param>
     </filter>
     <filter>
@@ -166,7 +176,17 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+    
+	<servlet>
+		<servlet-name>cas</servlet-name>
+		<servlet-class>org.jasig.cas.web.init.SafeDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>publishContext</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
@@ -195,14 +215,23 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>cas</servlet-name>
+        <url-pattern>/cas/*</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <error-page>
+	    <exception-type>org.springframework.context.ApplicationContextException</exception-type>
+	    <location>/WEB-INF/view/jsp/brokenContext.jsp</location>
+    </error-page>
+    <error-page>
         <error-code>500</error-code>
-        <location>/error.jsp</location>
+        <location>/WEB-INF/view/jsp/errors.jsp</location>
     </error-page>
     <error-page>
         <error-code>400</error-code>

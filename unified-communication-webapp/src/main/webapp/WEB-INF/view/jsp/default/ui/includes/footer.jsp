@@ -1,15 +1,32 @@
 <%@ include file="/common/taglibs.jsp" %>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<c:url value="/js/cas.js" />"></script>
+<script>
+$(document).ready(function(){
 
-    <div id="divider"><div></div></div>
-    <span class="left"><fmt:message key="webapp.version"/> |
-        <span id="validators">
-            <a href="http://validator.w3.org/check?uri=referer">XHTML Valid</a> |
-            <a href="http://jigsaw.w3.org/css-validator/validator-uri.html">CSS Valid</a>
-        </span>
-        <c:if test="${pageContext.request.remoteUser != null}">
-        | <fmt:message key="user.status"/> ${pageContext.request.remoteUser}
-        </c:if>
-    </span>
-    <span class="right">
-        &copy; <fmt:message key="copyright.year"/> <a href="<fmt:message key="company.url"/>"><fmt:message key="company.name"/></a>
-    </span>
+	$(".login_checkbox1").click(function(){
+		var check_status=$(this).children("span").attr("class");
+		if(check_status==='check_bg1'){
+			$(this).children("span").attr("class","").addClass("check_bg2");
+		}
+		else{
+			$(this).children("span").attr("class","").addClass("check_bg1");
+		}
+	}); 
+
+	var height=$(window).height();
+	$(".login_bg").css("height",height-112+"px");	
+
+	$(window).resize(function() {
+		var height=$(window).height();
+		$(".login_bg").css("height",height-112+"px");
+	});
+
+});
+</script>
+<script type="text/javascript" src="http://js.vcccdn.com/qjb/chinaunicom/jQSelect.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#select06").jQSelect({}); 
+}); 
+</script>

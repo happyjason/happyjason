@@ -1,4 +1,4 @@
-<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
+<%@ page language="java" session="true" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ taglib uri="http://www.springmodules.org/tags/commons-validator" prefix="v" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -12,6 +12,9 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="http://www.appfuse.org/tags/spring" prefix="appfuse" %>
+
+<%@ page import="org.jasig.cas.client.authentication.AttributePrincipal" %>
+<%@ page import="org.springframework.security.cas.authentication.CasAuthenticationToken" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="datePattern"><fmt:message key="date.format"/></c:set>

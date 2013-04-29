@@ -89,4 +89,30 @@
             <value description="role_id">1</value>
         </row>
     </table>
+    <!--Options-START-->
+    <table name="t_options">
+        <column>optionId</column>
+        <column>autoload</column>
+        <column>option_name</column>
+        <column>option_value</column>
+    <row>
+        <value description="optionId">-1</value>
+        <value description="autoload">QtEjGjGpGhByNqXrHqUn</value>
+        <value description="option_name">DzWtEfAfYfKhXmCoIuKaQgBfOuUjCfGiZoUbSoLmOzZkYmMqMgOjSyRhCrLkNoTo</value>
+        <value description="option_value">OxXpHbOtMgTiDtQwZpUuJiHzNsRcVgTfUrHsHsIeBpPjXvUdGxDtYjVrQfNvQlHvAaJiRsLrDaHrReLyYfCuItChTuMfBuCyTzSpIqKdWwKpArXqTvZfPoFxFuYaRmZaZlKcQvNdVtHtBeLsXqXoIiNrTvTxLrFjHyLuDcHsZeGtWvLtKuYlXkLoMaDuXdOsVfMsVuDsHvHtPxSdFpJsIpSuWyZyUzCnYmUoFtDuKpTsLtIkRqGsDuChEiCbPaV</value>
+    </row>
+    <row>
+        <value description="optionId">-2</value>
+        <value description="autoload">YoInUaYgRmRkQaElSmIk</value>
+        <value description="option_name">AlBxPyQbWsYzYhTcVxArIrVrCaQrHnIiFmEbOxZwKpAzNjLaKqImShXhZbLhUgRu</value>
+        <value description="option_value">ZgVmXyOiLhXnHjFwOfBnQtXyQsEcCeTePlVmRqWjFbWsJlYkHnRkYhXmAcQiAqVlHpSlUpQrDqDyMpMbDeOdWlJzMeOvZtQjIrNaKmOrGdLjDmWwKmDnQhXmGxDlUxHoZkZfXbTsLsXfIeCcYtTfKgYpTdHuCzMiApOaMkAiDkGbJlQuEyLqKaXvSfPgOiVnDbJbXqTaIwDfVyQbKkHrGvOlWiEyVtNmYcPqRrTeOvSvAcCwCuRxSvOjPnYlHrG</value>
+    </row>
+    <row>
+        <value description="optionId">-3</value>
+        <value description="autoload">MbEyBzIlEpMoUoWnXuRd</value>
+        <value description="option_name">XlVhWzVeGiWlIkZpZmQmUvFuZaVmAzVcYhHzLiOfVwXnEwJaJaOhZjSmAeUxNjBk</value>
+        <value description="option_value">VnLcJkXlXwPoQcYrInNfPeZdYhFeXkKhCnWvXjZnPmVkEsRcLiUmSlBsIrEqYyJmEuCzMwQyMeLmPpYcFtTaWhQtPnOpVfJtLwPcJgDvIdUpBkMqYtHvAsCoQzNdPdQqNxBrEdOsFaVeBqAePzXcBqSaNmWkYtHdCeTzHfSaFxHnSpXeDeQnInDmPfGgFxQdOcFqUiHlXlMuNsYaBlInVvEsWfDzNkOvJfJxHpFtIjRiDiRbAdKgYdTjOdGgHyP</value>
+    </row>
+    </table>
+    <!--Options-END-->
 </dataset>

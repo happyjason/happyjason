@@ -8,6 +8,7 @@ import com.ammob.communication.core.model.User;
 import com.ammob.communication.core.service.MailEngine;
 import com.ammob.communication.core.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.context.MessageSource;
@@ -50,6 +51,7 @@ public class BaseFormController implements ServletContextAware {
     private ServletContext servletContext;
 
     @Autowired(required = false)
+    @Qualifier("beanValidator")
     Validator validator;
 
     @Autowired

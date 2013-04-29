@@ -1,5 +1,6 @@
 package com.ammob.communication.core.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
@@ -22,5 +23,18 @@ public class StringUtil extends StringUtils {
 	 */
 	public static boolean isCharacterAndNumeric(String str){
 		return Pattern.compile("^[-+]?[a-zA-Z0-9]*$").matcher(str.trim()).matches();
+	}
+	
+	/**
+	 * 获取带有http前缀的完整URL域名
+	 * @param originalUrl
+	 * @return
+	 */
+	public static String getUrlDomain(String originalUrl)throws IllegalStateException {
+		Pattern p = Pattern.compile("http://.*?.(com|cn|net|org|biz|info|cc|tv)",
+				Pattern.CASE_INSENSITIVE);
+		Matcher matcher = p.matcher(originalUrl);
+		matcher.find();
+		return matcher.group();
 	}
 }

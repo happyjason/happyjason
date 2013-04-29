@@ -8,7 +8,6 @@
     <session-factory>
         <mapping class="com.ammob.communication.core.model.User"/>
         <mapping class="com.ammob.communication.core.model.Role"/>
-        <!-- <mapping class="com.ammob.communication.core.model.Tenant"/>
-        <mapping class="com.ammob.communication.core.model.ConferenceCall"/> -->
+        <mapping class="com.ammob.communication.core.model.Options"/>
     </session-factory>
 </hibernate-configuration>
