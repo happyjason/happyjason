@@ -15,12 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-
-
 
 @Entity
 @Table(name = "t_ext_vidyo_portal")

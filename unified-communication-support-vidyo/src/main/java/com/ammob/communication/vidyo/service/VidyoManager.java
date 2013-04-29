@@ -62,7 +62,16 @@ public interface VidyoManager {
 	 * @param logInResponse
 	 * @param username
 	 */
-	void synchroVidyoDeskTopClientLogin(String protalUrl, LogInResponse logInResponse, String username);
+	boolean vidyoSynchroDeskTopClientLogin(String protalUrl, LogInResponse logInResponse, String username);
+	
+	/**
+	 * custom client vidyo desktop client login
+	 * @deprecated
+	 * @param protalUrl
+	 * @param logInResponse
+	 * @param username
+	 */
+	boolean vidyoDeskTopClientLogin(String protalUrl, String username, String password);
 	
 	/**
 	 * 

@@ -1,14 +1,19 @@
 package com.ammob.communication.core.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.FieldInfo;
+import org.apache.lucene.index.FieldInfos;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.util.ReaderUtil;
 import org.apache.lucene.util.Version;
 import org.hibernate.Session;
 import org.hibernate.search.FullTextSession;
@@ -59,7 +64,12 @@ public class HibernateSearchUtil {
                 SearchFactory searchFactory = txtSession.getSearchFactory();
                 readerAccessor = searchFactory.getIndexReaderAccessor();
                 reader = readerAccessor.open(searchedEntity);
-                Collection<String> fieldNames = reader.getFieldNames(IndexReader.FieldOption.INDEXED);
+               // Collection<String> fieldNames = reader.getFieldNames(IndexReader.FieldOption.INDEXED);
+                FieldInfos fieldInfos = ReaderUtil.getMergedFieldInfos(reader);
+                Collection<String> fieldNames = new ArrayList<String>();
+                for(FieldInfo fi : fieldInfos){
+                	fieldNames.add(fi.name);
+                }
                 fieldNames.remove("_hibernate_class");
                 String[] fnames = new String[0];
                 fnames = fieldNames.toArray(fnames);

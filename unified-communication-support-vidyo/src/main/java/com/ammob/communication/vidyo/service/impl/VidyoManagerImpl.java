@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-
 import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
 
@@ -17,9 +15,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.solr.handler.admin.AdminHandlers;
 import org.springframework.stereotype.Service;
 
+import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.service.VidyoManager;
 import com.vidyo.portal.admin.v1_1.AddRoomRequest;
 import com.vidyo.portal.admin.v1_1.GetGroupRequest;
@@ -52,11 +50,35 @@ import com.vidyo.portal.user.v1_1.VidyoPortalUserServicePortType;
 @Service("vidyoManager")
 @WebService(serviceName = "VidyoService", endpointInterface = "com.ammob.communication.vidyo.service.VidyoManager")
 public class VidyoManagerImpl implements VidyoManager {
+
+    /**
+     * {@inheritDoc}
+     */
+	public boolean vidyoDeskTopClientLogin(String protalUrl, String username, String password) {
+		try {
+			LogInResponse logInResponse = getUserClient(protalUrl, username, password).logIn(new LogInRequest());
+			if(logInResponse != null && StringUtil.hasText(logInResponse.getPak()))
+				return true;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (SeatLicenseExpiredFault_Exception e) {
+			e.printStackTrace();
+		} catch (NotLicensedFault_Exception e) {
+			e.printStackTrace();
+		} catch (InvalidArgumentFault_Exception e) {
+			e.printStackTrace();
+		} catch (GeneralFault_Exception e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
     /**
      * {@inheritDoc}
      */
-	public void synchroVidyoDeskTopClientLogin(String protalUrl, LogInResponse logInResponse,
+	public boolean vidyoSynchroDeskTopClientLogin(String protalUrl, LogInResponse logInResponse,
 			String username) {
 		String url = "http://stunusa.vidyo.com/ws/user/SetEid.php";
 		String _dummyUrl = "http://127.0.0.1:63457/dummy?url=" + url + 
@@ -76,11 +98,12 @@ public class VidyoManagerImpl implements VidyoManager {
 				try {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
 					System.out.println(reader.readLine());
+					return true;
 				} catch (IOException ex) {
-					throw ex;
+					return false;
 				} catch (RuntimeException ex) {
 					httpget.abort();
-					throw ex;
+					return false;
 				} finally {
 					instream.close();
 				}
@@ -92,6 +115,7 @@ public class VidyoManagerImpl implements VidyoManager {
 		} finally {
 			httpclient.getConnectionManager().shutdown();
 		}
+		return true;
 	}
 	
     /**
@@ -159,7 +183,8 @@ public class VidyoManagerImpl implements VidyoManager {
 //			System.out.println("VidyoManagerImpl.main()"+s.getTenantName());
 //		}
 		
-//		VidyoPortalUserServicePortType  dd = vidyo.getUserClient("http://v.seekoom.com", "hotmob", "121212");
+		VidyoPortalUserServicePortType  dd = vidyo.getUserClient("http://v.seekoom.com", "hotmob", "121212");
+		
 //		GetUserNameRequest g = new GetUserNameRequest();
 //	
 //		System.out.println("VidyoManagerImpl.main()"+dd.getUserName(g).getRealUserName());
@@ -168,13 +193,10 @@ public class VidyoManagerImpl implements VidyoManager {
 //		System.out.println("VidyoManagerImpl.main()"+dd.getUserName(new GetUserNameRequest()).getRealUserName());
 //		
 		
-		
-		
 //		VidyoPortalAdminServicePortType  dd = vidyo.getAdminClient("http://v.seekoom.com", "hotmob", "121212");
 //	
 //		System.out.println("VidyoManagerImpl.main()"+dd.addRoom(new AddRoomRequest().setRoom(new Room)));
 //		
 		
-	
 	}
 }

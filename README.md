@@ -1,6 +1,6 @@
 # 维迪易优统一通信平台
 ---
-本平台是一个可以用于建立企业解决方案的商业网络平台，使用的开源框架与技术包含liferay，appfuse，Spring，Hibernate，AJAX，Apache ServiceMix，ehcache，Groovy，ICEfaces，jBPM，JGroups，Lucene，MuleSource ESB，Seam，Tapestry，Velocity等.如果你正在阅读本文，请确保你有一定的Java基础，熟悉Maven的特性,并且详细阅读过或者掌握liferay开发的技巧。
+本平台是一个可以用于建立企业解决方案的商业网络平台，使用的开源框架与技术包含liferay，appfuse，Spring，Hibernate，AJAX，Apache ServiceMix，ehcache，Groovy，ICEfaces，jBPM，JGroups，Lucene，MuleSource ESB，Seam，Tapestry，Velocity等.如果你正在阅读本文，请确保你有一定的Java基础，熟悉Maven的特性,并且详细阅读过或者掌握liferay开发的技巧。(2013-04-20,liferay等相关技术已从此平台剥离,属于另外一个项目,详情参见公司Wiki)
 
 ## 模块
 <pre style="border:0px;">unified-communication-core                 核心与公用类模块
@@ -11,8 +11,15 @@ unified-communication-extension-social     社交网络整合与逻辑处理
 unified-communication-support-cas          OAuth,SSO等鉴权登录组件
 unified-communication-support-vidyo        与Vidyo相关接口
 unified-communication-support-unicom       与China Unicom相关接口
-unified-communication-support-liferay      liferay portlet扩展
 unified-communication-webapp               WEB表现层</pre>
+
+## 部署
+1. support,extension等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
+2. portlet等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn package",然后运行"mvn liferay:deploy"。
+3. 命令行模式下进入webapp目录或在含有Maven插件的Eclipse工具运行命令："mvn jetty:run"。
+4. 打开浏览器查看平台页面 http://localhost:8080。
+5. 使用默认管理员 hotmob:121212，普通用户 mupeng:121212 登陆平台。
+6. 更多问题请查询公司wiki：http://wiki.seekoom.com
 
 ## 注意
 1. 字符集编码统一使用UTF-8。
@@ -24,17 +31,7 @@ unified-communication-webapp               WEB表现层</pre>
 7. 用到缓存时，选取缓存一定要支持集群，或有相应及类似解决方案提供。
 8. 用到附件上传，一定要将附件信息存储到指定一台附件管理的服务器上。
 
-## 部署
-1. 下载并安装 MySQL 5.x 数据库，建立数据库communication，默认用户名与密码请从pom文件查询或修改。
-2. 进入unified-communication-extension-liferay中的liferay-dist目录由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
-3. support,extension等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn install"。
-4. portlet等项目由命令行模式或含有Maven插件的Eclipse工具运行："mvn package",然后运行"mvn liferay:deploy"。
-5. 命令行模式下进入webapp目录或在含有Maven插件的Eclipse工具运行命令："mvn jetty:run"。
-6. 打开浏览器查看平台页面 http://localhost:8080。
-7. 使用默认管理员 hotmob:121212，普通用户 mupeng:121212 登陆平台。
-8. 更多问题请查询公司wiki：http://wiki.seekoom.com
-
-## Maven
+## 常用命令
 > <pre style="border:0px;">mvn appfuse:gen-model     根据数据库的表生成java类
 mvn appfuse:gen           根据 POJOs.生成并安装 Tests, DAOs, Managers, Controllers and Views
 mvn appfuse:full-source   把运行所需要的org.appfuse中的依赖类转换成你的包名称

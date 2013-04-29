@@ -1,39 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <http pattern="/images/**" security="none"/>
-    <http pattern="/styles/**" security="none"/>
-    <http pattern="/scripts/**" security="none"/>
+	<sec:http pattern="/images/**" security="none" />
+	<sec:http pattern="/styles/**" security="none" />
+	<sec:http pattern="/scripts/**" security="none" />
+	<sec:http pattern="/cas/services/loggedout.html" security="none" />
 
-    <http auto-config="true">
-        <intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/app/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/app/**" access="ROLE_ADMIN,ROLE_USER"/>
-        <form-login login-page="/login" authentication-failure-url="/login?error=true" login-processing-url="/j_security_check"/>
-        <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
-    </http>
+	<sec:http pattern="/cas/status/**" entry-point-ref="notAuthorizedEntryPoint"
+		use-expressions="true" auto-config="true">
+		<sec:intercept-url pattern="/cas/status"
+			access="hasIpAddress('${cas.securityContext.status.allowedSubnet}')" />
+	</sec:http>
 
-    <authentication-manager>
-        <authentication-provider user-service-ref="userDao">
-            <password-encoder ref="passwordEncoder">
-                <salt-source ref="saltSource"/>
-            </password-encoder>
-        </authentication-provider>
-    </authentication-manager>
+	<sec:http entry-point-ref="casProcessingFilterEntryPoint" auto-config="true">
+		<sec:logout logout-url="/cas/services/logout.html"
+			logout-success-url="/cas/services/loggedOut.html" />
+		<sec:intercept-url pattern="/cas/services/**" access="ROLE_ADMIN" />
+		<sec:intercept-url pattern="/app/admin/**" access="ROLE_ADMIN" />
+		<sec:intercept-url pattern="/app/passwordHint*"
+			access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />
+		<sec:intercept-url pattern="/app/signup*"
+			access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />
+		<sec:intercept-url pattern="/app/**" access="ROLE_ADMIN,ROLE_USER" />
+		<!-- <form-login login-page="/login" authentication-failure-url="/login?error=true" 
+			login-processing-url="/j_security_check"/> <remember-me user-service-ref="userDao" 
+			key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/> -->
+		<sec:custom-filter ref="casProcessingFilter" after="CAS_FILTER" />
+	</sec:http>
 
-    <beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource"
-        p:userPropertyToUse="username"/>
+	<sec:authentication-manager alias="casAuthenticationManager">
+		<sec:authentication-provider ref="casAuthenticationProvider" />
+	</sec:authentication-manager>
 
-    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
-    <!-- <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/> -->
+	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
+		p:service="${cas.securityContext.serviceProperties.service}"
+		p:sendRenew="false" />
 
-    <global-method-security>
-        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
-        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
-    </global-method-security>
-</beans:beans>
+	<bean id="casProcessingFilter"
+		class="org.springframework.security.cas.web.CasAuthenticationFilter"
+		p:authenticationManager-ref="casAuthenticationManager"
+		p:filterProcessesUrl="/j_spring_cas_security_check">
+		<property name="authenticationSuccessHandler">
+			<bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"
+				p:alwaysUseDefaultTargetUrl="true" p:defaultTargetUrl="/home" />
+		</property>
+		<property name="authenticationFailureHandler">
+			<bean
+				class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<constructor-arg index="0"
+					value="/cas/authorizationFailure.html" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="casProcessingFilterEntryPoint"
+		class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
+		p:loginUrl="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"
+		p:serviceProperties-ref="serviceProperties" />
+
+	<bean id="notAuthorizedEntryPoint"
+		class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+
+	<bean id="casAuthenticationProvider"
+		class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
+		p:key="my_password_for_this_auth_provider_only"
+		p:serviceProperties-ref="serviceProperties"
+		p:authenticationUserDetailsService-ref="vidyoUserDetailsService">
+		<property name="ticketValidator">
+			<bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+				<constructor-arg index="0"
+					value="${cas.securityContext.ticketValidator.casServerUrlPrefix}" />
+			</bean>
+		</property>
+	</bean>
+</beans>

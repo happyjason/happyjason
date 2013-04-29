@@ -97,7 +97,7 @@
                     </webResources>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
@@ -110,15 +110,15 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                            	<include>ApplicationResources.properties</include>
-                                <include>ApplicationResources_zh*.properties</include>
-                                <include>ApplicationResources_ko*.properties</include>
+                            	<include>content/Language.properties</include>
+                                <include>content/Language_zh*.properties</include>
+                                <include>displaytag.properties</include>
                                 <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
         </plugins>
         <resources>
             <resource>
@@ -435,8 +435,14 @@
         <dependency>
 			<groupId>org.opensymphony.quartz</groupId>
 			<artifactId>quartz</artifactId>
-			<version>1.6.1</version>
+			<version>${quartz.version}</version>
 			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2.2</version>
+			<scope>runtime</scope>
 		</dependency>
     </dependencies>
 
