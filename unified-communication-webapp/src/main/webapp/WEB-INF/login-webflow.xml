@@ -8,7 +8,7 @@
     <on-start>
         <evaluate expression="initialFlowSetupAction" />
     </on-start>
-	 
+    
 	<action-state id="oauthAction">
 		<evaluate expression="oauthAction" />
 		<transition on="success" to="sendTicketGrantingTicket" />

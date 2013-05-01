@@ -31,5 +31,4 @@ public interface VidyoService {
     @Path("/user/list/{area}/{index}/{limit}")
 	List<Member> getVidyoMemberList(@QueryParam("")User user, 
 			@PathParam("area") String area, @PathParam("index") int index, @PathParam("limit")int limit);
-    
 }
