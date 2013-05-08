@@ -31,7 +31,7 @@ public class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String getUrlDomain(String originalUrl)throws IllegalStateException {
-		Pattern p = Pattern.compile("http://.*?.(com|cn|net|org|biz|info|cc|tv)",
+		Pattern p = Pattern.compile("http://.*?.(com.cn|com|cn|net|org|biz|info|cc|tv)",
 				Pattern.CASE_INSENSITIVE);
 		Matcher matcher = p.matcher(originalUrl);
 		matcher.find();

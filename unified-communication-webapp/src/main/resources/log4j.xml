@@ -138,6 +138,11 @@
         <appender-ref ref="cas" />
     </logger>
     
+    <logger name="org.apache.cxf" additivity="true">
+        <level value="INFO" />
+        <appender-ref ref="cas" />
+    </logger>
+    
     <root>
         <level value="INFO"/>
         <appender-ref ref="console"/>

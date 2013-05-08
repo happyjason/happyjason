@@ -7,7 +7,7 @@
 
     ## create a single menu item
     #if ($menu.components.size() == 0)
-        <li class="#if ($menu.name == $currentMenu)active#end">
+        <li class="menu-level-1 #if ($menu.name == $currentMenu)active#end">
         <a href="$url" title="$title" #if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
     #else ## create multiple menu items in a menu
         #if ($menu.components.size() > 0)

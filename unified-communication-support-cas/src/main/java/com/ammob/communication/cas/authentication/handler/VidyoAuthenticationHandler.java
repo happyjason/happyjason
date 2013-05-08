@@ -1,26 +1,15 @@
 package com.ammob.communication.cas.authentication.handler;
 
-import javax.validation.constraints.NotNull;
-
 import org.jasig.cas.authentication.handler.AuthenticationException;
 import org.jasig.cas.authentication.handler.UnsupportedCredentialsException;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ammob.communication.cas.authentication.principal.VidyoCredentials;
 import com.ammob.communication.core.util.StringUtil;
-import com.ammob.communication.vidyo.service.VidyoManager;
+import com.ammob.communication.vidyo.util.VidyoUserUtil;
 
 public class VidyoAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
-	
-	@Autowired
-	@NotNull
-	private VidyoManager vidyoManager;
-
-	public void setVidyoManager(VidyoManager vidyoManager) {
-		this.vidyoManager = vidyoManager;
-	}
 
 	@Override
 	protected boolean authenticateUsernamePasswordInternal(UsernamePasswordCredentials credentials)
@@ -37,15 +26,12 @@ public class VidyoAuthenticationHandler extends AbstractUsernamePasswordAuthenti
 				log.debug("server url format is error !! url = " + serverUrl);
 	        	return false;
 			}
-	        if(vidyoManager == null){
-	        	log.debug("vidyoManager is null !!");
-	        	return false;
-	        }
 	        if(!StringUtil.hasText(username) || !StringUtil.hasText(password) || !StringUtil.hasText(serverUrl)) {
 	        	log.debug("username is null !!");
 	        	return false;
 	        }
-			if(vidyoManager.getVidyoAuthenticationState(serverUrl, username, password)) {
+	        System.out.println(serverUrl + username + password);
+			if(VidyoUserUtil.getAuthenticationState(serverUrl, username, password)) {
 				return true;
 			}
 		} catch (Exception e) {

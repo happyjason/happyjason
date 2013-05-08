@@ -28,7 +28,8 @@ public class VidyoUserDetailsService implements AuthenticationUserDetailsService
 		try {
 			return userDao.loadUserByUsername(token.getName());
 		} catch (Exception e) {
-			User user = new User();
+			User user = new User(token.getName());
+			user.setEnabled(true);
 			user.addRole(new Role(Constants.USER_ROLE));
 			return user;
 		}

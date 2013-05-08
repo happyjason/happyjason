@@ -34,5 +34,4 @@
             <entry key="feed" value="application/atom+xml"/>
         </jaxrs:extensionMappings>
     </jaxrs:server>
-
 </beans>

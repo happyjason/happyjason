@@ -23,6 +23,7 @@
 							</div>
 							<div class="lists">
 								<ul class="list">
+									<li>http://demo.10010zj.com.cn</li>
 									<li>http://v.seekoom.com</li>
 								</ul>
 							</div>
@@ -30,19 +31,17 @@
 					</div>
 					<div class="login_from  login_from_margintop">
 						<span class="login_from_position_picbig"></span>
-						<spring:message code="screen.welcome.label.netid" var="userNameAccess" />
-						<spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
+						<spring:message code="label.username" var="userNameAccess" />
 						<form:input cssClass="login_txt required" cssErrorClass="alert-error" id="username"
-							size="25" tabindex="2" accesskey="${userNameAccessKey}" path="username" 
-							autocomplete="false" htmlEscape="true" placeholder="${userNameAccess}"/>
+							size="25" tabindex="2" path="username" autocomplete="false" htmlEscape="true" 
+							placeholder="${userNameAccess}"/>
 					</div>
 					<div class="login_from login_from_margintop">
 						<span class="login_from_position_picbig login_from_position_picbig1"></span>
-						<spring:message code="screen.welcome.label.password" var="passwordAccess" />
-						<spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
+						<spring:message code="label.password" var="passwordAccess" />
 						<form:password cssClass="login_txt required" cssErrorClass="alert-error" id="password" 
-							size="25" tabindex="3" accesskey="${passwordAccessKey}" path="password" 
-							autocomplete="off" htmlEscape="true" placeholder="${passwordAccess}"/>
+							size="25" tabindex="3" path="password" autocomplete="off" htmlEscape="true" 
+							placeholder="${passwordAccess}"/>
 					</div>
 					<div class="login_from login_from_margintop">
 						<div class="login_checkbox1">
@@ -57,7 +56,7 @@
 						<input type="hidden" name="execution" value="${flowExecutionKey}" />
 						<input type="hidden" name="_eventId" value="submit" />
 						<input class="login_from_btn" name="submit" accesskey="l"
-							value="<spring:message code="screen.welcome.button.login" />"
+							value="<spring:message code="button.login" />"
 							tabindex="4" type="submit" />
 					</div>
 				</form:form>
@@ -66,4 +65,33 @@
 		</div>
 	</div>
 	<jsp:directive.include file="includes/footer.jsp" />
+	<script>
+		$(document).ready(function(){
+		
+			$(".login_checkbox1").click(function(){
+				var check_status=$(this).children("span").attr("class");
+				if(check_status==='check_bg1'){
+					$(this).children("span").attr("class","").addClass("check_bg2");
+				}
+				else{
+					$(this).children("span").attr("class","").addClass("check_bg1");
+				}
+			}); 
+		
+			var height=$(window).height();
+			$(".login_bg").css("height",height-112+"px");	
+		
+			$(window).resize(function() {
+				var height=$(window).height();
+				$(".login_bg").css("height",height-112+"px");
+			});
+		
+		});
+		</script>
+		<script type="text/javascript" src="http://js.vcccdn.com/qjb/chinaunicom/jQSelect.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+		    $("#select06").jQSelect({}); 
+		}); 
+		</script>
 </body>

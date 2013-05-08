@@ -65,6 +65,17 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
+                    <connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8080</port>
+						</connector>
+						<!-- <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
+						<port>9443</port>
+						<keystore>src/test/resources/certificates/jettyServer.keystore</keystore>
+						<keyPassword>uDAapwhm0CiH</keyPassword>
+						<password>uDAapwhm0CiH</password>
+						</connector> -->
+					</connectors>
                 </configuration>
             </plugin>
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->

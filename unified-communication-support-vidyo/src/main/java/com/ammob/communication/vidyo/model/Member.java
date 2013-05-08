@@ -181,16 +181,16 @@ public class Member implements Comparable<Member> {
 				return 1;
 		}
 		
-		if(this.memberStatus != member.memberStatus){
+		if(!this.memberStatus.equals(member.memberStatus)){
 			if(this.memberStatus.equals("Online"))
 				return -1;
 			else
 				return 1;
 		}
 		
-		if(this.entityID > member.getEntityID()){  
+		if(this.entityID < member.getEntityID()){  
             return -1;
-        } else if(this.entityID < member.getEntityID()){  
+        } else if(this.entityID > member.getEntityID()){  
             return 1;
         }
 		return 0;

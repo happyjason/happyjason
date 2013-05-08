@@ -4,16 +4,18 @@
 <meta name="menu" content="HomeMenu" />
 </head>
 <body class="home">
-<%
-try{
-	//AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
-	CasAuthenticationToken principal = (CasAuthenticationToken) request.getUserPrincipal();
-	String loginName = principal.getName();//获取用户名
-	System.out.print(loginName);
-} catch (Exception e){
-	e.printStackTrace();
-}
-%>
+	<%
+		try {
+			//AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
+			CasAuthenticationToken token = (CasAuthenticationToken) request.getUserPrincipal();
+			String loginName = token.getName();//获取用户名
+			String prin = token.getPrincipal().toString();//获取用户名
+			System.out.print(loginName);
+			System.out.print(prin);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	%>
 	<div class="ind_bg1">
 		<div class="ind_bg2">
 			<div class="main_center">
@@ -35,9 +37,9 @@ try{
 							</ul>
 						</div>
 						<div class="search">
-							<input type="text" name="" value="" class="search_txt"> <input
-								type="sumbit" name="" value="" class="search_btn"> <img
-								src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/icon/txt-clear.jpg"
+							<input type="text" name="" value="" class="search_txt">
+							<input type="sumbit" name="" value="" class="search_btn">
+								<img src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/icon/txt-clear.jpg"
 								class="search_clear" />
 							<div class="clear"></div>
 						</div>
@@ -47,11 +49,10 @@ try{
 								<ul id="index_user_list"></ul>
 							</div>
 							<div class="user_loding">
-								<img
-									src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/waiting.gif" />
+								<img src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/waiting.gif" />
 							</div>
-							<a href="javascript:void(0);" class="left_list_previous"></a> <a
-								href="javascript:void(0);" class="left_list_next"></a>
+							<a href="javascript:void(0);" class="left_list_previous"></a>
+							<a href="javascript:void(0);" class="left_list_next"></a>
 							<div class="clear"></div>
 						</div>
 					</div>
@@ -60,35 +61,39 @@ try{
 				<div class="ind_right">
 					<div class="ind_right_top_bg"></div>
 					<div class="ind_right_bg">
+					    <!-- 我的会议室 -->
 						<div class="ind_right_content_group" style="display: none;">
 							<div class="ind_right_title">
-								我的会议室<br> 房间状态：<span>空闲</span>
+								<fmt:message key="screen.vidyo.label.myroom"/><br> 
+								<fmt:message key="screen.vidyo.label.roomstate"/>:<span>Null</span>
 								<div class="join_room">
 									<span></span>
-									<div class="join_room_name">进入会议室</div>
+									<div class="join_room_name"><fmt:message key="screen.vidyo.label.joinroom"/></div>
 									<div class="clear"></div>
 								</div>
 							</div>
 							<div class="ind_right_content">
 								<div class="ind_right_content_left"></div>
 								<div class="ind_right_content_right">
-									<div class="ind_right_content_title">会议室链接：</div>
+									<div class="ind_right_content_title"><fmt:message key="screen.vidyo.label.roomurl"/>:</div>
 									<div class="ind_right_content_txt">
 										<input type="text" name="" value="">
 									</div>
 									<div class="ind_right_content_link">
-										<a href="">创建新链接</a><a href="">删除链接</a><a href="">复制链接</a><a
-											href="">创建新链接</a>
+										<a href=""><fmt:message key="screen.vidyo.label.roomurl.add"/></a>
+										<a href=""><fmt:message key="screen.vidyo.label.roomurl.del"/></a>
+										<a href=""><fmt:message key="screen.vidyo.label.roomurl.copy"/></a>
+										<a href=""><fmt:message key="screen.vidyo.label.roomurl.add"/></a>
 									</div>
 									<div class="ind_right_content_password">
-										<div class="ind_right_content_password_title">设置会议室密码</div>
-										<div
-											class="ind_right_content_txt ind_right_content_password_txt">
+										<div class="ind_right_content_password_title">
+											<fmt:message key="screen.vidyo.label.locks.room"/>
+										</div>
+										<div class="ind_right_content_txt ind_right_content_password_txt">
 											<input type="text" name="" value="">
 										</div>
-										<div
-											class="ind_right_content_link ind_right_content_password_btn">
-											<a href="">设置密码</a>
+										<div class="ind_right_content_link ind_right_content_password_btn">
+											<a href=""><fmt:message key="button.setting.password"/></a>
 										</div>
 										<div class="clear"></div>
 									</div>
@@ -96,46 +101,62 @@ try{
 								<div class="clear"></div>
 							</div>
 						</div>
+						<!-- 当前会议室 -->
 						<div class="ind_right_content_group" style="display: none;">
 							<div class="ind_right_title">
-								当前会议：无<br> 房间状态：<span>空闲</span>
+								<fmt:message key="screen.vidyo.label.curroom"/><br> 
+								<fmt:message key="screen.vidyo.label.roomstate"/>:<span>Null</span>
 							</div>
 							<div class="ind_right_content">
 								<div class="ind_right_logo">
-									<img
-										src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/pic-1.jpg" />
+									<img src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/pic-1.jpg" />
 								</div>
 								<div id="vidyo_status">
-									您的客户端未打开或网络连接出现问题,<br>请下载安装客户端并刷新页面。 <a href=""><img
-										src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/download.jpg" /></a>
+									<fmt:message key="screen.warn.label.client"/>
+									<a href=""><img src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/download.jpg" /></a>
 								</div>
 							</div>
 						</div>
-
+						<!-- 用户设置 -->
 						<div class="ind_right_content_group" style="display: none;">
 							<div class="ind_right_title ind_right_title_sz_top">
-								<span>设置</span>
+								<span><fmt:message key="screen.menu.label.setting"/></span>
 							</div>
 							<div class="ind_right_content">
 								<div class="ind_right_content_sz_firsttop">
-									<div class="ind_right_content_label">用户类型：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="screen.vidyo.label.usertype"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<div id="select01" class="selectbox">
 											<div class="cartes">
 												<input type="text" name="" value="Normal" class="listTxt">
 											</div>
 											<div class="lists">
-												<ul class="list">
-													<li>Normal1</li>
-													<li>Normal2</li>
-													<li>Normal3</li>
-													<li>Normal4</li>
-												</ul>
+												<ul class="list"></ul>
 											</div>
 										</div>
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">用户名：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.username"/>:
+									</div>
+									<div class="ind_right_content_drop">
+										<input type="text" name="" value="" class="site_txt">
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="ind_right_content_sz_top">
+									<div class="ind_right_content_label">
+										<fmt:message key="label.password"/>:
+									</div>
+									<div class="ind_right_content_drop">
+										<input type="text" name="" value="" class="site_txt">
+									</div>
+									<div class="clear"></div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.password.confirm"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<input type="text" name="" value="" class="site_txt">
 									</div>
@@ -143,25 +164,16 @@ try{
 								</div>
 
 								<div class="ind_right_content_sz_top">
-									<div class="ind_right_content_label">密码：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.displayname"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<input type="text" name="" value="" class="site_txt">
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">验证密码：</div>
-									<div class="ind_right_content_drop">
-										<input type="text" name="" value="" class="site_txt">
+									<div class="ind_right_content_label">
+										<fmt:message key="label.email"/>:
 									</div>
-									<div class="clear"></div>
-								</div>
-
-								<div class="ind_right_content_sz_top">
-									<div class="ind_right_content_label">显示名称：</div>
-									<div class="ind_right_content_drop">
-										<input type="text" name="" value="" class="site_txt">
-									</div>
-									<div class="clear"></div>
-									<div class="ind_right_content_label">电子邮件地址：</div>
 									<div class="ind_right_content_drop">
 										<input type="text" name="" value="" class="site_txt">
 									</div>
@@ -169,7 +181,9 @@ try{
 								</div>
 
 								<div class="ind_right_content_sz_top">
-									<div class="ind_right_content_label">分机号：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.extension"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<input type="text" name="" value="021"
 											class="site_txt site_txt_fjh" disabled><input
@@ -178,24 +192,21 @@ try{
 									<div class="clear"></div>
 								</div>
 								<div class="ind_right_content_sz_top">
-									<div class="ind_right_content_label">组：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.group"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<div id="select02" class="selectbox">
 											<div class="cartes">
 												<input type="text" name="" value="Default" class="listTxt">
 											</div>
 											<div class="lists">
-												<ul class="list">
-													<li>Default1</li>
-													<li>Default2</li>
-													<li>Default3</li>
-													<li>Default4</li>
-												</ul>
+												<ul class="list"></ul>
 											</div>
 										</div>
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">代理：</div>
+									<div class="ind_right_content_label"><fmt:message key="label.proxy"/>:</div>
 									<div class="ind_right_content_drop">
 										<div id="select03" class="selectbox">
 											<div class="cartes">
@@ -203,49 +214,40 @@ try{
 													class="listTxt">
 											</div>
 											<div class="lists">
-												<ul class="list">
-													<li>vidyoproxy1</li>
-													<li>vidyoprox2</li>
-													<li>vidyoprox3</li>
-												</ul>
+												<ul class="list"></ul>
 											</div>
 										</div>
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">位置标签：</div>
+									<div class="ind_right_content_label"><fmt:message key="label.location"/>:</div>
 									<div class="ind_right_content_drop">
 										<div id="select04" class="selectbox">
 											<div class="cartes">
 												<input type="text" name="" value="Default" class="listTxt">
 											</div>
 											<div class="lists">
-												<ul class="list">
-													<li>Default1</li>
-													<li>Default2</li>
-													<li>Default3</li>
-													<li>Default4</li>
-												</ul>
+												<ul class="list"></ul>
 											</div>
 										</div>
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">语音首选项：</div>
+									<div class="ind_right_content_label"><fmt:message key="label.language"/>:</div>
 									<div class="ind_right_content_drop">
 										<div id="select05" class="selectbox">
 											<div class="cartes">
-												<input type="text" name="" value="简体中文" class="listTxt">
+												<input type="text" name="" value="" class="listTxt">
 											</div>
 											<div class="lists">
 												<ul class="list">
-													<li>简体中文</li>
-													<li>繁体中文</li>
-													<li>English</li>
+													<li><fmt:message key="label.language"/></li>
 												</ul>
 											</div>
 										</div>
 									</div>
 									<div class="clear"></div>
-									<div class="ind_right_content_label">说明：</div>
+									<div class="ind_right_content_label">
+										<fmt:message key="label.description"/>:
+									</div>
 									<div class="ind_right_content_drop">
 										<textarea name="" class="site_textarea"></textarea>
 									</div>
@@ -255,70 +257,38 @@ try{
 								<div class="ind_right_content_sz_top">
 									<div class="ind_right_content_label"></div>
 									<div class="ind_right_content_drop">
-										<input type="submit" name="" value="确定" class="site_btn_1"><input
-											type="submit" name="" value="取消" class="site_btn_2">
+										<input type="submit" name="" value="<fmt:message key="label.save"/>" class="site_btn_1">
+										<input type="submit" name="" value="<fmt:message key="label.cancel"/>" class="site_btn_2">
 									</div>
 									<div class="clear"></div>
 								</div>
 							</div>
 						</div>
-
+						<!-- 当前会议室 -->
 						<div class="ind_right_content_group" style="display: none;">
 							<div class="ind_right_title">
-								当前会议：无<br> 房间状态：<span>空闲</span>
+								<fmt:message key="screen.vidyo.label.curroom"/><br> 
+								<fmt:message key="screen.vidyo.label.roomstate"/>:<span>Null</span>
 								<div class="join_room join_room_link">
-									<a href="">断开房间</a> <a href="">锁定房间</a>
+									<a href=""><fmt:message key="button.leave"/></a>
+									<a href=""><fmt:message key="button.lock"/></a>
 								</div>
 							</div>
 							<div class="ind_right_content">
 								<div class="ind_right_hys">
 									<div class="ind_right_hys_left">
-										<a href="" class="ind_right_hys_list_add"></a>
-										<ul>
-											<li>
-												<div class="ind_right_hys_left_icon icons-status-Busy"></div>
-												<div class="ind_right_hys_left_main">
-													<div class="ind_right_hys_left_main_name">徐方龙</div>
-													<div class="ind_right_hys_left_main_link">
-														<a href="" class="ind_right_hys_banmai icons-banmai"></a>
-														<a href="" class="ind_right_hys_video icons-video"></a> <a
-															href="" class="ind_right_hys_close icons-close"></a>
-													</div>
-												</div>
-												<div class="clear"></div>
-											</li>
-											<li>
-												<div class="ind_right_hys_left_icon icons-status-Busy"></div>
-												<div class="ind_right_hys_left_main">
-													<div class="ind_right_hys_left_main_name">徐方龙</div>
-													<div class="ind_right_hys_left_main_link">
-														<a href="" class="ind_right_hys_banmai icons-banmai"></a>
-														<a href="" class="ind_right_hys_video icons-video"></a> <a
-															href="" class="ind_right_hys_close icons-close"></a>
-													</div>
-												</div>
-												<div class="clear"></div>
-											</li>
-											<li>
-												<div class="ind_right_hys_left_icon icons-status-Busy"></div>
-												<div class="ind_right_hys_left_main">
-													<div class="ind_right_hys_left_main_name">徐方龙</div>
-													<div class="ind_right_hys_left_main_link">
-														<a href="" class="ind_right_hys_banmai icons-banmai"></a>
-														<a href="" class="ind_right_hys_video icons-video"></a> <a
-															href="" class="ind_right_hys_close icons-close"></a>
-													</div>
-												</div>
-												<div class="clear"></div>
-											</li>
-										</ul>
+										<a href="javascript:void(0);" class="ind_right_hys_list_add private"></a>
+										<div id="room_user_list_load">
+											<img src="http://img.vcccdn.com/chinaunicom/allen/1.0.0/waiting.gif"/>
+										</div>
+										<ul id="room_member_list"></ul>
 									</div>
 									<div class="ind_right_hys_right">
 										<textarea name="" class="ind_right_hys_right_textarea"
 											disabled></textarea>
 										<input type="text" name="" value=""
 											class="ind_right_hys_right_search_txt" disabled> <input
-											type="submit" name="" value="发送"
+											type="submit" name="" value="<fmt:message key="button.send"/>"
 											class="ind_right_hys_right_search_btn" disabled>
 										<div class="clear"></div>
 									</div>
@@ -341,76 +311,17 @@ try{
 										<div class="ind_right_myroom_title">会议群组</div>
 										<a href=""
 											class="ind_right_hys_list_add ind_right_hys_list_add1"></a>
-										<div class="ind_right_myroom_left_list">
-											<ul>
-												<li>
-													<div
-														class="icons-status-icon1 ind_right_myroom_left_list_icon"></div>
-													<div class="ind_right_myroom_left_list_name">徐方龙</div>
-													<div class="clear"></div> <a href=""
-													class="ind_right_myroom_left_list_del"></a>
-												</li>
-												<li>
-													<div
-														class="icons-status-icon1 ind_right_myroom_left_list_icon"></div>
-													<div class="ind_right_myroom_left_list_name">徐方龙</div>
-													<div class="clear"></div> <a href=""
-													class="ind_right_myroom_left_list_del"></a>
-												</li>
-												<li>
-													<div
-														class="icons-status-icon1 ind_right_myroom_left_list_icon"></div>
-													<div class="ind_right_myroom_left_list_name">徐方龙</div>
-													<div class="clear"></div> <a href=""
-													class="ind_right_myroom_left_list_del"></a>
-												</li>
-											</ul>
-										</div>
+										<div class="ind_right_myroom_left_list"></div>
 									</div>
 									<div class="ind_right_myroom_right">
 										<div class="ind_right_myroom_title">群组人员</div>
 										<a href="" class="ind_right_hys_list_add"></a>
-										<div class="ind_right_myroom_right_list">
-											<ul>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<li>
-													<div class="myroom_right_list_icon icons-status-Online"></div>
-													<div class="myroom_right_list_name">徐方龙</div>
-													<div class="clear"></div>
-												</li>
-												<div class="clear"></div>
-											</ul>
-										</div>
+										<div class="ind_right_myroom_right_list"></div>
 									</div>
 									<div class="clear"></div>
 								</div>
 							</div>
 						</div>
-
 						<div class="ind_right_content_group" style="display: none;">
 							<div class="ind_right_title ind_right_title_sz_top">
 								<span>我的会议室</span>
@@ -424,59 +335,7 @@ try{
 										<div class="ind_right_hy_status_title1">分机号</div>
 										<div class="clear"></div>
 									</div>
-
-									<div class="ind_right_hy_status_main">
-										<ul>
-											<li><a class="" href=""></a> <span
-												class="ind_right_hy_status_main_icon1"></span>
-												<div class="ind_right_hy_status_main_name">hotmob@Default_xufanglong@Default:2
-													(点到点）</div>
-												<div class="clear"></div>
-												<div class="ind_right_hy_status_main_list">
-													<ul>
-														<li>
-															<div class="status_main_list_name">徐方龙</div>
-															<div class="status_main_list_name_line"></div>
-															<div class="status_main_list_name">02119896</div>
-															<div class="clear"></div>
-														</li>
-														<li>
-															<div class="status_main_list_name">徐方龙</div>
-															<div class="status_main_list_name_line"></div>
-															<div class="status_main_list_name">02119896</div>
-															<div class="clear"></div>
-														</li>
-														<li>
-															<div class="status_main_list_name">徐方龙</div>
-															<div class="status_main_list_name_line"></div>
-															<div class="status_main_list_name">02119896</div>
-															<div class="clear"></div>
-														</li>
-													</ul>
-												</div></li>
-											<li><a class="" href=""></a> <span
-												class="ind_right_hy_status_main_icon1"></span>
-												<div class="ind_right_hy_status_main_name">hotmob@Default_xufanglong@Default:2
-													(点到点）</div>
-												<div class="clear"></div>
-												<div class="ind_right_hy_status_main_list">
-													<ul>
-														<li>
-															<div class="status_main_list_name">徐方龙</div>
-															<div class="status_main_list_name_line"></div>
-															<div class="status_main_list_name">02119896</div>
-															<div class="clear"></div>
-														</li>
-														<li>
-															<div class="status_main_list_name">徐方龙</div>
-															<div class="status_main_list_name_line"></div>
-															<div class="status_main_list_name">02119896</div>
-															<div class="clear"></div>
-														</li>
-													</ul>
-												</div></li>
-										</ul>
-									</div>
+									<div class="ind_right_hy_status_main"></div>
 								</div>
 							</div>
 						</div>
@@ -487,279 +346,5 @@ try{
 			</div>
 		</div>
 	</div>
+	<script src="http://js.vcccdn.com/qjb/chinaunicom/vidyo.js"></script>
 </body>
-<script src="http://js.vcccdn.com/qjb/chinaunicom/wTimer-1.0.2/wTimer.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-var	url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-var start=0;
-var _n=25;
-var limit=0;
-var minheight=450;
-var old_user_list=null;
-var name_color_Online="name_color_online";
-var name_color_Offline="name_color_offline";
-
-client_status();
-function client_status(){
-	$.ajax({
-	    url: 'http://127.0.0.1:63457', //访问路径
-	    type: 'post', //传值的方式
-	    async: 'true',//同步
-	    complete: function (XMLHttpRequest, textStatus) {//访问失败时调用的函数      
-	       $("#vidyo_status").css("display","block");                   
-	    }
-	}); 
-}
-
-//窗体加载初始显示页面
-$(".ind_right_content_group").eq(1).show();
-
-$("#site").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(2).show();
-});
-
-$("#index").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(1).show();
-});
-
-$("#myroom").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(3).show();
-});
-
-$("#call").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(4).show();
-});
-
-$("#current_call").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(5).show();
-});
-
-/*绘制列表*/
-for(var t=0;t<_n;t++)
-{
-	$("#index_user_list").append("<li id=index_user_list_li_"+ t +" style='display:none;'><div class='left_list_status' id='index_user_list_li_icon_"+ t + "'></div><div class='left_list_name' id='index_user_list_li_name_"+ t + "'></div><div class='clear'></div></li>");
-}
-
-/*左侧用户列表点击事件*/
-$("#index_user_list li").css("cursor","pointer");
-$("#index_user_list li").click(function(){
-	$(".ind_right_content_group").hide();
-	$(".ind_right_content_group").eq(3).show();
-});
-
-/*定时刷新*/
-var timer = new wTimer({
-    fps:0.1,
-    run: function()
-    {
-        user_print(url);
-        client_status();
-    }
-});
-
-timer.start();
-
-/*左侧用户列表方法*/
-function user_print(url){	
-	var height=$(window).height();
-	if (height<minheight){
-		height=minheight;
-	}
-	$(".ind_left_bg").css("height",height-132+"px");
-	$(".ind_right_content").css("height",height-201+"px");
-
-	$(".ind_right_hys_left").css("height",height-240+"px");
-	$(".ind_right_hys_right_textarea").css("height",height-320+"px");
-	$(".ind_right_myroom_left,.ind_right_myroom_right").css("height",height-240+"px");
-
-	var ul_height=height-214;	
-	_n=Math.floor(ul_height/45);
-	$(".user_list").css("height",_n*45+"px");
-	if (_n<5){_n=5}
-	var i=0;
-
-	if(start<=0)
-	{
-		start=0;
-		$(".left_list_previous").css("display","none");
-	}
-	else{
-		$(".left_list_previous").css("display","block");
-	}
-
-	$.ajax({
-		type: "GET",
-		async:false,
-		url: url,
-		dataType:"text",
-		success:function(response){	
-			response = $.parseJSON(response); 
-			//alert(response);
-			if(!old_user_list){  // init
-				$(".user_loding").css("display","none");
-				i=0;	
-				$.each(response, function(key, val) {
-					limit=response.length;
-					if(i>=_n){
-						return false;
-					}
-					uesr_list_li(val,i);
-					$("#index_user_list_li_name_" + i).append(val.displayName);
-					i=i+1;
-				})
-				old_user_list=response;		
-			} else {  // 重繪
-				i=0;
-				$.each(response, function(key, val) {	
-					limit=response.length;
-					if(i>=_n){
-						return false;
-					}
-					if(old_user_list[i]!=response[i] || i>=_n-1){
-						uesr_list_li(val,i);
-						$("#index_user_list_li_name_" + i).html("");
-						$("#index_user_list_li_name_" + i).append(val.displayName);
-					}
-					i=i+1;
-				});
-				if(response.length < old_user_list.length) {
-					for(;i<old_user_list.length-response.length;i++){
-						if(i>=_n){
-							return false;
-						}
-						$("#index_user_list_li_icon_" + i).attr('class','').addClass("left_list_status");
-						$("#index_user_list_li_name_" + i).html("");
-					}
-				}
-				old_user_list=response;	
-			}
-		}
-	});
-
-	if(limit>_n){
-		$(".left_list_next").css("display","block");
-	}else{
-		$(".left_list_next").css("display","none");
-	}
-
-}
-
-/*窗体分辨率改变时*/
-$(window).resize(function() {
-	start=0;
-	var type=$(".left_title_active").attr("rel");
-	if(type==='0'){
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}else if(type==='1'){
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}else{
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}
-	user_print(url);
-});
-
-/*公用的列表绘制*/
-function uesr_list_li(val,i){
-	$("#index_user_list_li_" + i).css("display","block");
-	if(val.MemberStatus==='Offline'||val.MemberStatus==='Online'||val.MemberStatus==='Busy'){
-		$("#index_user_list_li_icon_" + i).attr('class','').addClass("left_list_status icons-status-"+val.MemberStatus);
-	}else{
-		$("#index_user_list_li_icon_" + i).addClass("icons-status-Offline");
-	}
-	
-	if(val.MemberStatus==='Online'||val.MemberStatus==='Busy'){
-		$("#index_user_list_li_name_" + i).attr('class','').addClass("left_list_name "+name_color_Online);
-	}else{
-		$("#index_user_list_li_name_" + i).attr('class','').addClass("left_list_name "+name_color_Offline);
-	}
-	$("#index_user_list_li_name_" + i).html("");
-}
-
-/*选项卡点击*/
-var $current=$(".ind_left_title li")
-$current.click(function(){
-	var index=$current.index(this);
-	$(this).addClass("left_title_active").siblings().removeClass("left_title_active");
-	var type=$(".left_title_active").attr("rel");
-	start=0;
-	limit=0;
-	if(type==='0'){
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}else if(type==='1'){
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}else{
-		url='http://app.lan.seekoom.com/rest_s.php?limit=25&sortBy=member';
-	}
-	user_print(url);
-}); 
-
-/*上一页*/
-$(".left_list_previous").click(function(){
-	var type=$(".left_title_active").attr("rel");
-	start=start-_n;
-	url=url+'&start='+start;
-	user_print(url);
-}); 
-
-/*下一页*/
-$(".left_list_next").click(function(){
-	var type=$(".left_title_active").attr("rel");
-	start=start+_n;
-	url=url+'&start='+start;
-	user_print(url);
-}); 
-
-/*搜索框内容清除*/
-$(".search_clear").click(function(){
-	$(".search_txt").val("");
-}); 
-
-/*当前会议室左侧列表效果*/
-$(".ind_right_hys_left li").hover(
-function(){
-	$(this).attr("class","ind_right_hys_active");		
-},function(){
-	$(this).attr("class","");
-});
-
-/*我的房间左侧列表效果*/
-$(".ind_right_myroom_left_list li").hover(
-function(){
-	$(this).attr("class","ind_right_myroom_left_list_active");		
-},function(){
-	$(this).attr("class","");
-});
-
-/*房间链接状态效果*/
-$('.ind_right_hy_status_main .ind_right_hy_status_main_list li:last').css("border-bottom","0px");
-$(".ind_right_hy_status_main_list").hide();
-$(".ind_right_hy_status_main li").css("cursor","pointer");
-$(".ind_right_hy_status_main li").click(function(){
-	var span_icon=$(this).children("span").attr("class");
-	if(span_icon==='ind_right_hy_status_main_icon1'){
-		$(this).children("span").attr("class","").addClass("ind_right_hy_status_main_icon2");
-	}
-	else{
-		$(this).children("span").attr("class","").addClass("ind_right_hy_status_main_icon1");
-	}
-	$(this).find(".ind_right_hy_status_main_list").slideToggle("fast");
-});
-
-});
-</script>
-<script type="text/javascript" src="http://js.vcccdn.com/qjb/chinaunicom/jQSelect.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $("#select01").jQSelect({});
-    $("#select02").jQSelect({});  
-    $("#select03").jQSelect({});  
-    $("#select04").jQSelect({});  
-    $("#select05").jQSelect({});    
-}); 
-</script>

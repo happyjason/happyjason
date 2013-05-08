@@ -9,5 +9,22 @@
             <include method="getUsers"/>
         </create>
         <convert converter="bean" match="com.ammob.communication.core.model.User"/>
+        <create creator="spring" javascript="VidyoManager">
+            <param name="class" value="com.ammob.communication.vidyo.service.VidyoService"/>
+            <param name="beanName" value="vidyoManager"/>
+            <include method="getMemberForWs"/>
+            <include method="getEndpointForWs"/>
+            <include method="getLinkUrlForWs"/>
+            <include method="getMyContactsForWs"/>
+            <include method="delMyContactsForWs"/>
+            <include method="joinRoomForWs"/>
+            <include method="leaveRoomForWs"/>
+            <include method="invitMemberForWs"/>
+            <include method="getMemberListForWs"/>
+        </create>
+        <convert converter="bean" match="com.ammob.communication.vidyo.model.Member"/>
+        <convert converter="bean" match="java.lang.String"/>
+        <convert converter="bean" match="java.util.List"/>
+        <convert converter="bean" match="javax.ws.rs.core.Response"/>
     </allow>
 </dwr>
