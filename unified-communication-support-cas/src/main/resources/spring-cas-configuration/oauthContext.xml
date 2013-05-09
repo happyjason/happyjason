@@ -69,11 +69,11 @@
         <property name="secret" value="15a6f06329945e1ac5b6f715dcae5314bf88b005" />
     </bean>
 
-    <bean id="caswrapper" class="org.jasig.cas.support.oauth.provider.impl.CasWrapperProvider20">
+    <!-- <bean id="caswrapper" class="org.jasig.cas.support.oauth.provider.impl.CasWrapperProvider20">
         <property name="key" value="this_is_the_key" />
         <property name="secret" value="this_is_the_secret" />
         <property name="serverUrl" value="http://localhost:8080/cas2/oauth2.0" />
-    </bean>
+    </bean> -->
 
     <bean id="live" class="org.scribe.up.provider.impl.WindowsLiveProvider">
         <property name="key" value="00000000440BCAA1" />
@@ -95,7 +95,7 @@
                 <ref bean="yahoo" />
                 <ref bean="linkedin" />
                 <ref bean="github" />
-                <ref bean="caswrapper" />
+                <!-- <ref bean="caswrapper" /> -->
                 <ref bean="live" />
                 <ref bean="wordpress" />
             </list>

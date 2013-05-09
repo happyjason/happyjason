@@ -54,7 +54,12 @@ public final class Constants {
      * The request scope attribute that holds the tenant list
      */
     public static final String TENANT_LIST = "tenantList";
-    
+
+    /**
+     * The request scope attribute that holds the portal list
+     */
+	public static final String PORTAL_LIST = "portalList";
+	
     /**
      * The request scope attribute that holds the post list
      */
@@ -107,6 +112,7 @@ public final class Constants {
      * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";
+    
+    public static final String PRINCIPAL_VIDYO_RESOLVE = "vidyo_principal";
 
-	public static final String PORTAL_LIST = "portalList";
 }

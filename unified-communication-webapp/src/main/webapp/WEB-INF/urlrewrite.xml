@@ -67,6 +67,10 @@
         <to last="true">/cas/logout$1</to>
     </rule>
     <rule>
+        <from>/oauth2.0/*</from>
+        <to last="true">/cas/oauth2.0/$1</to>
+    </rule>
+    <rule>
         <from>/oauth10login*</from>
         <to last="true">/cas/oauth10login$1</to>
     </rule>

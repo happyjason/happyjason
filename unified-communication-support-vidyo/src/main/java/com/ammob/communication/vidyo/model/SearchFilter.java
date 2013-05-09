@@ -13,9 +13,10 @@ public class SearchFilter {
 	}
 	
 	public enum SortBy {
-		member,
-		name,
-		extension
+		Member,
+		Name,
+		Extension,
+		Url
 	}
 	
 	public enum Dir {

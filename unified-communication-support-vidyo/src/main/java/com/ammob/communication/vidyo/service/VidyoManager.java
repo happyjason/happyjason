@@ -5,7 +5,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.ws.rs.Path;
 
-import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 
@@ -25,6 +25,6 @@ public interface VidyoManager {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	List<Member> getMemberList(User user, String ModeratorPIN, String area, int index, int limit)
+	List<Member> getMemberList(Credentials credentials, String ModeratorPIN, String area, int index, int limit)
 			throws VidyoWrapException;
 }

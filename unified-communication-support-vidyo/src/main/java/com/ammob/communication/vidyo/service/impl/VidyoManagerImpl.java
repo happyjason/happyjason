@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.stereotype.Service;
 
-import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
@@ -27,26 +27,30 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
     /**
      * {@inheritDoc}
      */
-	public List<Member> getMemberList(User user, String pin, String area, int index, int limit) 
+	public List<Member> getMemberList(Credentials credentials, String pin, String area, int index, int limit) 
 			throws VidyoWrapException {
 		List<Member> result = new ArrayList<Member>();
 		if(StringUtil.hasText(area) && area.equals("participants")) {
-			result.addAll(VidyoUserUtil.getRoomMember(user, null, pin, index));
+			result.addAll(VidyoUserUtil.getRoomMember(credentials, null, pin, index));
 		} else {
 			SearchFilter filter = new SearchFilter(EntityType.Member, index, limit);
-			result.addAll(VidyoUserUtil.search(user, filter));
+			result.addAll(VidyoUserUtil.search(credentials, filter));
 		}
 		Collections.sort(result);
 		return result;
 	}
 	
+	/*****************************************************************************
+	 *                           For Web Service
+	 *****************************************************************************/
+	
     /**
      * {@inheritDoc}
      */
-	public Response joinRoomForWs(User user, String pin, int conferenceID){
+	public Response joinRoomForWs(Credentials credentials, String pin, int conferenceID){
 		ResponseBuilder builder = null;
 		try {
-			builder = Response.ok(VidyoUserUtil.joinRoom(user, pin, conferenceID));
+			builder = Response.ok(VidyoUserUtil.joinRoom(credentials, pin, conferenceID));
 		} catch (VidyoWrapException e) {
 			builder = Response.ok(e.getMessage() + " E :" + e.getWrap().toString());
 		}
@@ -56,10 +60,10 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
     /**
      * {@inheritDoc}
      */
-	public Response leaveRoomForWs(User user, String pin, int conferenceID, int entityID){
+	public Response leaveRoomForWs(Credentials credentials, String pin, int conferenceID, int entityID){
 		ResponseBuilder builder = null;
 		try {
-			builder = Response.ok(VidyoUserUtil.leaveRoom(user, pin, conferenceID, entityID));
+			builder = Response.ok(VidyoUserUtil.leaveRoom(credentials, pin, conferenceID, entityID));
 		} catch (VidyoWrapException e) {
 			builder = Response.ok(e.getMessage());
 		}
@@ -69,10 +73,10 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
     /**
      * {@inheritDoc}
      */
-	public Response invitMemberForWs(User user, String pin, int conferenceID, int entityID){
+	public Response invitMemberForWs(Credentials credentials, String pin, int conferenceID, int entityID){
 		ResponseBuilder builder = null;
 		try {
-			builder = Response.ok(VidyoUserUtil.invitMember(user, pin,
+			builder = Response.ok(VidyoUserUtil.invitMember(credentials, pin,
 					conferenceID, String.valueOf(entityID)));
 		} catch (VidyoWrapException e) {
 			builder = Response.ok(e.getMessage());
@@ -83,9 +87,9 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
     /**
      * {@inheritDoc}
      */
-	public List<Member> getMemberListForWs(User user, String pin, String area, int index, int limit) {
+	public List<Member> getMemberListForWs(Credentials credentials, String pin, String area, int index, int limit) {
 		try {
-			return getMemberList(user, pin, area, index, limit);
+			return getMemberList(credentials, pin, area, index, limit);
 		} catch (VidyoWrapException e) {
 			return new ArrayList<Member>();
 		}
@@ -94,12 +98,12 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
     /**
      * {@inheritDoc}
      */
-	public Member getMemberForWs(User user, String area) {
+	public Member getMemberForWs(Credentials credentials, String area) {
 		if(StringUtil.hasText(area) && area.equals("participants")) {
 			return null;
 		} else {
 			try {
-				return VidyoUserUtil.getMyAccount(user);
+				return VidyoUserUtil.getMyAccount(credentials);
 			} catch (VidyoWrapException e) {
 				e.printStackTrace();
 			}
@@ -110,12 +114,12 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getEndpointForWs(User user, String area) {
+	public String getEndpointForWs(Credentials credentials, String area) {
 		if(StringUtil.hasText(area) && area.equals("participants")) {
 			return null;
 		} else {
 			try {
-				return VidyoUserUtil.getEndpointStatus(user);
+				return VidyoUserUtil.getEndpointStatus(credentials);
 			} catch (VidyoWrapException e) {
 				e.printStackTrace();
 			}
@@ -127,21 +131,21 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("deprecation")
-	public String getLinkUrlForWs(User user, String area) {
+	public String getLinkUrlForWs(Credentials credentials, String area) {
 		if(StringUtil.hasText(area) && area.equals("participants")) {
 			return null;
 		} else {
-			return VidyoUserUtil.synchroLoginUrlForDeskTopClient(user);
+			return VidyoUserUtil.synchroLoginUrlForDeskTopClient(credentials);
 		}
 	}
 	
 	/**
      * {@inheritDoc}
      */
-	public List<Member> getMyContactsForWs(User user) {
+	public List<Member> getMyContactsForWs(Credentials credentials) {
 		SearchFilter filter = null;//new SearchFilter(EntityType.Member);
 		try {
-			return VidyoUserUtil.getMyContacts(user, filter);
+			return VidyoUserUtil.getMyContacts(credentials, filter);
 		} catch (VidyoWrapException e) {
 			return new ArrayList<Member>();
 		}
@@ -150,10 +154,10 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 	/**
      * {@inheritDoc}
      */
-	public Response addMyContactsForWs(User user, int entityId) {
+	public Response addMyContactsForWs(Credentials credentials, int entityId) {
 		ResponseBuilder builder = null;
 		try {
-			builder = Response.ok(VidyoUserUtil.addToMyContacts(user, entityId));
+			builder = Response.ok(VidyoUserUtil.addToMyContacts(credentials, entityId));
 		} catch (VidyoWrapException e) {
 			builder = Response.ok(e.getMessage());
 		}
@@ -163,10 +167,10 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 	/**
      * {@inheritDoc}
      */
-	public Response delMyContactsForWs(User user, int entityId) {
+	public Response delMyContactsForWs(Credentials credentials, int entityId) {
 		ResponseBuilder builder = null;
 		try {
-			builder = Response.ok(VidyoUserUtil.removeFromMyContacts(user, entityId));
+			builder = Response.ok(VidyoUserUtil.removeFromMyContacts(credentials, entityId));
 		} catch (VidyoWrapException e) {
 			builder = Response.ok(e.getMessage());
 		}

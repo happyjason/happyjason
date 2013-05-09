@@ -1,7 +1,6 @@
 package com.ammob.communication.webapp.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ammob.communication.core.Constants;
 import com.ammob.communication.core.dao.SearchException;
 import com.ammob.communication.vidyo.model.Portal;
-import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.service.PortalService;
 import com.ammob.communication.vidyo.service.VidyoManager;
 

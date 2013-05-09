@@ -111,7 +111,7 @@
     </logger>
     
     <logger name="com.ammob.communication.cas">
-        <level value="DEBUG"/>
+        <level value="INFO"/>
     </logger>
     
     <logger name="org.jasig" additivity="true">
@@ -139,8 +139,8 @@
     </logger>
     
     <logger name="org.apache.cxf" additivity="true">
-        <level value="INFO" />
-        <appender-ref ref="cas" />
+        <level value="WARN" />
+        <appender-ref ref="console" />
     </logger>
     
     <root>

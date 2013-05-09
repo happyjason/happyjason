@@ -229,7 +229,7 @@
         <servlet-name>cas</servlet-name>
         <url-pattern>/cas/*</url-pattern>
     </servlet-mapping>
-
+	
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

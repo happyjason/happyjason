@@ -41,6 +41,7 @@ public class Tenant extends BaseObject implements Serializable {
     private String adminPassword;
     private String cdrUsername;
     private String cdrPassword;
+	private Integer remotId;
     private Integer installNumber;					// max-500
     private Integer seatNumber;						// max-10000
     private Integer lineNumber;						// max-10
@@ -51,6 +52,7 @@ public class Tenant extends BaseObject implements Serializable {
     private Integer extensionPrefix;
     private Integer version;
     private Integer paymentDays;
+    private Integer mobileAllowed;
 	private Date cdrSynchroTime;
     private Date cdrSchedulerTime;
     private boolean cdr;
@@ -84,6 +86,16 @@ public class Tenant extends BaseObject implements Serializable {
         this.id = id;
     }
     
+    @Column()
+    @Field
+	public Integer getRemotId() {
+		return remotId;
+	}
+
+	public void setRemotId(Integer remotId) {
+		this.remotId = remotId;
+	}
+
     @Column(length = 20, nullable=false, unique = true)
     @Field
     public String getName() {
@@ -205,6 +217,15 @@ public class Tenant extends BaseObject implements Serializable {
 		this.dialIn = dialIn;
 	}
 
+	@Column(name="mobile_allowed")
+	public Integer getMobileAllowed() {
+		return mobileAllowed;
+	}
+
+	public void setMobileAllowed(Integer mobileAllowed) {
+		this.mobileAllowed = mobileAllowed;
+	}
+	
 	@Column(name="install_number")
 	public Integer getInstallNumber() {
 		return installNumber;

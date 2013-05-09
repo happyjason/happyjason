@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
-import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
@@ -62,12 +62,13 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static boolean addToMyContacts(User user, int entityId) throws VidyoWrapException {
+	public static boolean addToMyContacts(Credentials credentials, int entityId) 
+			throws VidyoWrapException {
 		AddToMyContactsRequest request = userFactory.createAddToMyContactsRequest();
 		request.setEntityID(String.valueOf(entityId));
 		try {
-			AddToMyContactsResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-						user.getPassword()).addToMyContacts(request);
+			AddToMyContactsResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).addToMyContacts(request);
 			if(StringUtil.hasText(response.getOK()))
 				return true;
 		} catch (MalformedURLException e) {
@@ -91,12 +92,14 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static boolean removeFromMyContacts(User user, int entityId) throws VidyoWrapException {
+	public static boolean removeFromMyContacts(Credentials credentials, int entityId) 
+			throws VidyoWrapException {
 		RemoveFromMyContactsRequest request = userFactory.createRemoveFromMyContactsRequest();
 		request.setEntityID(String.valueOf(entityId));
 		try {
-			RemoveFromMyContactsResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-						user.getPassword()).removeFromMyContacts(request);
+			RemoveFromMyContactsResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).removeFromMyContacts(
+							request);
 			if(StringUtil.hasText(response.getOK()))
 				return true;
 		} catch (MalformedURLException e) {
@@ -120,13 +123,13 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static List<Member> getMyContacts(User user, SearchFilter filter)
+	public static List<Member> getMyContacts(Credentials credentials, SearchFilter filter)
 			throws VidyoWrapException {
 		SearchMyContactsRequest request = userFactory.createSearchMyContactsRequest();
 		request.setFilter(convertFilter(filter));
 		try {
-			SearchMyContactsResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).searchMyContacts(request);
+			SearchMyContactsResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).searchMyContacts(request);
 			return convertMemberList(response.getEntity());
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -147,12 +150,12 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static Member getMyAccount(User user)
+	public static Member getMyAccount(Credentials credentials)
 			throws VidyoWrapException {
 		MyAccountRequest request = userFactory.createMyAccountRequest();
 		try {
-			MyAccountResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).myAccount(request);
+			MyAccountResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).myAccount(request);
 			return convertMember(response.getEntity());
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -173,11 +176,11 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static String getEndpointStatus(User user) throws VidyoWrapException {
+	public static String getEndpointStatus(Credentials credentials) throws VidyoWrapException {
 		MyEndpointStatusRequest request = userFactory.createMyEndpointStatusRequest();
 		try {
-			MyEndpointStatusResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).myEndpointStatus(request);
+			MyEndpointStatusResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).myEndpointStatus(request);
 			return response.getMemberStatus();
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -206,13 +209,13 @@ public class VidyoUserUtil {
 	 * @throws GeneralFault_Exception
 	 * @throws WrongPINFault_Exception
 	 */
-	public static boolean joinRoom(User user, String PIN, int conferenceID) throws VidyoWrapException {
+	public static boolean joinRoom(Credentials credentials, String PIN, int conferenceID) throws VidyoWrapException {
 		JoinConferenceRequest request = userFactory.createJoinConferenceRequest();
 		request.setConferenceID(String.valueOf(conferenceID));
 		request.setPIN(userFactory.createJoinConferenceRequestPIN(PIN));
 		try {
-			JoinConferenceResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-						user.getPassword()).joinConference(request);
+			JoinConferenceResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).joinConference(request);
 			if(StringUtil.hasText(response.getOK()))
 				return true;
 		} catch (MalformedURLException e) {
@@ -248,15 +251,15 @@ public class VidyoUserUtil {
 	 * @throws InvalidArgumentFault_Exception
 	 * @throws GeneralFault_Exception
 	 */
-	public static boolean leaveRoom(User user, String ModeratorPIN, int conferenceID, int entityID) 
+	public static boolean leaveRoom(Credentials credentials, String ModeratorPIN, int conferenceID, int entityID) 
 			throws VidyoWrapException {
 		LeaveConferenceRequest request = userFactory.createLeaveConferenceRequest();
 		request.setConferenceID(String.valueOf(conferenceID));
 		request.setModeratorPIN(userFactory.createLeaveConferenceRequestModeratorPIN(ModeratorPIN));
 		request.setParticipantID(String.valueOf(entityID));
 		try {
-			LeaveConferenceResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).leaveConference(request);
+			LeaveConferenceResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).leaveConference(request);
 			if(StringUtil.hasText(response.getOK()))
 				return true;
 		} catch (MalformedURLException e) {
@@ -284,15 +287,15 @@ public class VidyoUserUtil {
 	 * @return Member List
 	 * @throws VidyoWrapException
 	 */
-	public static List<Member> getRoomMember(User user, SearchFilter filter, String ModeratorPIN, int conferenceID)
+	public static List<Member> getRoomMember(Credentials credentials, SearchFilter filter, String ModeratorPIN, int conferenceID)
 			throws VidyoWrapException {
 		GetParticipantsRequest request = userFactory.createGetParticipantsRequest();
 		request.setModeratorPIN(userFactory.createGetParticipantsRequestModeratorPIN(ModeratorPIN));
 		request.setFilter(convertFilter(filter));
 		request.setConferenceID(String.valueOf(conferenceID));
 		try {
-			GetParticipantsResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).getParticipants(request);
+			GetParticipantsResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).getParticipants(request);
 			return convertMemberList(response.getEntity());
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -323,7 +326,7 @@ public class VidyoUserUtil {
 	 * @throws InvalidArgumentFault_Exception
 	 * @throws GeneralFault_Exception
 	 */
-	public static boolean invitMember(User user, String ModeratorPIN, int conferenceID, String invitObject) 
+	public static boolean invitMember(Credentials credentials, String ModeratorPIN, int conferenceID, String invitObject) 
 			throws VidyoWrapException {
 		InviteToConferenceRequest request = userFactory.createInviteToConferenceRequest();
 		request.setConferenceID(String.valueOf(conferenceID));
@@ -334,8 +337,8 @@ public class VidyoUserUtil {
 			request.setInvite(invitObject); // Invit URL
 		}
 		try {
-			InviteToConferenceResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).inviteToConference(request);
+			InviteToConferenceResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).inviteToConference(request);
 			if(StringUtil.hasText(response.getOK()))
 				return true;
 		} catch (MalformedURLException e) {
@@ -361,12 +364,12 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static List<Member> search(User user, SearchFilter filter) throws VidyoWrapException {
+	public static List<Member> search(Credentials credentials, SearchFilter filter) throws VidyoWrapException {
 		SearchRequest request = userFactory.createSearchRequest();
 		request.setFilter(convertFilter(filter));
 		try {
-			SearchResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).search(request);
+			SearchResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).search(request);
 			return convertMemberList(response.getEntity());
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -390,15 +393,15 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws VidyoWrapException
 	 */
-	public static Member linkEndpoint(User user, String endpointId, String vrIp, String clientType) 
+	public static Member linkEndpoint(Credentials credentials, String endpointId, String vrIp, String clientType) 
 			throws VidyoWrapException {
 		LinkEndpointRequest request = userFactory.createLinkEndpointRequest();
 		request.setEID(endpointId);
 		request.setVrIP(vrIp);
 		request.setClientType(clientType);
 		try {
-			LinkEndpointResponse response = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).linkEndpoint(request);
+			LinkEndpointResponse response = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).linkEndpoint(request);
 			return convertMember(response.getEntity());
 		} catch (MalformedURLException e) {
 			throw new VidyoWrapException(e);
@@ -423,7 +426,7 @@ public class VidyoUserUtil {
 	 */
 	public static boolean getAuthenticationState(String protalUrl, String username, String password) {
 		try {
-			LogInResponse logInResponse = getUserClient(protalUrl, username, 
+			LogInResponse logInResponse = getClient(protalUrl, username, 
 					password).logIn(new LogInRequest());
 			if(logInResponse != null && StringUtil.hasText(logInResponse.getPak()))
 				return true;
@@ -450,16 +453,16 @@ public class VidyoUserUtil {
 	 * @param logInResponse
 	 * @param username
 	 */
-	public static String synchroLoginUrlForDeskTopClient(User user) {
+	public static String synchroLoginUrlForDeskTopClient(Credentials credentials) {
 		try {
-			LogInResponse logInResponse = getUserClient(user.getWebsite(), user.getUsername(), 
-					user.getPassword()).logIn(new LogInRequest());
+			LogInResponse logInResponse = getClient(credentials.getUrl(), 
+					credentials.getUsername(), credentials.getPassword()).logIn(new LogInRequest());
 			String url = "http://m.seekoom.com/services/api/vidyo/client";
 			return "http://127.0.0.1:63457/dummy?url=" + url + 
 				"&vm=" + logInResponse.getVmaddress().getValue() + 
-				"&un=" +  user.getUsername() + "&pak=" + logInResponse.getPak() + 
-				"&portal=" + user.getWebsite() + "/services&proxy=" + logInResponse.getProxyaddress() +
-				"&showdialpad=yes&showstartmeeting=yes";
+				"&un=" +  credentials.getUsername() + "&pak=" + logInResponse.getPak() + 
+				"&portal=" + credentials.getUrl() + "/services&proxy=" + 
+				logInResponse.getProxyaddress() + "&showdialpad=yes&showstartmeeting=yes";
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (SeatLicenseExpiredFault_Exception e) {
@@ -546,8 +549,10 @@ public class VidyoUserUtil {
 	 * @return
 	 * @throws MalformedURLException
 	 */
-	public static VidyoPortalUserServicePortType getUserClient(String protalUrl, String username, String password) throws MalformedURLException {
-		VidyoPortalUserService service = new VidyoPortalUserService(new URL(protalUrl + "/services/v1_1/VidyoPortalUserService?wsdl"));
+	private static VidyoPortalUserServicePortType getClient(String protalUrl, String username,
+			String password) throws MalformedURLException {
+		VidyoPortalUserService service = new VidyoPortalUserService(new URL(protalUrl + 
+				"/services/v1_1/VidyoPortalUserService?wsdl"));
 		VidyoPortalUserServicePortType client = service.getVidyoPortalUserServicePort();
 		BindingProvider bp = (BindingProvider)client;
 		bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, username);

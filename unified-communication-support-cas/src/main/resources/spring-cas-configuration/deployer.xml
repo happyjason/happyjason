@@ -48,6 +48,9 @@
 				<bean class="org.jasig.cas.support.oauth.authentication.principal.OAuthCredentialsToPrincipalResolver" >
 					<property name="attributeRepository" ref="attributeRepository" />
 				</bean>
+				<bean class="com.ammob.communication.cas.authentication.principal.VidyoCredentialsToPrincipalResolver" >
+					<property name="attributeRepository" ref="attributeRepository" />
+				</bean>
 			</list>
 		</property>
 		<property name="authenticationHandlers">
@@ -104,6 +107,12 @@
 	<bean id="serviceRegistryDao" class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl">
             <property name="registeredServices">
                 <list>
+	                <bean class="org.jasig.cas.services.RegisteredServiceImpl">
+				        <property name="id" value="0" />
+				        <property name="name" value="HTTP" />
+				        <property name="description" value="oauth wrapper callback url" />
+				        <property name="serviceId" value="${server.prefix}/oauth2.0/callbackAuthorize" />
+			      	</bean>
                     <bean class="org.jasig.cas.services.RegexRegisteredService">
                         <property name="id" value="0" />
                         <property name="name" value="HTTP and IMAP" />

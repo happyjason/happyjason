@@ -22,14 +22,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.vidyo.model.Member;
 import com.vidyo.portal.user.v1_1.LogInResponse;
 
 public class VidyoManagerImplTest {
 	
     private VidyoManagerImpl manager = null;
-    private User user = null;
+    private Credentials credentials = null;
     
     private String url = "http://v.seekoom.com";
     private String username = "hotmob";
@@ -38,9 +38,7 @@ public class VidyoManagerImplTest {
     @Before
     public void setUp() {
         manager = new VidyoManagerImpl();
-        user = new User(username);
-        user.setPassword(password);
-        user.setWebsite(url);
+        credentials = new Credentials(username, password, url);
     }
 
     @After
@@ -51,7 +49,7 @@ public class VidyoManagerImplTest {
     @Test
 	public void testGetMemberListWs() {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Member> dd = manager.getMemberListForWs(user, null, "participants", 5, 20);
+		List<Member> dd = manager.getMemberListForWs(credentials, null, "participants", 5, 20);
 		for(Member member : dd){
 			System.out.println(member.getDisplayName() + " : " + member.getMemberStatus());
 		}
@@ -69,7 +67,7 @@ public class VidyoManagerImplTest {
     @Ignore
 	public void testJoinRoomWs() {
 		ObjectMapper mapper = new ObjectMapper();
-		Response dd = manager.joinRoomForWs(user, null, 474);
+		Response dd = manager.joinRoomForWs(credentials, null, 474);
 		try {
 			System.out.println(mapper.writeValueAsString(dd)); //返回字符串
 		} catch (JsonGenerationException e) {
@@ -84,7 +82,7 @@ public class VidyoManagerImplTest {
     @Ignore
     public void testGetMyContactsForWs() {
     	ObjectMapper mapper = new ObjectMapper();
-    	List<Member> dd = manager.getMyContactsForWs(user);
+    	List<Member> dd = manager.getMyContactsForWs(credentials);
     	for(Member member : dd){
 			System.out.println(member.getDisplayName() + " : " + member.getMemberStatus());
 		}

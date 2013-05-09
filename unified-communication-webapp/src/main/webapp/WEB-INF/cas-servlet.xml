@@ -81,6 +81,7 @@
 				<prop key="/403.html">passThroughController</prop>
 				<prop key="/status">healthCheckController</prop>
 				<prop key="/oauth10login">oauth10loginController</prop>
+				<prop key="/oauth2.0/*">oauth20WrapperController</prop>
 			</props>
 		</property>
 		<property name="alwaysUseFullPath" value="false" />
@@ -146,6 +147,12 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="oauth20WrapperController" class="org.jasig.cas.support.oauth.web.OAuth20WrapperController"
+		p:loginUrl="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"
+		p:servicesManager-ref="servicesManager" p:ticketRegistry-ref="ticketRegistry"
+		p:timeout="7200" />
+  
 	<bean id="proxyValidateController" class="org.jasig.cas.web.ServiceValidateController"
 		p:centralAuthenticationService-ref="centralAuthenticationService"
 		p:proxyHandler-ref="proxy20Handler" p:argumentExtractor-ref="casArgumentExtractor" />
@@ -201,11 +208,11 @@
 		p:centralAuthenticationService-ref="centralAuthenticationService"
 		p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator" />
 
-	<bean id="gatewayServicesManagementCheck" class="org.jasig.cas.web.flow.GatewayServicesManagementCheck">
+	<bean id="gatewayServicesManagementCheck" class="com.ammob.communication.webapp.flow.GatewayServicesManagementCheck">
 		<constructor-arg index="0" ref="servicesManager" />
 	</bean>
 
-	<bean id="serviceAuthorizationCheck" class="org.jasig.cas.web.flow.ServiceAuthorizationCheck">
+	<bean id="serviceAuthorizationCheck" class="com.ammob.communication.webapp.flow.ServiceAuthorizationCheck">
 		<constructor-arg index="0" ref="servicesManager" />
 	</bean>
 

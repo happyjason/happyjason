@@ -3,13 +3,8 @@ package com.ammob.communication.vidyo.service;
 import java.util.List;
 
 import com.ammob.communication.vidyo.model.Portal;
-import com.ammob.communication.vidyo.model.Tenant;
-
-
-
 
 public interface PortalService {
-
 	
 	public List<Portal> findAllPortal();
 	
