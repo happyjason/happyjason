@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.jasig.cas.authentication.principal.Credentials;
 import org.jasig.cas.authentication.principal.CredentialsToPrincipalResolver;
 import org.jasig.cas.authentication.principal.Principal;
@@ -17,7 +18,6 @@ import org.jasig.services.persondir.support.StubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ammob.communication.core.Constants;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.util.VidyoUserUtil;
@@ -35,7 +35,8 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
     /**
      * Return Principal.
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public final Principal resolvePrincipal(final Credentials credentials) {
         if (log.isDebugEnabled()) {
             log.debug("Attempting to resolve a principal...");
@@ -65,8 +66,17 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
 						vidyoCredentials.getUsername(), vidyoCredentials.getPassword(),
 							vidyoCredentials.getUrl()));
         		List<Object> members = new ArrayList<Object>();
-        		members.add(member);
-        		attributes.put(Constants.PRINCIPAL_VIDYO_RESOLVE, members);
+        		try {
+        			@SuppressWarnings("rawtypes")
+					Map map = PropertyUtils.describe(member);
+        			map.put("username", ((VidyoCredentials) credentials).getUsername());
+        			map.put("password", ((VidyoCredentials) credentials).getPassword());
+        			map.put("portal", ((VidyoCredentials) credentials).getUrl());
+					members.add(map);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        		attributes.put("vidyo", members);
 			} catch (VidyoWrapException e) {
 				e.printStackTrace();
 			}

@@ -113,6 +113,4 @@ public final class Constants {
      */
     public static final String CSS_THEME = "csstheme";
     
-    public static final String PRINCIPAL_VIDYO_RESOLVE = "vidyo_principal";
-
 }

@@ -17,8 +17,8 @@
 						<div id="select06" class="selectbox">
 							<div class="cartes">
 								<span class="login_from_picbig"></span>
-								<form:input cssClass="login_txt listTxt" cssErrorClass="alert-error" id="serverUrl" 
-									size="25" tabindex="1" path="serverUrl" autocomplete="true" 
+								<form:input cssClass="login_txt listTxt" cssErrorClass="alert-error" id="url" 
+									size="25" tabindex="1" path="url" autocomplete="true" 
 									htmlEscape="true" value="http://v.seekoom.com"/>
 							</div>
 							<div class="lists">

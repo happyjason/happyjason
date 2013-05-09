@@ -4,6 +4,9 @@
         <pattern>/*ajax=true*</pattern>
         <pattern>/struts/*</pattern>
         <pattern>/resources/*</pattern>
+        
+        <pattern>/serviceValidate*</pattern>
+        <pattern>/samlValidate*</pattern>
     </excludes> 
     <decorator name="default" page="default.jsp">
         <pattern>/*</pattern>

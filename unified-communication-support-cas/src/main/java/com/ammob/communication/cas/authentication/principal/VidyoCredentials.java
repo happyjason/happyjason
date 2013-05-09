@@ -8,12 +8,19 @@ public class VidyoCredentials extends Credentials implements RememberMeCredentia
 
 	private static final long serialVersionUID = 1L;
 
+	public VidyoCredentials() {
+		super();
+	}
+	
 	public VidyoCredentials(String username, String password) {
 		super(username, password);
 	}
 
+	public VidyoCredentials(String username, String password, String url) {
+		super(username, password, url);
+	}
+	
 	public VidyoCredentials(String username, String password, boolean rememberMe) {
 		super(username, password, rememberMe);
 	}
-
 }

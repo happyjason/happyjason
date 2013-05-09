@@ -70,7 +70,7 @@
 		class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
 		p:key="my_password_for_this_auth_provider_only"
 		p:serviceProperties-ref="serviceProperties"
-		p:authenticationUserDetailsService-ref="vidyoUserDetailsService">
+		p:authenticationUserDetailsService-ref="authenticationUserDetailsService">
 		<property name="ticketValidator">
 			<bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
 				<constructor-arg index="0"
@@ -78,4 +78,13 @@
 			</bean>
 		</property>
 	</bean>
+
+	<bean id="authenticationUserDetailsService"
+		class="org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService">
+		<constructor-arg>
+			<array>
+				<value>role</value>
+			</array>
+		</constructor-arg>
+	</bean> 
 </beans>

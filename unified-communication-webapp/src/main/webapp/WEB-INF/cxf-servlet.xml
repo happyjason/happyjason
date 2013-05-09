@@ -24,6 +24,7 @@
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
             <ref bean="vidyoManager"/>
+            <ref bean="authorizationManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
@@ -32,6 +33,7 @@
             <entry key="json" value="application/json"/>
             <entry key="xml" value="application/xml"/>
             <entry key="feed" value="application/atom+xml"/>
+            <entry key="html" value="text/html"/>
         </jaxrs:extensionMappings>
     </jaxrs:server>
 </beans>

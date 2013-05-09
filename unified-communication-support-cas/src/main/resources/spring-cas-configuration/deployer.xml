@@ -263,6 +263,9 @@
 								<value>profile_URL</value>
 								<value>links</value>
 								<!-- wordpress -->
+								<!-- wordpress -->
+								<value>vidyo</value>
+								<!-- wordpress -->
 							</list>
 						</property>
                     </bean>

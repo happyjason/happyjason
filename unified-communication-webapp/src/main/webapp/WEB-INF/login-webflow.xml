@@ -106,7 +106,7 @@
         <binder>
             <binding property="username" />
             <binding property="password" />
-            <binding property="serverUrl" />
+            <binding property="url" />
             <binding property="rememberMe" />
         </binder>
         <on-entry>
