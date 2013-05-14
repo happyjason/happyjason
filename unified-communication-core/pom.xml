@@ -32,6 +32,7 @@
                         <jdk5>true</jdk5>
                         <propertyfile>${project.build.testOutputDirectory}/jdbc.properties</propertyfile>
                         <skip>${skipTests}</skip>
+                        <configurationfile>src/main/resources/core.hibernate.cfg.xml </configurationfile>
                     </componentProperties>
                 </configuration>
                 <executions>

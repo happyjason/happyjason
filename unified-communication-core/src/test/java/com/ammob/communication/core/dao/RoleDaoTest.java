@@ -22,7 +22,7 @@ public class RoleDaoTest extends BaseDaoTestCase {
 
     @Test
     public void testGetRole() throws Exception {
-        Role role = dao.getRoleByName(Constants.USER_ROLE);
+        Role role = dao.getRoleByName(Constants.ROLE_USER);
         assertNotNull(role);
     }
 
@@ -57,7 +57,7 @@ public class RoleDaoTest extends BaseDaoTestCase {
     @Test
     public void testFindByNamedQuery() {
         HashMap<String, Object> queryParams = new HashMap<String, Object>();
-        queryParams.put("name", Constants.USER_ROLE);
+        queryParams.put("name", Constants.ROLE_USER);
         List<Role> roles = dao.findByNamedQuery("findRoleByName", queryParams);
         assertNotNull(roles);
         assertTrue(roles.size() > 0);

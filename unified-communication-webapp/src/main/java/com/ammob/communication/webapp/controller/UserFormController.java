@@ -82,7 +82,7 @@ public class UserFormController extends BaseFormController {
 
             // only attempt to change roles if user is admin for other users,
             // showForm() method will handle populating
-            if (request.isUserInRole(Constants.ADMIN_ROLE)) {
+            if (request.isUserInRole(Constants.ROLE_ADMIN)) {
                 String[] userRoles = request.getParameterValues("userRoles");
 
                 if (userRoles != null) {
@@ -164,7 +164,7 @@ public class UserFormController extends BaseFormController {
     protected UserForm showForm(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         // If not an administrator, make sure user is not trying to add or edit another user
-        if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
+        if (!request.isUserInRole(Constants.ROLE_ADMIN) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit user with id '" +
@@ -201,7 +201,7 @@ public class UserFormController extends BaseFormController {
                 user = UserForm.fromProviderUser(getUserManager().getUser(userId));
             } else {
                 user = new UserForm();
-                user.addRole(new Role(Constants.USER_ROLE));
+                user.addRole(new Role(Constants.ROLE_USER));
             }
 
             user.setConfirmPassword(user.getPassword());

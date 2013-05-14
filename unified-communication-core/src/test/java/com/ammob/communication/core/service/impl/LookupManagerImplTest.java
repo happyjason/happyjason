@@ -29,7 +29,7 @@ public class LookupManagerImplTest extends BaseManagerMockTestCase {
         log.debug("entered 'testGetAllRoles' method");
 
         // set expected behavior on dao
-        Role role = new Role(Constants.ADMIN_ROLE);
+        Role role = new Role(Constants.ROLE_ADMIN);
         final List<Role> testData = new ArrayList<Role>();
         testData.add(role);
         context.checking(new Expectations() {{

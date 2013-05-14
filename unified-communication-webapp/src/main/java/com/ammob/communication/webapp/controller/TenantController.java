@@ -1,6 +1,5 @@
 package com.ammob.communication.webapp.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ import com.ammob.communication.vidyo.service.TenantManager;
  */
 @Controller
 @RequestMapping("/tenant*")
-public class TenantController {
+public class TenantController extends BaseController {
 	private TenantManager tenantManager;
 	
 	@Autowired
@@ -111,22 +110,7 @@ public class TenantController {
 				e.printStackTrace();
 			}
 		}
-		addMessage(request, message);
+		saveMessage(request, message);
 		return new ModelAndView("tenant/cdr");
-	}
-	
-	/**
-	 * 
-	 * @param request
-	 * @param message
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void addMessage(HttpServletRequest request, String message){
-		List<String> messages = (List) request.getSession().getAttribute(BaseFormController.MESSAGES_KEY);
-	    if (messages == null) {
-	        messages = new ArrayList();
-	    }
-	    messages.add(message);
-	    request.getSession().setAttribute(BaseFormController.MESSAGES_KEY, messages);
 	}
 }

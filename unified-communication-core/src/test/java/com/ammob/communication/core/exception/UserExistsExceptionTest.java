@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
     locations={"/applicationContext-service.xml",
                "/applicationContext-resources.xml",
                "classpath:/applicationContext-dao.xml"})
+@Transactional("coreTransactionManager")
 public class UserExistsExceptionTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     private UserManager manager;

@@ -134,7 +134,7 @@ public class TenantFormController extends BaseFormController {
 //    		portal = portalService.getPortalById(Long.valueOf(portal_id));
 //    	}
     	
-        if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
+        if (!request.isUserInRole(Constants.ROLE_ADMIN) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit tenant with id '" +

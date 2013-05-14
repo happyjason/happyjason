@@ -71,7 +71,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         User user = dao.get(1L);
         assertEquals(1, user.getRoles().size());
 
-        Role role = rdao.getRoleByName(Constants.USER_ROLE);
+        Role role = rdao.getRoleByName(Constants.ROLE_USER);
         user.addRole(role);
         dao.saveUser(user);
         flush();
@@ -109,7 +109,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setEmail("testuser@ammob.com");
         user.setWebsite("http://testuser.ammob.com");
 
-        Role role = rdao.getRoleByName(Constants.USER_ROLE);
+        Role role = rdao.getRoleByName(Constants.ROLE_USER);
         assertNotNull(role.getId());
         user.addRole(role);
 

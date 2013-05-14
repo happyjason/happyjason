@@ -1,5 +1,4 @@
-<%@ include file="/common/taglibs.jsp" %>
-
+<jsp:directive.include file="/WEB-INF/view/jsp/common/header.jsp" />
 <head>
     <title><fmt:message key="portalList.title"/></title>
     <meta name="menu" content="PortalMenu"/>

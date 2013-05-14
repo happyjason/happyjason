@@ -19,15 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Simple class to retrieve and send a password hint to users.
  */
 @Controller
 @RequestMapping("/passwordHint*")
-public class PasswordHintController {
+public class PasswordHintController extends BaseController {
     private final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager userManager = null;
     private MessageSource messageSource = null;
@@ -94,28 +92,6 @@ public class PasswordHintController {
             log.warn(me.getMessage());
             saveError(request, me.getCause() != null ? me.getCause().getLocalizedMessage() : me.getMessage());
         }
-
         return new ModelAndView(new RedirectView(request.getContextPath()));
-    }
-
-	@SuppressWarnings("unchecked")
-	public void saveError(HttpServletRequest request, String error) {
-        List<String> errors = (List<String>) request.getSession().getAttribute("errors");
-        if (errors == null) {
-            errors = new ArrayList<String>();
-        }
-        errors.add(error);
-        request.getSession().setAttribute("errors", errors);
-    }
-
-    // this method is also in BaseForm Controller
-    @SuppressWarnings("unchecked")
-	public void saveMessage(HttpServletRequest request, String msg) {
-        List<String> messages = (List<String>) request.getSession().getAttribute(BaseFormController.MESSAGES_KEY);
-        if (messages == null) {
-            messages = new ArrayList<String>();
-        }
-        messages.add(msg);
-        request.getSession().setAttribute(BaseFormController.MESSAGES_KEY, messages);
     }
 }

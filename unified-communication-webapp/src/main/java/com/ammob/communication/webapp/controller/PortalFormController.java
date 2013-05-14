@@ -10,8 +10,6 @@ import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.service.PortalService;
 import com.ammob.communication.vidyo.service.TenantManager;
 import com.ammob.communication.vidyo.service.VidyoManager;
-import com.vidyo.portal.superapi.ListTenantsRequest;
-import com.vidyo.portal.superapi.ListTenantsResponse;
 import com.vidyo.portal.superapi.SingleTenantDataType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.net.MalformedURLException;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -151,7 +146,7 @@ public class PortalFormController extends BaseFormController {
             throws Exception {
     	System.out.println("PortalFormController.showForm()~~~~~~~~~~~~~~~~~~~~~~~~");
         // If not an administrator, make sure user is not trying to add or edit another tenant
-        if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
+        if (!request.isUserInRole(Constants.ROLE_ADMIN) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit tenant with id '" +

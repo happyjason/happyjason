@@ -1,14 +1,13 @@
-<%@ include file="/common/taglibs.jsp" %>
-
+<%@ include file="/WEB-INF/view/jsp/common/header.jsp" %>
 <head>
-    <title><fmt:message key="signup.title"/></title>
+    <title><fmt:message key="page.signup.title"/></title>
 </head>
 
 <body class="signup"/>
 
 <div class="span2">
-    <h2><fmt:message key="signup.heading"/></h2>
-    <p><fmt:message key="signup.message"/></p>
+    <h2><fmt:message key="page.signup.heading"/></h2>
+    <p><fmt:message key="page.signup.message"/></p>
 </div>
 <div class="span7">
     <spring:bind path="userForm.*">

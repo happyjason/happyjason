@@ -1,5 +1,4 @@
-<%@ include file="/common/taglibs.jsp"%>
-
+<%@ include file="/WEB-INF/view/jsp/common/header.jsp" %>
 <head>
     <title><fmt:message key="display.title"/></title>
     <meta name="menu" content="AdminMenu"/>

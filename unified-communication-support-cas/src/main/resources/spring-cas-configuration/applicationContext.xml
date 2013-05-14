@@ -26,8 +26,7 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
     <description>
         This is the main Spring configuration file with some of the main "core" classes defined. You shouldn't really
-        modify this unless you
-        know what you're doing!
+        modify this unless you know what you're doing!
     </description>
 
     <!--

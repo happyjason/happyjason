@@ -1,3 +1,2 @@
-<%@ include file="/common/taglibs.jsp"%>
-
-<c:redirect url="/mainMenu"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:redirect url="/home"/>

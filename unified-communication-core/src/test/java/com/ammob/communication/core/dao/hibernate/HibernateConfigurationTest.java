@@ -7,11 +7,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.persister.entity.EntityPersister;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 
 public class HibernateConfigurationTest extends BaseDaoTestCase {
     @Autowired
+    @Qualifier("coreSessionFactory")
     SessionFactory sessionFactory;
 
     @Test

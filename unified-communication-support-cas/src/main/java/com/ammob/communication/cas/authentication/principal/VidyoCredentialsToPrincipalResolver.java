@@ -1,6 +1,7 @@
 package com.ammob.communication.cas.authentication.principal;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,21 +18,35 @@ import org.jasig.services.persondir.IPersonAttributes;
 import org.jasig.services.persondir.support.StubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ammob.communication.core.Constants;
+import com.ammob.communication.core.model.Role;
+import com.ammob.communication.core.model.User;
+import com.ammob.communication.core.service.UserManager;
+import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.util.VidyoUserUtil;
 
+@Transactional("coreTransactionManager")
 public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincipalResolver {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	private boolean returnNullIfNoAttributes = false;
-	
     /** Repository of principal attributes to be retrieved */
     @NotNull
     private IPersonAttributeDao attributeRepository = new StubPersonAttributeDao(new HashMap<String, List<Object>>());
+    
+    private UserManager userManager = null;
 
+    @Autowired
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+    
     /**
      * Return Principal.
      */
@@ -40,7 +55,7 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
     public final Principal resolvePrincipal(final Credentials credentials) {
         if (log.isDebugEnabled()) {
             log.debug("Attempting to resolve a principal...");
-        }
+        } 
 
         final String principalId = extractPrincipalId(credentials);
         
@@ -58,37 +73,44 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
         if (personAttributes != null) {
             attributes.putAll(personAttributes.getAttributes());
         }
-        if(credentials instanceof VidyoCredentials){
-        	VidyoCredentials vidyoCredentials = (VidyoCredentials) credentials;
-        	try {
-        		Member member = VidyoUserUtil.getMyAccount(
-					new com.ammob.communication.core.authentication.principal.Credentials(
-						vidyoCredentials.getUsername(), vidyoCredentials.getPassword(),
-							vidyoCredentials.getUrl()));
-        		List<Object> members = new ArrayList<Object>();
-        		try {
-        			@SuppressWarnings("rawtypes")
-					Map map = PropertyUtils.describe(member);
-        			map.put("username", ((VidyoCredentials) credentials).getUsername());
-        			map.put("password", ((VidyoCredentials) credentials).getPassword());
-        			map.put("portal", ((VidyoCredentials) credentials).getUrl());
-					members.add(map);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        		attributes.put("vidyo", members);
-			} catch (VidyoWrapException e) {
-				e.printStackTrace();
-			}
-        }
-        if (attributes.isEmpty() & !this.returnNullIfNoAttributes) {
-            return new SimplePrincipal(principalId);
-        }
-
-        if (attributes.isEmpty()) {
-            return null;
-        }
         
+        List<Object> members = new ArrayList<Object>();
+		List<Object> authoritiesList = new ArrayList<Object>();
+		Map<String, Object> memberMap = new HashMap<String, Object>();
+    	try {
+			VidyoCredentials vidyoCredentials = (VidyoCredentials) credentials;
+			try {
+				if(StringUtil.hasText(vidyoCredentials.getUrl())) {
+					Member member = VidyoUserUtil.getMyAccount(
+						new com.ammob.communication.core.authentication.principal.Credentials(
+							vidyoCredentials.getUsername(), vidyoCredentials.getPassword(),
+								vidyoCredentials.getUrl()));
+					memberMap.putAll(PropertyUtils.describe(member));
+				}
+			} catch (Exception e) {
+				log.warn(e.getMessage());
+			}
+			try {
+				User user = userManager.getUserByUsername(vidyoCredentials.getUsername());
+				if(user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
+					for(Role role : user.getRoles()){
+						authoritiesList.add(role.getName());
+					}
+				}
+			} catch (Exception e) {
+				log.warn(e.getMessage());
+			}
+			memberMap.put("username", vidyoCredentials.getUsername());
+			memberMap.put("password", vidyoCredentials.getPassword());
+			memberMap.put("portal", vidyoCredentials.getUrl());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        members.add(memberMap);
+        authoritiesList.add(Constants.ROLE_VIDYO);
+        attributes.put("vidyo", members);
+		attributes.put("authorities", authoritiesList);
+
         final Map<String, Object> convertedAttributes = new HashMap<String, Object>();
         
         for (final Map.Entry<String, List<Object>> entry : attributes.entrySet()) {
@@ -122,9 +144,5 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
 	
     public final void setAttributeRepository(final IPersonAttributeDao attributeRepository) {
         this.attributeRepository = attributeRepository;
-    }
-
-    public void setReturnNullIfNoAttributes(final boolean returnNullIfNoAttributes) {
-        this.returnNullIfNoAttributes = returnNullIfNoAttributes;
     }
 }

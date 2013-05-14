@@ -64,7 +64,7 @@ public class SignupController extends BaseFormController {
         userForm.setEnabled(true);
 
         // Set the default user role on this new user
-        userForm.addRole(roleManager.getRole(Constants.USER_ROLE));
+        userForm.addRole(roleManager.getRole(Constants.ROLE_USER));
 
         try {
             this.getUserManager().saveUser(UserForm.fromConsumerUserForm(userForm));

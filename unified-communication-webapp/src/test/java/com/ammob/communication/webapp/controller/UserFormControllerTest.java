@@ -26,7 +26,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         log.debug("testing add new user...");
         request = newGet("/userform.html");
         request.addParameter("method", "Add");
-        request.addUserRole(Constants.ADMIN_ROLE);
+        request.addUserRole(Constants.ROLE_ADMIN);
 
         user = c.showForm(request, new MockHttpServletResponse());
         assertNull(user.getUsername());
@@ -63,7 +63,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         log.debug("testing edit...");
         request = newGet("/userform.html");
         request.addParameter("id", "1"); // regular user
-        request.addUserRole(Constants.ADMIN_ROLE);
+        request.addUserRole(Constants.ROLE_ADMIN);
 
         User user = c.showForm(request, new MockHttpServletResponse());
         assertEquals("Mob", user.getNickname());

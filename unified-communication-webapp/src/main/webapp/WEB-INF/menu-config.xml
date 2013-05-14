@@ -4,17 +4,21 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <Menu name="HomeMenu" title="home.title" description="Home Menu" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/user/profile" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="PostMenu" title="menu.post" description="Post Menu" page="/post" roles="ROLE_ADMIN"/>
-        <Menu name="TenantMenu" title="menu.tenant" description="Tenant Menu" page="/tenant" roles="ROLE_ADMIN"/>
-         <Menu name="PortalMenu" title="menu.portal" description="Portal Menu" page="/portal" roles="ROLE_ADMIN"/>
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" page="/admin/users" roles="ROLE_ADMIN">
-            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
-            <Item name="ActiveUsers" title="menu.active.users" page="/admin/activeUsers"/>
-            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
-            <Item name="FileUpload" title="menu.selectFile" page="/fileupload"/>
+        <Menu name="HomeMenu" title="screen.menu.label.home" description="Home Menu" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ConferenceMenu" title="screen.menu.label.conference" description="Conference Menu" page="/conference" roles="ROLE_VIDYO"/>
+        <Menu name="UserMenu" title="screen.menu.label.setting.user" description="User Menu" roles="ROLE_ADMIN,ROLE_USER">
+        	<Item name="UserSeeting" title="screen.menu.label.edit" page="/user/profile" />
         </Menu>
-        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ApplicationMenu" title="screen.menu.label.setting.application" description="Application Menu" roles="ROLE_ADMIN">
+        	<Item name="VidyoPortal" title="screen.menu.label.setting.application.vidyo" page="/portal" />
+        </Menu>
+        <Menu name="AdminMenu" title="screen.menu.label.setting.system" description="Admin Menu" roles="ROLE_ADMIN">
+        	<Item name="PostMenu" title="screen.menu.label.invite.interview" page="/post" />
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users" />
+            <Item name="ActiveUsers" title="menu.active.users" page="/admin/activeUsers" />
+            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload" />
+            <Item name="FileUpload" title="menu.selectFile" page="/fileupload" />
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER,ROLE_VIDYO"/>
     </Menus>
 </MenuConfig>

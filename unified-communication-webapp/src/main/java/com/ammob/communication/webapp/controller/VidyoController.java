@@ -1,7 +1,5 @@
 package com.ammob.communication.webapp.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
@@ -11,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ammob.communication.core.Constants;
-import com.ammob.communication.core.dao.SearchException;
-import com.ammob.communication.vidyo.model.Tenant;
-import com.ammob.communication.vidyo.service.TenantManager;
 import com.ammob.communication.vidyo.service.VidyoManager;
 
 /**

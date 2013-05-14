@@ -1,4 +1,4 @@
-<decorators defaultdir="/decorators">
+<decorators defaultdir="/WEB-INF/view/jsp/decorators">
     <excludes>
         <pattern>/40*.jsp</pattern>
         <pattern>/*ajax=true*</pattern>
@@ -8,6 +8,10 @@
         <pattern>/serviceValidate*</pattern>
         <pattern>/samlValidate*</pattern>
     </excludes> 
+    
+    <decorator name="fluid" page="fluid.jsp">
+        <pattern>/login*</pattern>
+    </decorator>
     <decorator name="default" page="default.jsp">
         <pattern>/*</pattern>
     </decorator>

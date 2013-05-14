@@ -84,7 +84,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
             will(returnValue(new Role("ROLE_USER")));
         }});
                 
-        Role role = roleManager.getRole(Constants.USER_ROLE);
+        Role role = roleManager.getRole(Constants.ROLE_USER);
         user.addRole(role);
 
         // set expected behavior on user dao

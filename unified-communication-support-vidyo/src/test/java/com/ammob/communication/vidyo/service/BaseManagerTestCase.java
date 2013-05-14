@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ammob.communication.core.util.ConvertUtil;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
  * Test classes can extend this manager based on a spring context.
  * This test class can be moved to the test tree.
  */
+@Transactional("vidyoTransactionManager")
 public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 
     /**

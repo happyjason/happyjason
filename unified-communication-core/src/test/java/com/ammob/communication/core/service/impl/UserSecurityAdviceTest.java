@@ -42,7 +42,7 @@ public class UserSecurityAdviceTest {
         User user = new User("user");
         user.setId(1L);
         user.setPassword("password");
-        user.addRole(new Role(Constants.USER_ROLE));
+        user.addRole(new Role(Constants.ROLE_USER));
 
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
@@ -79,7 +79,7 @@ public class UserSecurityAdviceTest {
         User user = new User("admin");
         user.setId(2L);
         user.setPassword("password");
-        user.addRole(new Role(Constants.ADMIN_ROLE));
+        user.addRole(new Role(Constants.ROLE_ADMIN));
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
         token.setDetails(user);
@@ -102,7 +102,7 @@ public class UserSecurityAdviceTest {
         UserManager userManager = makeInterceptedTarget();
         final User user = new User("user");
         user.setId(1L);
-        user.getRoles().add(new Role(Constants.USER_ROLE));
+        user.getRoles().add(new Role(Constants.ROLE_USER));
 
         context.checking(new Expectations() {{
             one(userDao).saveUser(with(same(user)));
@@ -117,7 +117,7 @@ public class UserSecurityAdviceTest {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.setId(1L);
-        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
+        user.getRoles().add(new Role(Constants.ROLE_ADMIN));
 
         try {
             userManager.saveUser(user);
@@ -134,8 +134,8 @@ public class UserSecurityAdviceTest {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.setId(1L);
-        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
-        user.getRoles().add(new Role(Constants.USER_ROLE));
+        user.getRoles().add(new Role(Constants.ROLE_ADMIN));
+        user.getRoles().add(new Role(Constants.ROLE_USER));
 
         try {
             userManager.saveUser(user);
@@ -153,7 +153,7 @@ public class UserSecurityAdviceTest {
         User user1 = new User("user");
         user1.setId(1L);
         user1.setPassword("password");
-        user1.addRole(new Role(Constants.ADMIN_ROLE));
+        user1.addRole(new Role(Constants.ROLE_ADMIN));
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword(), user1.getAuthorities());
         token.setDetails(user1);
@@ -163,8 +163,8 @@ public class UserSecurityAdviceTest {
         UserManager userManager = makeInterceptedTarget();
         final User user = new User("user");
         user.setId(1L);
-        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
-        user.getRoles().add(new Role(Constants.USER_ROLE));
+        user.getRoles().add(new Role(Constants.ROLE_ADMIN));
+        user.getRoles().add(new Role(Constants.ROLE_USER));
 
         context.checking(new Expectations() {{
             one(userDao).saveUser(with(same(user)));
@@ -179,7 +179,7 @@ public class UserSecurityAdviceTest {
         UserManager userManager = makeInterceptedTarget();
         final User user = new User("user");
         user.setId(1L);
-        user.getRoles().add(new Role(Constants.USER_ROLE));
+        user.getRoles().add(new Role(Constants.ROLE_USER));
 
         context.checking(new Expectations() {{
             one(userDao).saveUser(with(same(user)));

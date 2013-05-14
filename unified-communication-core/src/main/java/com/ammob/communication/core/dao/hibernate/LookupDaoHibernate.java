@@ -6,6 +6,7 @@ import com.ammob.communication.core.dao.LookupDao;
 import com.ammob.communication.core.model.Role;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class LookupDaoHibernate implements LookupDao {
      * @param sessionFactory
      */
     @Autowired
-    public LookupDaoHibernate(final SessionFactory sessionFactory) {
+    public LookupDaoHibernate(@Qualifier("coreSessionFactory") final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

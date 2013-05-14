@@ -45,15 +45,16 @@ import org.hibernate.search.Search;
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
-@Transactional("transactionManager")
+@Transactional("coreTransactionManager")
 public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
     protected final Log log = LogFactory.getLog(getClass());
     private Class<T> persistentClass;
+    
     @Resource
-    @Qualifier("sessionFactory")
+    @Qualifier("coreSessionFactory")
     private SessionFactory sessionFactory;
     private Analyzer defaultAnalyzer;
 
@@ -94,6 +95,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
     @Autowired
     @Required
+    @Qualifier("coreSessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

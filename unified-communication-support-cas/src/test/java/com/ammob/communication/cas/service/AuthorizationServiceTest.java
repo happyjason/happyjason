@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.ammob.communication.cas.service.impl.AuthorizationManagerImpl;
+import com.ammob.communication.cas.service.impl.TicketManagerImpl;
 
 
 public class AuthorizationServiceTest {
@@ -33,7 +33,7 @@ public class AuthorizationServiceTest {
 	public void setUp() throws Exception {
         factoryBean.getInInterceptors().add(new LoggingInInterceptor());
         factoryBean.getOutInterceptors().add(new LoggingOutInterceptor());
-        factoryBean.setResourceClasses(AuthorizationManagerImpl.class);
+        factoryBean.setResourceClasses(TicketManagerImpl.class);
         factoryBean.setAddress("http://localhost:9000");
         factoryBean.create();
 	}
@@ -46,7 +46,7 @@ public class AuthorizationServiceTest {
 	}
 
 	/**
-	 * {@link com.ammob.communication.cas.service.AuthorizationService#getGrantTicket(java.lang.String, java.lang.String)} 的测试方法。
+	 * {@link com.ammob.communication.cas.service.TicketService#getGrantTicket(java.lang.String, java.lang.String)} 的测试方法。
 	 */
 	@Ignore
 	public void testGetGrantTicket() throws Exception {
@@ -63,23 +63,26 @@ public class AuthorizationServiceTest {
 
 	protected static void getUserInfo(String username, String password, String urlPrefix) throws Exception {
 		String response = "", st = "";
-		HttpMethod method = Post(urlPrefix + "/services/api/authorization/tickets/", new NameValuePair[] {new NameValuePair("username", username), new NameValuePair("password", password)});
-		if(method != null && method.getStatusCode() != 404){
-			String responseStr = getResponseHeader(method);
-			if(responseStr.contains("/") && !responseStr.endsWith("/") && !responseStr.startsWith("/")) {
-				String [] result = getResponseHeader(method).split("/");
-				String tgt = result != null && result.length > 1 ? result[result.length-1] : "";
-				System.out.println("tgt value : " + tgt);
-				st = getResponseBody(Post(urlPrefix + "/services/api/authorization/tickets/" + tgt, new NameValuePair[] {new NameValuePair("service", urlPrefix)}));
-				System.out.println(st);
-				response = getResponseBody(Post(urlPrefix + "/serviceValidate", new NameValuePair[] {new NameValuePair("service", urlPrefix), new NameValuePair("ticket", st)}));
-				System.out.println(response.trim());
-			} else {
-				System.out.println("responseStr is : " + responseStr);
-			}
-		} else {
-			System.out.println("method is null or 404");
-		}
+		HttpMethod method = Post(urlPrefix + "/services/api/authorization/tickets/", new NameValuePair[] {
+				new NameValuePair("username", username), 
+				new NameValuePair("password", password), 
+				new NameValuePair("url", "http://v.seekoom.com")});
+//		if(method != null && method.getStatusCode() != 404){
+//			String responseStr = getResponseHeader(method);
+//			if(responseStr.contains("/") && !responseStr.endsWith("/") && !responseStr.startsWith("/")) {
+//				String [] result = getResponseHeader(method).split("/");
+//				String tgt = result != null && result.length > 1 ? result[result.length-1] : "";
+//				System.out.println("tgt value : " + tgt);
+//				st = getResponseBody(Post(urlPrefix + "/services/api/authorization/tickets/" + tgt, new NameValuePair[] {new NameValuePair("service", urlPrefix)}));
+//				System.out.println(st);
+//				response = getResponseBody(Post(urlPrefix + "/serviceValidate", new NameValuePair[] {new NameValuePair("service", urlPrefix), new NameValuePair("ticket", st)}));
+//				System.out.println(response.trim());
+//			} else {
+//				System.out.println("responseStr is : " + responseStr);
+//			}
+//		} else {
+//			System.out.println("method is null or 404");
+//		}
 	}
 	
 	private static void Get(String url) throws Exception {  
@@ -143,7 +146,7 @@ public class AuthorizationServiceTest {
 
 	public static void main(String[] args) {
 		try {
-			AuthorizationServiceTest.getUserInfo("hotmob", "121212", "http://localhost:8080");
+			AuthorizationServiceTest.getUserInfo("test3", "111111", "http://localhost:8080");
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

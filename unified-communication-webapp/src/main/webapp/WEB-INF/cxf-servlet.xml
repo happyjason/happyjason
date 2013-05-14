@@ -24,7 +24,7 @@
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
             <ref bean="vidyoManager"/>
-            <ref bean="authorizationManager"/>
+            <ref bean="authTicketManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>

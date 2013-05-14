@@ -1,5 +1,4 @@
-<%@ include file="/common/taglibs.jsp" %>
-
+<%@ include file="/WEB-INF/view/jsp/common/header.jsp" %>
 <head>
     <title>Data Access Error</title>
 </head>

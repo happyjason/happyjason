@@ -1,4 +1,4 @@
-<%@ include file="/common/taglibs.jsp" %>
+<%@ include file="/WEB-INF/view/jsp/common/header.jsp" %>
 
 <head>
     <title><fmt:message key="conferenceCallList.title"/></title>

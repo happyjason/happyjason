@@ -46,7 +46,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         // from a properties file matching this class name
         user = (User) populate(user);
 
-        user.addRole(roleManager.getRole(Constants.USER_ROLE));
+        user.addRole(roleManager.getRole(Constants.ROLE_USER));
 
         user = mgr.saveUser(user);
         assertEquals("lee", user.getUsername());
