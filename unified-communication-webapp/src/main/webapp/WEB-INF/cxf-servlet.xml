@@ -12,22 +12,58 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
-
+    <bean id="authenticationFilter" class="org.apache.cxf.jaxrs.security.SimpleAuthorizingFilter">
+	    <property name="interceptor">
+	    	<bean class="com.ammob.communication.webapp.interceptor.AuthorizingInterceptor"/>
+	    </property>
+	</bean>
+	<bean id="ipAddressInInterceptor" class="com.ammob.communication.webapp.interceptor.IpAddressInInterceptor">
+        <!-- <property name="allowedList">
+            <list>
+                <value>192.168</value>
+                <value>120.33.33</value>
+                <value>10.10</value>
+                <value>127.0</value>
+                <value>218.66.36.119</value>
+                <value>218.85.73.40</value>
+            </list>
+        </property> -->
+    </bean>
     <jaxws:endpoint id="userService" implementor="#userManager" address="/UserService"/>
-    <jaxws:endpoint id="vidyoService" implementor="#vidyoManager" address="/VidyoService"/>
+    <!-- <jaxws:endpoint id="vidyoService" implementor="#vidyoManager" address="/VidyoService"/> -->
     <!-- Add new endpoints for additional services you'd like to expose -->
     
-    <jaxrs:server address="/api">
+    <jaxrs:server address="/public">
+        <jaxrs:features>
+            <cxf:logging/>
+        </jaxrs:features>
+        <jaxrs:serviceBeans>
+            <ref bean="authTicketManager"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json"/>
+            <entry key="xml" value="application/xml"/>
+            <entry key="feed" value="application/atom+xml"/>
+            <entry key="html" value="text/html"/>
+        </jaxrs:extensionMappings>
+    </jaxrs:server>
+    <jaxrs:server address="/private">
+       	<jaxrs:inInterceptors>
+            <ref bean="ipAddressInInterceptor" />
+        </jaxrs:inInterceptors>
         <jaxrs:features>
             <cxf:logging/>
         </jaxrs:features>
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
             <ref bean="vidyoManager"/>
-            <ref bean="authTicketManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
+            <ref bean="authenticationFilter"/>
         </jaxrs:providers>
         <jaxrs:extensionMappings>
             <entry key="json" value="application/json"/>

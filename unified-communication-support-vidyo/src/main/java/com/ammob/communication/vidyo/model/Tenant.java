@@ -33,33 +33,37 @@ public class Tenant extends BaseObject implements Serializable {
 	private static final long serialVersionUID = -6907585098285228850L;
 	
 	private Long id;
+	
 	private String name;
     private String description;
     private String url;
     private String vidyoReplayUrl;
+	private Integer remotId;
+    private Integer dialIn;							// Dial in the number
+    private Integer extensionPrefix;
+    private Integer vidyoManager;
+    private Integer numOfInstalls;					// installNumber max-500
+    private Integer numOfSeats;						// seatNumber max-10000
+    private Integer numOfLines;						// lineNumber max-10
+    private Integer numOfExecutives;                // executiveNumber  max-0
+    private Integer numOfPanoramas;
+    private boolean allowedOfApi;
+    private boolean allowedOfCdr;
+    private boolean allowedOfMobile;
+    private boolean allowedOfGuestLogin;
+    private boolean allowedOfIpcInbound;
+    private boolean allowedOfIpcOutbound;
+    
     private String adminName;
     private String adminPassword;
     private String cdrUsername;
     private String cdrPassword;
-	private Integer remotId;
-    private Integer installNumber;					// max-500
-    private Integer seatNumber;						// max-10000
-    private Integer lineNumber;						// max-10
-    private Integer executiveNumber;				// max-0
-    private Integer vidyoRoomNumber;
-    private Integer vidyoPanoramaNumber;
-    private Integer dialIn;
-    private Integer extensionPrefix;
     private Integer version;
     private Integer paymentDays;
-    private Integer mobileAllowed;
 	private Date cdrSynchroTime;
     private Date cdrSchedulerTime;
-    private boolean cdr;
-    private boolean license;
     private boolean enabled;
     
-   
 	/**
      * Default constructor - creates a new instance with no values set.
      */
@@ -216,86 +220,74 @@ public class Tenant extends BaseObject implements Serializable {
 	public void setDialIn(Integer dialIn) {
 		this.dialIn = dialIn;
 	}
-
-	@Column(name="mobile_allowed")
-	public Integer getMobileAllowed() {
-		return mobileAllowed;
+	
+	@Column(name="number_install")
+	public Integer getNumOfInstalls() {
+		return numOfInstalls;
 	}
 
-	public void setMobileAllowed(Integer mobileAllowed) {
-		this.mobileAllowed = mobileAllowed;
+	public void setNumOfInstalls(Integer installNumber) {
+		this.numOfInstalls = installNumber;
 	}
 	
-	@Column(name="install_number")
-	public Integer getInstallNumber() {
-		return installNumber;
+	@Column(name="number_seat")
+	public Integer getNumOfSeats() {
+		return numOfSeats;
 	}
 
-	public void setInstallNumber(Integer installNumber) {
-		this.installNumber = installNumber;
+	public void setNumOfSeats(Integer seatNumber) {
+		this.numOfSeats = seatNumber;
 	}
 	
-	@Column(name="seat_number")
-	public Integer getSeatNumber() {
-		return seatNumber;
+	@Column(name="number_line")
+	public Integer getNumOfLines() {
+		return numOfLines;
 	}
 
-	public void setSeatNumber(Integer seatNumber) {
-		this.seatNumber = seatNumber;
+	public void setNumOfLines(Integer lineNumber) {
+		this.numOfLines = lineNumber;
 	}
 	
-	@Column(name="line_number")
-	public Integer getLineNumber() {
-		return lineNumber;
+	@Column(name="number_executive")
+	public Integer getNumOfExecutives() {
+		return numOfExecutives;
 	}
 
-	public void setLineNumber(Integer lineNumber) {
-		this.lineNumber = lineNumber;
+	public void setNumOfExecutives(Integer executiveNumber) {
+		this.numOfExecutives = executiveNumber;
 	}
 	
-	@Column(name="executive_number")
-	public Integer getExecutiveNumber() {
-		return executiveNumber;
+	@Column(name="number_panorama")
+	public Integer getNumOfPanoramas() {
+		return numOfPanoramas;
 	}
 
-	public void setExecutiveNumber(Integer executiveNumber) {
-		this.executiveNumber = executiveNumber;
+	public void setNumOfPanoramas(Integer panoramaNumber) {
+		this.numOfPanoramas = panoramaNumber;
 	}
 	
-	@Column(name="vidyo_panorama_number")
-	public Integer getVidyoPanoramaNumber() {
-		return vidyoPanoramaNumber;
+	/**
+	 * @return vidyoManager
+	 */
+	@Column(name="vidyo_manager", nullable=true)
+	public Integer getVidyoManager() {
+		return vidyoManager;
 	}
 
-	public void setVidyoPanoramaNumber(Integer vidyoPanoramaNumber) {
-		this.vidyoPanoramaNumber = vidyoPanoramaNumber;
-	}
-	
-	@Column(name="vidyo_room_number")
-	public Integer getVidyoRoomNumber() {
-		return vidyoRoomNumber;
+	/**
+	 * @param vidyoManager 要设置的 vidyoManager
+	 */
+	public void setVidyoManager(Integer vidyoManager) {
+		this.vidyoManager = vidyoManager;
 	}
 
-	public void setVidyoRoomNumber(Integer vidyoRoomNumber) {
-		this.vidyoRoomNumber = vidyoRoomNumber;
-	}
-	
-	@Column(name="payment_days", nullable=false)
+	@Column(name="payment_days", nullable=true)
     public Integer getPaymentDays() {
 		return paymentDays;
 	}
 
 	public void setPaymentDays(Integer paymentDays) {
 		this.paymentDays = paymentDays;
-	}
-	
-	@Column(name = "cdr", nullable=false, columnDefinition="bit(1) default 0")
-	public boolean isCdr() {
-		return cdr;
-	}
-
-	public void setCdr(boolean cdr) {
-		this.cdr = cdr;
 	}
 	
     @Column(name = "enabled", nullable=false, columnDefinition="bit(1) default 1")
@@ -307,16 +299,73 @@ public class Tenant extends BaseObject implements Serializable {
         this.enabled = enabled;
     }
     
-    @Column(name = "license", nullable=false, columnDefinition="bit(1) default 0")
-    public boolean isLicense() {
-        return license;
+	@Column(name = "allowed_cdr", nullable=false, columnDefinition="bit(1) default 0")
+	public boolean isAllowedOfCdr() {
+		return allowedOfCdr;
+	}
+
+	public void setAllowedOfCdr(boolean cdr) {
+		this.allowedOfCdr = cdr;
+	}
+    
+    @Column(name = "allowed_api", nullable=false, columnDefinition="bit(1) default 0")
+    public boolean isAllowedOfApi() {
+        return allowedOfApi;
     }
 
-    public void setLicense(boolean license) {
-        this.license = license;
+    public void setAllowedOfApi(boolean license) {
+        this.allowedOfApi = license;
     }
+
+	@Column(name="allowed_mobile", nullable=false, columnDefinition="bit(1) default 1")
+	public boolean isAllowedOfMobile() {
+		return allowedOfMobile;
+	}
+
+	public void setAllowedOfMobile(boolean mobileAllowed) {
+		this.allowedOfMobile = mobileAllowed;
+	}
 	
-    public boolean equals(Object o) {
+    @Column(name = "allowed_guest", nullable=false, columnDefinition="bit(1) default 1")
+	public boolean isAllowedOfGuestLogin() {
+		return allowedOfGuestLogin;
+	}
+
+	public void setAllowedOfGuestLogin(boolean enableGuestLogin) {
+		this.allowedOfGuestLogin = enableGuestLogin;
+	}
+	
+    /**
+	 * @return ipcAllowInbound
+	 */
+	@Column(name = "allow_ipc_inbound", nullable=false, columnDefinition="bit(1) default 1")
+	public boolean isAllowedOfIpcInbound() {
+		return allowedOfIpcInbound;
+	}
+
+	/**
+	 * @param ipcAllowInbound 要设置的 ipcAllowInbound
+	 */
+	public void setAllowedOfIpcInbound(boolean ipcAllowInbound) {
+		this.allowedOfIpcInbound = ipcAllowInbound;
+	}
+
+	/**
+	 * @return ipcAllowOutbound
+	 */
+	@Column(name = "allow_ipc_outbound", nullable=false, columnDefinition="bit(1) default 1")
+	public boolean isAllowedOfIpcOutbound() {
+		return allowedOfIpcOutbound;
+	}
+
+	/**
+	 * @param ipcAllowOutbound 要设置的 ipcAllowOutbound
+	 */
+	public void setAllowedOfIpcOutbound(boolean ipcAllowOutbound) {
+		this.allowedOfIpcOutbound = ipcAllowOutbound;
+	}
+
+	public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

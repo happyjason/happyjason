@@ -50,14 +50,14 @@
         <param name="GraphType" value="TPS" />
         <param name="TagNamesToGraph" value="DESTROY_TICKET_GRANTING_TICKET,GRANT_SERVICE_TICKET,GRANT_PROXY_GRANTING_TICKET,VALIDATE_SERVICE_TICKET,CREATE_TICKET_GRANTING_TICKET,AUTHENTICATE" />
     </appender>
+        
+    <logger name="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager">
+        <level value="WARN" />
+        <appender-ref ref="cas" />
+    </logger>
     
     <logger name="net.sf.ehcache">
-        <level value="ERROR"/>
-    </logger>
-
-    <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
-    <logger name="org.springframework.security">
-        <level value="ERROR"/>
+        <level value="WARN"/>
     </logger>
 
     <logger name="org.apache">
@@ -77,7 +77,12 @@
     <logger name="org.apache.struts2.util.TextProviderHelper">
       <level value="ERROR"/>
     </logger>
-
+    
+    <logger name="org.apache.cxf" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="console" />
+    </logger>
+    
     <logger name="com.opensymphony.xwork2.util.OgnlUtil">
        <level value="ERROR"/>
     </logger>
@@ -91,7 +96,7 @@
     </logger>
 
     <logger name="org.hibernate">
-        <level value="INFO"/>
+        <level value="WARN"/>
     </logger>
   
     <!--logger name="org.hibernate.SQL">
@@ -99,11 +104,20 @@
     </logger-->
 
     <logger name="org.springframework">
-        <level value="INFO"/>
+        <level value="WARN"/>
+    </logger>
+    
+    <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
+    <logger name="org.springframework.security">
+        <level value="WARN"/>
     </logger>
     
     <logger name="org.springframework.webflow">
-        <level value="INFO" />
+        <level value="WARN" />
+    </logger>
+    
+    <logger name="org.springframework.transaction">
+        <level value="DEBUG" />
     </logger>
     
     <logger name="com.ammob.communication.core">
@@ -114,37 +128,18 @@
         <level value="INFO"/>
     </logger>
     
-    <logger name="org.jasig" additivity="true">
-        <level value="INFO" />
+	<logger name="org.tuckey.web.filters.urlrewrite">
+        <level value="WARN" />
+        <appender-ref ref="cas" />
+    </logger>
+    
+   	<logger name="org.jasig" additivity="true">
+        <level value="WARN" />
         <appender-ref ref="cas" />
     </logger>
 
-    <logger name="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager">
-        <level value="INFO" />
-        <appender-ref ref="cas" />
-    </logger>
-    
-	<logger name="org.tuckey.web.filters.urlrewrite">
-        <level value="INFO" />
-        <appender-ref ref="cas" />
-    </logger>
-    <!--
-        WARNING: Setting the flow package to DEBUG will display
-        the parameters posted to the login servlet including
-        cleartext authentication credentials
-    -->
-    <logger name="org.jasig.cas.web.flow" additivity="true">
-        <level value="INFO" />
-        <appender-ref ref="cas" />
-    </logger>
-    
-    <logger name="org.apache.cxf" additivity="true">
-        <level value="WARN" />
-        <appender-ref ref="console" />
-    </logger>
-    
     <root>
-        <level value="INFO"/>
+        <level value="ERROR"/>
         <appender-ref ref="console"/>
     </root>
 

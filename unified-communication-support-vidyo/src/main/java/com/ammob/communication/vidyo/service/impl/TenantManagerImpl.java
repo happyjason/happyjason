@@ -120,7 +120,7 @@ public class TenantManagerImpl extends GenericManagerImpl<Tenant, Long> implemen
 	 * @return
 	 */
 	private boolean checkCdrState(Tenant tenant){
-		if(tenant.isCdr() && StringUtil.hasText(tenant.getCdrPassword()) && StringUtil.hasText(tenant.getUrl()))
+		if(tenant.isAllowedOfCdr() && StringUtil.hasText(tenant.getCdrPassword()) && StringUtil.hasText(tenant.getUrl()))
 			return true;
 		return false;
 	}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ammob.communication</groupId>
     <artifactId>unified-communication</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2.RELEASE</version>
     <name>Unified Communication Platform</name>
     <url>http://www.ammob.com</url>
 
@@ -451,6 +451,7 @@
     <properties>
         <!-- Application settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
         <copyright.year>2012</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>spring</web.framework>
@@ -540,7 +541,6 @@
 		<module>unified-communication-support-cas</module>
         <module>unified-communication-support-vidyo</module>
         <module>unified-communication-support-unicom</module>
-        <!-- <module>unified-communication-support-liferay</module> -->
         <module>unified-communication-webapp</module>
     </modules>
 

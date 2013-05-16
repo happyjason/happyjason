@@ -30,8 +30,6 @@
             classpath:/applicationContext-extension-hr.xml
             classpath:/applicationContext-support-cas.xml
             classpath:/applicationContext-support-vidyo.xml
-            classpath*:/applicationContext.xml
-            /WEB-INF/applicationContext*.xml
             /WEB-INF/cxf-servlet.xml
             /WEB-INF/security.xml
         </param-value>

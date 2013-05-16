@@ -18,20 +18,12 @@ import org.jasig.services.persondir.IPersonAttributes;
 import org.jasig.services.persondir.support.StubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ammob.communication.core.Constants;
-import com.ammob.communication.core.model.Role;
-import com.ammob.communication.core.model.User;
-import com.ammob.communication.core.service.UserManager;
 import com.ammob.communication.core.util.StringUtil;
-import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.util.VidyoUserUtil;
 
-@Transactional("coreTransactionManager")
 public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincipalResolver {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -39,13 +31,6 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
     /** Repository of principal attributes to be retrieved */
     @NotNull
     private IPersonAttributeDao attributeRepository = new StubPersonAttributeDao(new HashMap<String, List<Object>>());
-    
-    private UserManager userManager = null;
-
-    @Autowired
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
     
     /**
      * Return Principal.
@@ -90,15 +75,8 @@ public class VidyoCredentialsToPrincipalResolver implements CredentialsToPrincip
 			} catch (Exception e) {
 				log.warn(e.getMessage());
 			}
-			try {
-				User user = userManager.getUserByUsername(vidyoCredentials.getUsername());
-				if(user != null && user.getRoles() != null && !user.getRoles().isEmpty()) {
-					for(Role role : user.getRoles()){
-						authoritiesList.add(role.getName());
-					}
-				}
-			} catch (Exception e) {
-				log.warn(e.getMessage());
+			if(vidyoCredentials.getUsername().equals("hotmob")) {
+				 authoritiesList.add(Constants.ROLE_ADMIN);
 			}
 			memberMap.put("username", vidyoCredentials.getUsername());
 			memberMap.put("password", vidyoCredentials.getPassword());

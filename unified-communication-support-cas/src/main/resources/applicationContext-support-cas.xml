@@ -64,14 +64,9 @@
 	<!-- Add new Managers here -->
 	
 	<!-- Enable @Transactional support -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 	<tx:advice id="casAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="*" no-rollback-for="UserExistsException"/>
+            <tx:method name="*" no-rollback-for="UsernameNotFoundException"/>
         </tx:attributes>
     </tx:advice>
-
-	<aop:config>  
-        <aop:advisor id="casManagerTx" advice-ref="casAdvice" pointcut="execution(* *..core.service.UserManager.*(..))" order="0"/>
-    </aop:config>  
 </beans>

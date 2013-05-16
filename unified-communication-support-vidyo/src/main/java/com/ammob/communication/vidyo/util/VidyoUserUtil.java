@@ -511,18 +511,16 @@ public class VidyoUserUtil {
 	 * @return
 	 */
 	private static Member convertMember(Entity entity){
+		Member member = new Member();
 		if(entity != null) {
-			Member member = new Member();
 			member.setEntityID(entity.getEntityID());
 			member.setDisplayName(entity.getDisplayName());
 			member.setEmailAddress(entity.getEmailAddress().getValue());
 			member.setMemberStatus(entity.getMemberStatus());
 			member.setRoomStatus(entity.getRoomStatus());
 			member.setIsInMyContacts(entity.isIsInMyContacts());
-			return member;
-		} else {
-			return null;
 		}
+		return member;
 	}
 	
 	/**

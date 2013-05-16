@@ -9,22 +9,24 @@
 		<column>vidyo_replay_url</column>
 		<column>dial_in</column>
 		<column>extension_prefix</column>
-		<column>install_number</column>
-		<column>seat_number</column>
-		<column>line_number</column>
-		<column>executive_number</column>
-		<column>vidyo_panorama_number</column>
-		<column>vidyo_room_number</column>
+		<column>vidyo_manager</column>
+		
+		<column>number_install</column>
+		<column>number_seat</column>
+		<column>number_line</column>
+		<column>number_executive</column>
+		<column>number_panorama</column>
+		<column>allowed_api</column>
+		<column>allowed_cdr</column>
+		
 		<column>admin_name</column>
 		<column>admin_password</column>
 		<column>cdr_password</column>
 		<column>cdr_synchro_time</column>
 		<column>cdr_scheduler_time</column>
 		<column>payment_days</column>
-		<column>cdr</column>
 		<column>version</column>
 		<column>enabled</column>
-		<column>license</column>
 		<row>
 			<value description="id">1</value>
 			<value description="name">sunpa</value>
@@ -32,24 +34,25 @@
 			<value description="url">sunpa.controlvc.com</value>
 			<value description="vidyo_replay_url">replay.controlvc.com</value>
 			<value description="dial_in">0</value>
-			<value description="installs">500</value>
-			<value description="seats">10000</value>
-			<value description="lines">10</value>
-			<value description="executives">0</value>
-			<value description="vidyo_panoramas">0</value>
-			<value description="vidyo_rooms">0</value>
 			<value description="extension_prefix">100</value>
+			<value description="vidyo_manager">1</value>
+			
+			<value description="number_install">500</value>
+			<value description="number_seat">10000</value>
+			<value description="number_line">10</value>
+			<value description="number_executive">0</value>
+			<value description="number_panorama">0</value>
+			<value description="allowed_api">0</value>
+			<value description="allowed_cdr">0</value>
+			
 			<value description="admin_name">admin</value>
 			<value description="admin_password">password</value>
 			<value description="cdr_password">123</value>
 			<value description="cdr_synchro_time">2013-01-07</value>
 			<value description="cdr_scheduler_time">2013-01-07</value>
-			<value description="version">1</value>
 			<value description="payment_days">1</value>
-			<value description="cdr">0</value>
+			<value description="version">1</value>
 			<value description="enabled">1</value>
-			<value description="license">0</value>
-
 		</row>
 		<row>
 			<value description="id">2</value>
@@ -58,24 +61,25 @@
 			<value description="url">v.seekoom.com</value>
 			<value description="vidyo_replay_url">replay.controlvc.com</value>
 			<value description="dial_in">0</value>
-			<value description="installs">500</value>
-			<value description="seats">10000</value>
-			<value description="lines">10</value>
-			<value description="executives">0</value>
-			<value description="vidyo_panoramas">0</value>
-			<value description="vidyo_rooms">0</value>
 			<value description="extension_prefix">200</value>
+			<value description="vidyo_manager">2</value>
+			
+			<value description="number_install">500</value>
+			<value description="number_seat">10000</value>
+			<value description="number_line">10</value>
+			<value description="number_executive">0</value>
+			<value description="number_panorama">0</value>
+			<value description="allowed_api">1</value>
+			<value description="allowed_cdr">1</value>
+			
 			<value description="admin_name">admin</value>
 			<value description="admin_password">password</value>
 			<value description="cdr_password">123</value>
 			<value description="cdr_synchro_time">2013-01-07</value>
 			<value description="cdr_scheduler_time">2013-01-07</value>
-			<value description="version">1</value>
 			<value description="payment_days">1</value>
-			<value description="cdr">1</value>
+			<value description="version">1</value>
 			<value description="enabled">1</value>
-			<value description="license">1</value>
-
 		</row>
 	</table>
 	<!--<table name="t_user_tenant"> <column>user_id</column> <column>tenant_id</column> 

@@ -190,9 +190,7 @@ public class PortalFormController extends BaseFormController {
     	tenant.setUrl(singleTenantDataType.getTenantURL());
     	tenant.setAdminName("adminadmin");
     	tenant.setAdminPassword("adminadmin");
-    	tenant.setCdr(true);
     	tenant.setEnabled(true);
-    	tenant.setLicense(true);
     	tenant.setName(singleTenantDataType.getTenantName());
     	tenant.setPaymentDays(2);
     	//......
