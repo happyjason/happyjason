@@ -17,10 +17,8 @@ import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 
 import com.ammob.communication.cas.service.impl.TicketManagerImpl;
-
 
 public class AuthorizationServiceTest {
 	private final JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();

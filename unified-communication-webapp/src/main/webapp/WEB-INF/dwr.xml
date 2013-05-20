@@ -1,5 +1,4 @@
-<!DOCTYPE dwr PUBLIC
-    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
     "http://getahead.org/dwr/dwr30.dtd">
 <dwr>
     <allow>
@@ -8,20 +7,12 @@
             <param name="beanName" value="userManager"/>
             <include method="getUsers"/>
         </create>
-        <convert converter="bean" match="com.ammob.communication.core.model.User"/>
-        <create creator="spring" javascript="VidyoManager">
-            <param name="class" value="com.ammob.communication.vidyo.service.VidyoService"/>
-            <param name="beanName" value="vidyoManager"/>
-            <include method="getMemberForWs"/>
-            <include method="getEndpointForWs"/>
-            <include method="getLinkUrlForWs"/>
-            <include method="getMyContactsForWs"/>
-            <include method="delMyContactsForWs"/>
-            <include method="joinRoomForWs"/>
-            <include method="leaveRoomForWs"/>
-            <include method="invitMemberForWs"/>
-            <include method="getMemberListForWs"/>
+        <create creator="spring" javascript="DwrController">
+            <param name="class" value="com.ammob.communication.webapp.controller.DwrController"/>
+            <param name="beanName" value="dwrController"/>
+            <include method="getUserList"/>
         </create>
+        <convert converter="bean" match="com.ammob.communication.core.model.User"/>
         <convert converter="bean" match="com.ammob.communication.vidyo.model.Member"/>
         <convert converter="bean" match="java.lang.String"/>
         <convert converter="bean" match="java.util.List"/>

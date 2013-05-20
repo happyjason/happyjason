@@ -8,6 +8,7 @@ import java.util.List;
 import javax.xml.ws.BindingProvider;
 
 import com.ammob.communication.core.authentication.principal.Credentials;
+import com.ammob.communication.core.util.NumberUtil;
 import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.SearchFilter;
@@ -16,17 +17,25 @@ import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.model.SearchFilter.Dir;
 import com.vidyo.portal.superapi.CreateTenantRequest;
 import com.vidyo.portal.superapi.CreateTenantResponse;
+import com.vidyo.portal.superapi.DeleteTenantRequest;
+import com.vidyo.portal.superapi.DeleteTenantResponse;
 import com.vidyo.portal.superapi.ExistingTenantFault_Exception;
 import com.vidyo.portal.superapi.GeneralFault_Exception;
+import com.vidyo.portal.superapi.GetTenantDetailsRequest;
+import com.vidyo.portal.superapi.GetTenantDetailsResponse;
 import com.vidyo.portal.superapi.InvalidArgumentFault_Exception;
+import com.vidyo.portal.superapi.InvalidTenantFault_Exception;
 import com.vidyo.portal.superapi.ListTenantsRequest;
 import com.vidyo.portal.superapi.ListTenantsResponse;
 import com.vidyo.portal.superapi.NotLicensedFault_Exception;
 import com.vidyo.portal.superapi.ObjectFactory;
 import com.vidyo.portal.superapi.SingleTenantDataType;
 import com.vidyo.portal.superapi.SortingDirection;
+import com.vidyo.portal.superapi.TenantDataExtType;
 import com.vidyo.portal.superapi.TenantDataType;
 import com.vidyo.portal.superapi.TenantSortingField;
+import com.vidyo.portal.superapi.UpdateTenantRequest;
+import com.vidyo.portal.superapi.UpdateTenantResponse;
 import com.vidyo.portal.superapi.VidyoPortalSuperService;
 import com.vidyo.portal.superapi.VidyoPortalSuperServicePortType;
 
@@ -108,31 +117,161 @@ public class VidyoSuperUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * Del Tenant
+	 * @param user
+	 * @param filter
+	 * @param tenantName
+	 * @param tenantURL
+	 * @return
+	 * @throws VidyoWrapException 
+	 */
+	public static boolean delTenant(Credentials credentials, Integer tenantId)
+			throws VidyoWrapException {
+		DeleteTenantRequest request = superFactory.createDeleteTenantRequest();
+		request.setTenantId(tenantId);
+		try {
+			DeleteTenantResponse  response  = getClient(credentials.getUrl(), credentials.getUsername(), 
+					credentials.getPassword()).deleteTenant(request);
+			if(StringUtil.hasText(response.getOK()))
+				return true;
+		} catch (MalformedURLException e) {
+			throw new VidyoWrapException(e);
+		} catch (GeneralFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (InvalidTenantFault_Exception e) {
+			throw new VidyoWrapException(e);
+		}
+		return false;
+	}
 
 	/**
-	 * convert SingleTenantDataType to Tenant
+	 * Update Tenant
+	 * @param credentials
+	 * @param tenant
+	 * @return
+	 * @throws VidyoWrapException
+	 */
+	public static boolean setTenant(Credentials credentials, Tenant tenant)
+			throws VidyoWrapException {
+		UpdateTenantRequest request = superFactory.createUpdateTenantRequest();
+		request.setTenantData(convertTenantDataExtType(tenant));
+		try {
+			UpdateTenantResponse  response  = getClient(credentials.getUrl(), credentials.getUsername(), 
+					credentials.getPassword()).updateTenant(request);
+			if(StringUtil.hasText(response.getOK()))
+				return true;
+		} catch (NotLicensedFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (MalformedURLException e) {
+			throw new VidyoWrapException(e);
+		} catch (InvalidTenantFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (GeneralFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (InvalidArgumentFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (ExistingTenantFault_Exception e) {
+			throw new VidyoWrapException(e);
+		}
+		return false;
+	}
+	
+	/**
+	 * Get Tenant
+	 * @param credentials
+	 * @param tenant
+	 * @return
+	 * @throws VidyoWrapException
+	 */
+	public static Tenant getTenant(Credentials credentials, Integer tenantId)
+			throws VidyoWrapException {
+		GetTenantDetailsRequest request = superFactory.createGetTenantDetailsRequest();
+		request.setTenantId(tenantId);
+		try {
+			GetTenantDetailsResponse  response  = getClient(credentials.getUrl(), credentials.getUsername(), 
+					credentials.getPassword()).getTenantDetails(request);
+			return convertTenant(response.getTenantDetail());
+		} catch (MalformedURLException e) {
+			throw new VidyoWrapException(e);
+		} catch (InvalidTenantFault_Exception e) {
+			throw new VidyoWrapException(e);
+		} catch (GeneralFault_Exception e) {
+			throw new VidyoWrapException(e);
+		}
+	}
+	
+	/**
+	 * convert tenant to TenantDataExtType
+	 * @param SingleTenantDataType
+	 * @return
+	 */
+	private static TenantDataExtType convertTenantDataExtType(Tenant tenant){
+		TenantDataExtType entity = superFactory.createTenantDataExtType();
+		if(tenant != null) {
+			if(tenant.getDescription() != null)
+				entity.setDescription(superFactory.createTenantDataTypeDescription(tenant.getDescription()));
+			if(tenant.getDialIn() != null)
+				entity.setDialinNumber(superFactory.createTenantDataTypeDialinNumber(tenant.getDialIn()));
+			if(tenant.getExtensionPrefix() != null)
+				entity.setExtensionPrefix(tenant.getExtensionPrefix());
+			if(tenant.getVidyoManager() != null)
+				entity.setVidyoManager(tenant.getVidyoManager());
+			if(tenant.getVidyoReplayUrl() != null)
+				entity.setVidyoReplayUrl(superFactory.createTenantDataTypeVidyoReplayUrl(tenant.getVidyoReplayUrl()));
+			
+			entity.setTenantID(NumberUtil.getInteger(tenant.getRemotId(), 0));   // TenantDataExtType value
+			
+			entity.setNumOfExecutives(NumberUtil.getInteger(tenant.getNumOfExecutives(), 0));
+			entity.setNumOfInstalls(NumberUtil.getInteger(tenant.getNumOfInstalls(), 0));
+			entity.setNumOfLines(NumberUtil.getInteger(tenant.getNumOfLines(), 0));
+			entity.setNumOfPanoramas(NumberUtil.getInteger(tenant.getNumOfPanoramas(), 0));
+			entity.setNumOfSeats(NumberUtil.getInteger(tenant.getNumOfSeats(), 0));
+			
+			entity.getAllowedLocationTagList().add(1); // FIXME this is what?
+			entity.setTenantName(tenant.getName());
+			entity.setTenantUrl(tenant.getUrl());
+			entity.setVidyoMobileAllowed(superFactory.createTenantDataTypeVidyoMobileAllowed(tenant.isAllowedOfMobile()));
+			entity.setIpcAllowInbound(superFactory.createTenantDataTypeIpcAllowInbound(tenant.isAllowedOfIpcInbound()));
+			entity.setIpcAllowOutbound(superFactory.createTenantDataTypeIpcAllowOutbound(tenant.isAllowedOfIpcOutbound()));
+			entity.setEnableGuestLogin(superFactory.createTenantDataTypeEnableGuestLogin(tenant.isAllowedOfGuestLogin()));
+		}
+		return entity;
+	}
+	
+	/**
+	 * convert tenant to TenantDataType
 	 * @param SingleTenantDataType
 	 * @return
 	 */
 	private static TenantDataType convertTenantDataType(Tenant tenant){
 		TenantDataType entity = superFactory.createTenantDataType();
 		if(tenant != null) {
-			entity.setDescription(superFactory.createTenantDataTypeDescription(tenant.getDescription()));
-			entity.setDialinNumber(superFactory.createTenantDataTypeDialinNumber(String.valueOf(tenant.getDialIn())));
-			entity.setEnableGuestLogin(superFactory.createTenantDataTypeEnableGuestLogin(tenant.isAllowedOfGuestLogin()));
-			entity.setExtensionPrefix(String.valueOf(tenant.getExtensionPrefix()));
-			entity.setIpcAllowInbound(superFactory.createTenantDataTypeIpcAllowInbound(tenant.isAllowedOfIpcInbound()));
-			entity.setIpcAllowOutbound(superFactory.createTenantDataTypeIpcAllowOutbound(tenant.isAllowedOfIpcOutbound()));
-			entity.setNumOfExecutives(tenant.getNumOfExecutives());
-			entity.setNumOfInstalls(tenant.getNumOfExecutives());
-			entity.setNumOfLines(tenant.getNumOfLines());
-			entity.setNumOfPanoramas(tenant.getNumOfPanoramas());
-			entity.setNumOfSeats(tenant.getNumOfSeats());
+			if(tenant.getDescription() != null)
+				entity.setDescription(superFactory.createTenantDataTypeDescription(tenant.getDescription()));
+			if(tenant.getDialIn() != null)
+				entity.setDialinNumber(superFactory.createTenantDataTypeDialinNumber(tenant.getDialIn()));
+			if(tenant.getExtensionPrefix() != null)
+				entity.setExtensionPrefix(tenant.getExtensionPrefix());
+			if(tenant.getVidyoManager() != null)
+				entity.setVidyoManager(tenant.getVidyoManager());
+			if(tenant.getVidyoReplayUrl() != null)
+				entity.setVidyoReplayUrl(superFactory.createTenantDataTypeVidyoReplayUrl(tenant.getVidyoReplayUrl()));
+			
+			entity.setNumOfExecutives(NumberUtil.getInteger(tenant.getNumOfExecutives(), 0));
+			entity.setNumOfInstalls(NumberUtil.getInteger(tenant.getNumOfInstalls(), 0));
+			entity.setNumOfLines(NumberUtil.getInteger(tenant.getNumOfLines(), 0));
+			entity.setNumOfPanoramas(NumberUtil.getInteger(tenant.getNumOfPanoramas(), 0));
+			entity.setNumOfSeats(NumberUtil.getInteger(tenant.getNumOfSeats(), 0));
+			
+			entity.getAllowedLocationTagList().add(1); // FIXME this is what?
 			entity.setTenantName(tenant.getName());
 			entity.setTenantUrl(tenant.getUrl());
-			entity.setVidyoManager(tenant.getVidyoManager());
 			entity.setVidyoMobileAllowed(superFactory.createTenantDataTypeVidyoMobileAllowed(tenant.isAllowedOfMobile()));
-			entity.setVidyoReplayUrl(superFactory.createTenantDataTypeVidyoReplayUrl(tenant.getVidyoReplayUrl()));
+			entity.setIpcAllowInbound(superFactory.createTenantDataTypeIpcAllowInbound(tenant.isAllowedOfIpcInbound()));
+			entity.setIpcAllowOutbound(superFactory.createTenantDataTypeIpcAllowOutbound(tenant.isAllowedOfIpcOutbound()));
+			entity.setEnableGuestLogin(superFactory.createTenantDataTypeEnableGuestLogin(tenant.isAllowedOfGuestLogin()));
 		}
 		return entity;
 	}
@@ -151,16 +290,53 @@ public class VidyoSuperUtil {
 			tenant.setDescription(entity.getDescription());
 			tenant.setAllowedOfMobile(entity.getVidyoMobileAllowed() > 0 ? true : false );
 			tenant.setVidyoReplayUrl(entity.getVidyoReplayUrl());
-			try {
-				tenant.setDialIn(Integer.parseInt(entity.getDialinNumber()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				tenant.setExtensionPrefix(Integer.parseInt(entity.getExtensionPrefix()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			tenant.setExtensionPrefix(entity.getExtensionPrefix());
+			tenant.setDialIn(entity.getDialinNumber());
+		}
+		return tenant;
+	}
+	
+	/**
+	 * convert TenantDataExtType to Tenant
+	 * @param SingleTenantDataType
+	 * @return
+	 */
+	private static Tenant convertTenant(TenantDataExtType entity){
+		Tenant tenant = new Tenant();
+		if(entity != null) {
+			tenant.setRemotId(entity.getTenantID());
+			tenant.setName(entity.getTenantName());
+			tenant.setUrl(entity.getTenantUrl());
+			tenant.setExtensionPrefix(entity.getExtensionPrefix());
+			if(entity.getDialinNumber() != null)
+				tenant.setDialIn(entity.getDialinNumber().getValue());
+			if(entity.getDescription() != null)
+				tenant.setDescription(entity.getDescription().getValue());
+			if(entity.getVidyoReplayUrl() != null)
+				tenant.setVidyoReplayUrl(entity.getVidyoReplayUrl().getValue());
+			tenant.setVidyoManager(entity.getVidyoManager());
+			
+			if(entity.getVidyoMobileAllowed() != null)
+				tenant.setAllowedOfMobile(entity.getVidyoMobileAllowed().getValue() );
+			if(entity.getEnableGuestLogin() != null)
+				tenant.setAllowedOfGuestLogin(entity.getEnableGuestLogin().getValue());
+			if(entity.getIpcAllowInbound() != null)
+				tenant.setAllowedOfIpcInbound(entity.getIpcAllowInbound().getValue());
+			if(entity.getIpcAllowOutbound() != null)
+				tenant.setAllowedOfIpcOutbound(entity.getIpcAllowOutbound().getValue());
+			
+			tenant.setNumOfExecutives(entity.getNumOfExecutives());
+			tenant.setNumOfInstalls(entity.getNumOfInstalls());
+			tenant.setNumOfLines(entity.getNumOfLines());
+			tenant.setNumOfPanoramas(entity.getNumOfPanoramas());
+			tenant.setNumOfSeats(entity.getNumOfSeats());
+			
+			tenant.setAllowedTenantList(entity.getAllowedTenantList());
+			tenant.setAllowedVidyoGatewayList(entity.getAllowedVidyoGatewayList());
+			tenant.setAllowedLocationTagList(entity.getAllowedLocationTagList());
+			tenant.setAllowedVidyoProxyList(entity.getVidyoProxyList());
+			tenant.setAllowedVidyoRepalyList(entity.getAllowedVidyoRepalyList());
+			tenant.setAllowedVidyoReplayRecorderList(entity.getAllowedVidyoReplayRecorderList());
 		}
 		return tenant;
 	}

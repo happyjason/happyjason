@@ -8,6 +8,8 @@ import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import com.ammob.communication.core.authentication.principal.Credentials;
@@ -16,14 +18,54 @@ import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.model.SearchFilter;
 import com.ammob.communication.vidyo.model.SearchFilter.EntityType;
+import com.ammob.communication.vidyo.model.Tenant;
 import com.ammob.communication.vidyo.service.VidyoManager;
 import com.ammob.communication.vidyo.service.VidyoService;
+import com.ammob.communication.vidyo.util.VidyoSuperUtil;
 import com.ammob.communication.vidyo.util.VidyoUserUtil;
 
 @Service("vidyoManager")
 @WebService(serviceName = "VidyoService", endpointInterface = "com.ammob.communication.vidyo.service.VidyoManager")
 public class VidyoManagerImpl implements VidyoManager, VidyoService {
-
+	
+	private static final Log log = LogFactory.getLog(VidyoManagerImpl.class);
+	
+    /**
+     * {@inheritDoc}
+     */
+	public boolean addTenant(Credentials credentials, Tenant tenant) throws VidyoWrapException {
+		return VidyoSuperUtil.addTenant(credentials, tenant);
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public boolean delTenant(Credentials credentials, Integer tenantId) throws VidyoWrapException {
+		return VidyoSuperUtil.delTenant(credentials, tenantId);
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public boolean setTenant(Credentials credentials, Tenant tenant) throws VidyoWrapException {
+		return VidyoSuperUtil.setTenant(credentials, tenant);
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public Tenant getTenant(Credentials credentials, Integer tenantId) throws VidyoWrapException {
+		return VidyoSuperUtil.getTenant(credentials, tenantId);
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public List<Tenant> getTenantList(Credentials credentials, SearchFilter filter, String tenantName, String tenantURL)
+			throws VidyoWrapException {
+		return VidyoSuperUtil.getTenantList(credentials, filter, tenantName, tenantURL);
+	}
+	
     /**
      * {@inheritDoc}
      */
@@ -41,7 +83,77 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 	}
 	
 	/*****************************************************************************
-	 *                           For Web Service
+	 *                           For Super Web Service
+	 *****************************************************************************/
+		
+    /**
+     * {@inheritDoc}
+     */
+	public String addTenantForWs(Credentials credentials, Tenant tenant) {
+		try {
+			return String.valueOf(addTenant(credentials, tenant));
+		} catch (VidyoWrapException e) {
+			log.warn(e.getMessage());
+			return e.getMessage();
+		}
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public String delTenantForWs(Credentials credentials, Integer tenantId) {
+		if(tenantId == null)
+			return "tenantId is null !";
+		try {
+			return String.valueOf(delTenant(credentials, tenantId));
+		} catch (VidyoWrapException e) {
+			log.warn(e.getMessage());
+			return e.getMessage();
+		}
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public String setTenantForWs(Credentials credentials, Integer tenantId, Tenant tenant) {
+		try {
+			tenant.setRemotId(tenantId);
+			return String.valueOf(setTenant(credentials, tenant));
+		} catch (VidyoWrapException e) {
+			log.warn(e.getMessage());
+			return e.getMessage();
+		} catch (Exception e) {
+			log.warn(e.getMessage());
+			return e.getMessage();
+		}
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public Tenant getTenantForWs(Credentials credentials, Integer tenantId) {
+		try {
+			return getTenant(credentials, tenantId);
+		} catch (VidyoWrapException e) {
+			log.warn(e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+     * {@inheritDoc}
+     */
+	public List<Tenant> getTenantListForWs(Credentials credentials, SearchFilter filter, String tenantName, String tenantURL) {
+		try {
+			return getTenantList(credentials, filter, tenantName, tenantURL);
+		} catch (VidyoWrapException e) {
+			log.warn(e.getWrap().toString() + e.getMessage());
+			return new ArrayList<Tenant>();
+		}
+	}
+	
+	/*****************************************************************************
+	 *                           For User Web Service
 	 *****************************************************************************/
 	
     /**

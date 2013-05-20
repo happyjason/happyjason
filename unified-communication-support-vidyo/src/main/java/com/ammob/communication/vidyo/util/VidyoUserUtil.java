@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.core.util.StringUtil;
 import com.ammob.communication.vidyo.exception.VidyoWrapException;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.model.SearchFilter;
 import com.ammob.communication.vidyo.model.SearchFilter.Dir;
+
 import com.vidyo.portal.user.v1_1.AddToMyContactsRequest;
 import com.vidyo.portal.user.v1_1.AddToMyContactsResponse;
 import com.vidyo.portal.user.v1_1.ConferenceLockedFault_Exception;
@@ -52,6 +56,8 @@ import com.vidyo.portal.user.v1_1.VidyoPortalUserServicePortType;
 import com.vidyo.portal.user.v1_1.WrongPINFault_Exception;
 
 public class VidyoUserUtil {
+	
+	private static final Log log = LogFactory.getLog(VidyoUserUtil.class);
 	
 	private static ObjectFactory userFactory = new ObjectFactory();
 	
@@ -513,7 +519,11 @@ public class VidyoUserUtil {
 	private static Member convertMember(Entity entity){
 		Member member = new Member();
 		if(entity != null) {
-			member.setEntityID(entity.getEntityID());
+			try {
+				member.setEntityID(Integer.parseInt(entity.getEntityID()));
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
 			member.setDisplayName(entity.getDisplayName());
 			member.setEmailAddress(entity.getEmailAddress().getValue());
 			member.setMemberStatus(entity.getMemberStatus());

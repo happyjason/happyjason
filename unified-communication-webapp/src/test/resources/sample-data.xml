@@ -84,7 +84,7 @@
             <value description="role_id">1</value>
         </row>
     </table>
-    <table name="t_ext_vidyo_tenant">
+    <!-- <table name="t_ext_vidyo_tenant">
 		<column>id</column>
 		<column>name</column>
 		<column>description</column>
@@ -160,7 +160,7 @@
 			<value description="enabled">1</value>
 			<value description="license">1</value>
 		</row>
-	</table>
+	</table> -->
 	<!--<table name="t_user_tenant">
 		<column>user_id</column>
 		<column>tenant_id</column>

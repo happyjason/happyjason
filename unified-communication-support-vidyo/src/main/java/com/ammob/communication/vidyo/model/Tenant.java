@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class is used to represent available tenants in the database.
@@ -38,9 +39,9 @@ public class Tenant extends BaseObject implements Serializable {
     private String description;
     private String url;
     private String vidyoReplayUrl;
+    private String extensionPrefix;					// String, Number Type. e.g : 021
+    private String dialIn;							// Dial in the number, String, Number Type. e.g : 001122
 	private Integer remotId;
-    private Integer dialIn;							// Dial in the number
-    private Integer extensionPrefix;
     private Integer vidyoManager;
     private Integer numOfInstalls;					// installNumber max-500
     private Integer numOfSeats;						// seatNumber max-10000
@@ -64,6 +65,13 @@ public class Tenant extends BaseObject implements Serializable {
     private Date cdrSchedulerTime;
     private boolean enabled;
     
+    private List<Integer> allowedTenantList;
+    private List<Integer> allowedVidyoProxyList;
+    private List<Integer> allowedVidyoRepalyList;
+    private List<Integer> allowedLocationTagList;
+    private List<Integer> allowedVidyoGatewayList;
+    private List<Integer> allowedVidyoReplayRecorderList;
+
 	/**
      * Default constructor - creates a new instance with no values set.
      */
@@ -173,6 +181,15 @@ public class Tenant extends BaseObject implements Serializable {
 	public void setCdrPassword(String cdrPassword) {
 		this.cdrPassword = cdrPassword;
 	}
+    
+	@Column(name="dial_in")
+	public String getDialIn() {
+		return dialIn;
+	}
+
+	public void setDialIn(String dialIn) {
+		this.dialIn = dialIn;
+	}
 	
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="cdr_synchro_time", length=19)
@@ -195,11 +212,11 @@ public class Tenant extends BaseObject implements Serializable {
 	}
 	
     @Column(name="extension_prefix", length=3)
-	public Integer getExtensionPrefix() {
+	public String getExtensionPrefix() {
 		return extensionPrefix;
 	}
     
-	public void setExtensionPrefix(Integer extensionPrefix) {
+	public void setExtensionPrefix(String extensionPrefix) {
 		this.extensionPrefix = extensionPrefix;
 	}
 	
@@ -211,15 +228,6 @@ public class Tenant extends BaseObject implements Serializable {
     public void setVersion(Integer version) {
         this.version = version;
     }
-    
-	@Column(name="dial_in")
-	public Integer getDialIn() {
-		return dialIn;
-	}
-
-	public void setDialIn(Integer dialIn) {
-		this.dialIn = dialIn;
-	}
 	
 	@Column(name="number_install")
 	public Integer getNumOfInstalls() {
@@ -363,6 +371,61 @@ public class Tenant extends BaseObject implements Serializable {
 	 */
 	public void setAllowedOfIpcOutbound(boolean ipcAllowOutbound) {
 		this.allowedOfIpcOutbound = ipcAllowOutbound;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedTenantList() {
+		return allowedTenantList;
+	}
+
+	public void setAllowedTenantList(List<Integer> allowedTenantList) {
+		this.allowedTenantList = allowedTenantList;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedVidyoProxyList() {
+		return allowedVidyoProxyList;
+	}
+
+	public void setAllowedVidyoProxyList(List<Integer> allowedVidyoProxyList) {
+		this.allowedVidyoProxyList = allowedVidyoProxyList;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedVidyoRepalyList() {
+		return allowedVidyoRepalyList;
+	}
+
+	public void setAllowedVidyoRepalyList(List<Integer> allowedVidyoRepalyList) {
+		this.allowedVidyoRepalyList = allowedVidyoRepalyList;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedLocationTagList() {
+		return allowedLocationTagList;
+	}
+
+	public void setAllowedLocationTagList(List<Integer> allowedLocationTagList) {
+		this.allowedLocationTagList = allowedLocationTagList;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedVidyoGatewayList() {
+		return allowedVidyoGatewayList;
+	}
+
+	public void setAllowedVidyoGatewayList(List<Integer> allowedVidyoGatewayList) {
+		this.allowedVidyoGatewayList = allowedVidyoGatewayList;
+	}
+	
+	@Transient
+	public List<Integer> getAllowedVidyoReplayRecorderList() {
+		return allowedVidyoReplayRecorderList;
+	}
+
+	public void setAllowedVidyoReplayRecorderList(
+			List<Integer> allowedVidyoReplayRecorderList) {
+		this.allowedVidyoReplayRecorderList = allowedVidyoReplayRecorderList;
 	}
 
 	public boolean equals(Object o) {

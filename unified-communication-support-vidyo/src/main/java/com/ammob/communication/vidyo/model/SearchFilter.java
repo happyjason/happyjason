@@ -2,14 +2,22 @@ package com.ammob.communication.vidyo.model;
 
 public class SearchFilter {
 
+	public SearchFilter(){
+		this(0, 25);
+	}
+	
 	public SearchFilter(EntityType type){
-		this.entityType = type.toString();
+		this(type, 0, 25);
+	}
+	
+	public SearchFilter(int start, int limit){
+		this.start = start;
+		this.limit = limit;
 	}
 	
 	public SearchFilter(EntityType type, int start, int limit){
+		this(start, limit);
 		this.entityType = type.toString();
-		this.start = start;
-		this.limit = limit;
 	}
 	
 	public enum SortBy {

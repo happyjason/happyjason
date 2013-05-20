@@ -42,8 +42,6 @@ public class PortalFormController extends BaseFormController {
 	VidyoManager vidyoManager;
 	TenantManager tenantManager;
 	
-	
-    
     public TenantManager getTenantManager() {
 		return tenantManager;
 	}

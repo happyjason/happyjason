@@ -5,7 +5,9 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,63 +17,88 @@ import javax.ws.rs.core.Response;
 
 import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.vidyo.model.Member;
+import com.ammob.communication.vidyo.model.SearchFilter;
+import com.ammob.communication.vidyo.model.Tenant;
 
 @WebService
 @Path("/vidyo")
-@Consumes({"application/json", "application/xml"})
+@Consumes({"application/x-www-form-urlencoded"})
+@Produces({"application/json", "application/xml", "text/plain"})
 public interface VidyoService {
+	
+	/*****************************************************************************
+	 *                           For Super Web Service
+	 *****************************************************************************/
+	
+	@PUT
+    @Path("/tenant")
+	String addTenantForWs(@QueryParam("")Credentials credentials, @FormParam("")Tenant tenant);
+
+	@DELETE
+    @Path("/tenant/{tenantId}")
+	String delTenantForWs(@QueryParam("")Credentials credentials, @PathParam("tenantId")Integer tenantId);
+	
+	@POST
+    @Path("/tenant/{tenantId}")
+	String setTenantForWs(@QueryParam("")Credentials credentials, @PathParam("tenantId")Integer tenantId, @FormParam("")Tenant tenant);
+	
+	@GET
+    @Path("/tenant/{tenantId}")
+	Tenant getTenantForWs(@QueryParam("")Credentials credentials, @PathParam("tenantId")Integer tenantId);
+	
+	@GET
+    @Path("/tenant")
+	List<Tenant> getTenantListForWs(@QueryParam("")Credentials credentials, @QueryParam("")SearchFilter filter,
+			@QueryParam("tenantName")String tenantName, @QueryParam("tenantUrl")String tenantURL);
+	/*****************************************************************************
+	 *                           For Admin Web Service
+	 *****************************************************************************/
+	
+	/*****************************************************************************
+	 *                           For User Web Service
+	 *****************************************************************************/
 	
 	@GET
     @Path("/user")
-	@Produces({"application/json"})
 	Member getMemberForWs(@QueryParam("")Credentials credentials, @QueryParam("area") String area);
 	
 	@GET
     @Path("/user/endpoint")
-	@Produces({"text/plain"})
 	String getEndpointForWs(@QueryParam("")Credentials credentials, @QueryParam("area") String area);
 	
 	@GET
     @Path("/user/link")
-	@Produces({"text/plain"})
 	String getLinkUrlForWs(@QueryParam("")Credentials credentials, @QueryParam("area") String area);
 	
 	@GET
     @Path("/user/favorite")
-	@Produces({"application/json", "text/plain"})
 	List<Member> getMyContactsForWs(@QueryParam("")Credentials credentials);
 	
 	@PUT
     @Path("/user/favorite/{MemberId}")
-	@Produces({"text/plain", "application/json", "application/xml"})
 	Response addMyContactsForWs(@QueryParam("")Credentials credentials, @PathParam("MemberId")int entityId);
 	
 	@DELETE
     @Path("/user/favorite/{MemberId}")
-	@Produces({"application/json", "text/plain"})
 	Response delMyContactsForWs(@QueryParam("")Credentials credentials, @PathParam("MemberId")int entityId);
 	
 	@GET
     @Path("/user/join/{RoomId}")
-	@Produces({"text/plain"})
 	Response joinRoomForWs(@QueryParam("")Credentials credentials, @QueryParam("pin") String ModeratorPIN, 
 			@PathParam("RoomId") int conferenceId);
 	
 	@GET
     @Path("/user/leave/{RoomId}/{MemberId}")
-	@Produces({"text/plain"})
 	Response leaveRoomForWs(@QueryParam("")Credentials credentials, @QueryParam("pin") String ModeratorPIN, 
 			@PathParam("RoomId") int conferenceId, @PathParam("MemberId")int entityId);
 	
 	@GET
     @Path("/user/invit/{RoomId}/{MemberId}")
-	@Produces({"text/plain"})
 	Response invitMemberForWs(@QueryParam("")Credentials credentials, @QueryParam("pin") String ModeratorPIN, 
 			@PathParam("RoomId")int conferenceId, @PathParam("MemberId")int entityId);
 	
 	@GET
     @Path("/user/list/{Area}")
-	@Produces({"application/json", "text/plain"})
 	List<Member> getMemberListForWs(@QueryParam("")Credentials credentials, @QueryParam("pin") String ModeratorPIN, 
 			@PathParam("Area") String area, @QueryParam("index") int index, @QueryParam("limit")int limit);
 }
