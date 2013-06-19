@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -288,4 +291,36 @@ public class VidyoManagerImpl implements VidyoManager, VidyoService {
 		}
 		return builder.build();
 	}
+
+	@Override
+	@GET
+	@Path("/user/list")
+	public List<Member> getMemberLists(@QueryParam("") Credentials credentials,
+			@QueryParam("") SearchFilter filter) {
+		List<Member> result = new ArrayList<Member>();
+	
+			try {
+				result.addAll(VidyoUserUtil.search(credentials, new SearchFilter()));
+			} catch (VidyoWrapException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		Collections.sort(result);
+		return result;
+	}
+
+//	@Override
+//	@GET
+//	@Path("/user/list/all")
+//	public List<Member> getMemberLists(@QueryParam("") Credentials credentials) {
+//		// TODO Auto-generated method stub
+//		try {
+//			return VidyoUserUtil.getMyContacts(credentials, null);
+//		} catch (VidyoWrapException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 }

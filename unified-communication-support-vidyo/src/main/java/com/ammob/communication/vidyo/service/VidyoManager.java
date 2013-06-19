@@ -74,4 +74,7 @@ public interface VidyoManager {
 	 */
 	List<Member> getMemberList(Credentials credentials, String ModeratorPIN, String area, int index, int limit)
 			throws VidyoWrapException;
+	
+	
+
 }

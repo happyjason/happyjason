@@ -32,6 +32,10 @@
     <bean id="coreTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="coreSessionFactory"/>
     </bean>
+    
+     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="coreSessionFactory"/>
+    </bean>
 
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>

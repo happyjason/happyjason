@@ -42,7 +42,7 @@
 					<li><a href="javascript:void(0);" id="myroom_page"><fmt:message key="screen.menu.label.conference.mine"/></a></li>
 					<li> <a href="javascript:void(0);" id="call_page"><fmt:message key="screen.menu.label.conference.call"/></a></li>
 					<li> <a href="javascript:void(0);" id="current_call_page"><fmt:message key="screen.menu.label.conference.current"/></a></li>
-					<li> <a href="javascript:void(0);" id="meeting_list_page"><fmt:message key="screen.menu.label.conference.list"/></a></li>
+					<!-- <li> <a href="javascript:void(0);" id="meeting_list_page"><fmt:message key="screen.menu.label.conference.list"/></a></li> -->
 					<li> <a href="javascript:void(0);" id="install_page"><fmt:message key="screen.menu.label.conference.setting"/></a></li>
 					<li class="clear"></li>
 				</ul>
@@ -53,5 +53,6 @@
 	<div class="ind_right_foot_bg"></div>
 </div>
 <div class="clear"></div>
+<script src="http://js.vcccdn.com/qjb/chinaunicom/left_user_list.js"></script>
 <script src="http://js.vcccdn.com/qjb/chinaunicom/vidyo.js"></script>
 </body>

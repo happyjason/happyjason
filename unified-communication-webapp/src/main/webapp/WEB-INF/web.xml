@@ -30,7 +30,8 @@
             classpath:/applicationContext-extension-hr.xml
             classpath:/applicationContext-support-cas.xml
             classpath:/applicationContext-support-vidyo.xml
-            /WEB-INF/cxf-servlet.xml
+            classpath:/applicationContext-support-unicom.xml
+          <!--   /WEB-INF/cxf-servlet.xml--> 
             /WEB-INF/security.xml
         </param-value>
     </context-param>
@@ -202,22 +203,22 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+<!-- 
     <servlet>
         <servlet-name>CXFServlet</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     </servlet>
-
+ -->
     <servlet-mapping>
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
+   <!--   <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-
+-->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/app/*</url-pattern>
@@ -227,6 +228,21 @@
         <servlet-name>cas</servlet-name>
         <url-pattern>/cas/*</url-pattern>
     </servlet-mapping>
+	
+	
+	  
+  <servlet>
+  <servlet-name>AxisServlet</servlet-name>
+  <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+  <servlet-mapping>
+  <servlet-name>AxisServlet</servlet-name>
+  <url-pattern>/services/*</url-pattern>
+ </servlet-mapping>
+	
+	
+	
 	
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

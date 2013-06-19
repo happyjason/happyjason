@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.solr.request.JSONResponseWriter;
+
 import com.ammob.communication.core.authentication.principal.Credentials;
 import com.ammob.communication.vidyo.model.Member;
 import com.ammob.communication.vidyo.model.SearchFilter;
@@ -101,4 +103,11 @@ public interface VidyoService {
     @Path("/user/list/{Area}")
 	List<Member> getMemberListForWs(@QueryParam("")Credentials credentials, @QueryParam("pin") String ModeratorPIN, 
 			@PathParam("Area") String area, @QueryParam("index") int index, @QueryParam("limit")int limit);
+	
+	
+	
+	@GET
+	@Path("/user/list")
+	List<Member>getMemberLists(@QueryParam("")Credentials credentials,@QueryParam("")SearchFilter filter);
+	
 }
